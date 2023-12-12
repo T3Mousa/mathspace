@@ -1,37 +1,47 @@
 'use strict';
 
-const { User } = require('../models');
-const bcrypt = require("bcryptjs");
+const { User, Sequelize } = require('../models');
+const bcrypt = require('bcryptjs');
 
 
 let options = {};
+options.tableName = 'Users';
+
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;
 }
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await User.bulkCreate([
+
+
+  up: async (queryInterface, Sequelize) => {
+    options.tableName = "Users";
+    return queryInterface.bulkInsert(options, [
       {
         email: 'demo@user.io',
-        hashedPassword: bcrypt.hashSync('password')
+        hashedPassword: bcrypt.hashSync('password'),
+        profileImg: ''
       },
       {
         email: 'user1@user.io',
-        hashedPassword: bcrypt.hashSync('password2')
+        hashedPassword: bcrypt.hashSync('password2'),
+        profileImg: ''
       },
       {
         email: 'user2@user.io',
-        hashedPassword: bcrypt.hashSync('password3')
+        hashedPassword: bcrypt.hashSync('password3'),
+        profileImg: ''
       }
-    ], { validate: true });
+    ], {})
   },
 
-  async down(queryInterface, Sequelize) {
-    options.tableName = 'Users';
+
+
+  down: async (queryInterface, Sequelize) => {
+    options.tableName = "Users";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      email: { [Op.in]: ['demo@user.io', 'user1@user.io', 'user2@user.io'] }
-    }, {});
+      email: { [Op.in]: [] }
+    })
   }
-};
+}
