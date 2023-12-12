@@ -33,7 +33,7 @@ ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 # Fill out this out (or change node_env to development if running local docker testing) on render/docker
-ARG SCHEMA
+ARG SCHEMA=mathspace_schema
 ENV SCHEMA=${SCHEMA}
 
 # Fill this out on render using internal db url, or external url if running locally on docker
@@ -50,8 +50,12 @@ ENV JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
 
 #AWS
 ARG AWS_ACCESS_KEY_ID
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
 ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 ARG AWS_BUCKET_NAME
+ENV AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
+
 
 WORKDIR /var/www
 

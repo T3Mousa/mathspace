@@ -32,7 +32,7 @@ const validateSignup = [
 // Sign up
 router.post('/', validateSignup, async (req, res) => {
 
-    const { email, password, username } = req.body;
+    const { email, username, password } = req.body;
 
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({ email, username, hashedPassword });
@@ -66,26 +66,26 @@ router.get('/', (req, res) => {
 });
 
 router.put('/:id/update', singleMulterUpload('image'), async (req, res, next) => {
-    try{
-        const {userId} = req.body;
+    try {
+        const { userId } = req.body;
         let user;
 
-        if(userId){
+        if (userId) {
             user = await User.findByPk(userId);
-        } else{
+        } else {
             throw new Error("No user founder with that id")
         }
 
         let imgUrl;
 
-        if(req.file){
+        if (req.file) {
             imgUrl = await singlePublicFileUpload(req.file); //converts data from form
         }
         user.profileImg = imgUrl;
         await user.save();
         return res.json(user)
 
-    }catch(e){
+    } catch (e) {
         next(e)
     }
 
