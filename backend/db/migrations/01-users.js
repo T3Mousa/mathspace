@@ -29,7 +29,7 @@ module.exports = {
                 defaultValue: ""
             },
             userRole: {
-                type: Sequelize.STRING,
+                type: Sequelize.ENUM('teacher', 'student'),
                 allowNull: false
             },
             username: {

@@ -20,7 +20,7 @@ module.exports = {
       {
         firstName: 'Demo',
         lastName: 'Teacher',
-        userRole: 'Teacher',
+        userRole: 'teacher',
         email: 'demo_teacher@user.io',
         username: 'Demo-teacher',
         hashedPassword: bcrypt.hashSync('password'),
@@ -29,7 +29,7 @@ module.exports = {
       {
         firstName: 'First',
         lastName: 'Teacher',
-        userRole: 'Teacher',
+        userRole: 'teacher',
         email: 'teacher1@user.io',
         username: 'TeacherUser1',
         hashedPassword: bcrypt.hashSync('password2'),
@@ -38,7 +38,7 @@ module.exports = {
       {
         firstName: 'Third',
         lastName: 'Teacher',
-        userRole: 'Teacher',
+        userRole: 'teacher',
         email: 'teacher2@user.io',
         username: 'TeacherUser2',
         hashedPassword: bcrypt.hashSync('password3'),
@@ -47,7 +47,7 @@ module.exports = {
       {
         firstName: 'Demo',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'demo_student@user.io',
         username: 'Demo-student',
         hashedPassword: bcrypt.hashSync('password4'),
@@ -56,7 +56,7 @@ module.exports = {
       {
         firstName: 'First',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student1@user.io',
         username: 'StudentUser1',
         hashedPassword: bcrypt.hashSync('password5'),
@@ -65,7 +65,7 @@ module.exports = {
       {
         firstName: 'Second',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student2@user.io',
         username: 'StudentUser2',
         hashedPassword: bcrypt.hashSync('password6'),
@@ -74,7 +74,7 @@ module.exports = {
       {
         firstName: 'Third',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student3@user.io',
         username: 'StudentUser3',
         hashedPassword: bcrypt.hashSync('password7'),
@@ -83,7 +83,7 @@ module.exports = {
       {
         firstName: 'Fourth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student4@user.io',
         username: 'StudentUser4',
         hashedPassword: bcrypt.hashSync('password8'),
@@ -92,7 +92,7 @@ module.exports = {
       {
         firstName: 'Fifth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student5@user.io',
         username: 'StudentUser5',
         hashedPassword: bcrypt.hashSync('password9'),
@@ -101,7 +101,7 @@ module.exports = {
       {
         firstName: 'Sixth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student6@user.io',
         username: 'StudentUser6',
         hashedPassword: bcrypt.hashSync('password10'),
@@ -110,7 +110,7 @@ module.exports = {
       {
         firstName: 'Seventh',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student7@user.io',
         username: 'StudentUser7',
         hashedPassword: bcrypt.hashSync('password11'),
@@ -119,7 +119,7 @@ module.exports = {
       {
         firstName: 'Eighth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student8@user.io',
         username: 'StudentUser8',
         hashedPassword: bcrypt.hashSync('password12'),
@@ -128,7 +128,7 @@ module.exports = {
       {
         firstName: 'Ninth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student9@user.io',
         username: 'StudentUser9',
         hashedPassword: bcrypt.hashSync('password13'),
@@ -137,7 +137,7 @@ module.exports = {
       {
         firstName: 'Tenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student10@user.io',
         username: 'StudentUser10',
         hashedPassword: bcrypt.hashSync('password14'),
@@ -146,7 +146,7 @@ module.exports = {
       {
         firstName: 'Eleventh',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student11@user.io',
         username: 'StudentUser11',
         hashedPassword: bcrypt.hashSync('password15'),
@@ -155,7 +155,7 @@ module.exports = {
       {
         firstName: 'Twelfth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student12@user.io',
         username: 'StudentUser12',
         hashedPassword: bcrypt.hashSync('password16'),
@@ -164,7 +164,7 @@ module.exports = {
       {
         firstName: 'Thirteenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student13@user.io',
         username: 'StudentUser13',
         hashedPassword: bcrypt.hashSync('password17'),
@@ -173,7 +173,7 @@ module.exports = {
       {
         firstName: 'Fourteenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student14@user.io',
         username: 'StudentUser14',
         hashedPassword: bcrypt.hashSync('password18'),
@@ -182,7 +182,7 @@ module.exports = {
       {
         firstName: 'Fifteenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student15@user.io',
         username: 'StudentUser15',
         hashedPassword: bcrypt.hashSync('password19'),
@@ -191,7 +191,7 @@ module.exports = {
       {
         firstName: 'Sixteenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student16@user.io',
         username: 'StudentUser16',
         hashedPassword: bcrypt.hashSync('password20'),
@@ -200,7 +200,7 @@ module.exports = {
       {
         firstName: 'Seventeenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student17@user.io',
         username: 'StudentUser17',
         hashedPassword: bcrypt.hashSync('password21'),
@@ -209,7 +209,7 @@ module.exports = {
       {
         firstName: 'Eighteenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student18@user.io',
         username: 'StudentUser18',
         hashedPassword: bcrypt.hashSync('password22'),
@@ -218,7 +218,7 @@ module.exports = {
       {
         firstName: 'Ninteenth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student19@user.io',
         username: 'StudentUser19',
         hashedPassword: bcrypt.hashSync('password23'),
@@ -227,7 +227,7 @@ module.exports = {
       {
         firstName: 'Twentieth',
         lastName: 'Student',
-        userRole: 'Student',
+        userRole: 'student',
         email: 'student20@user.io',
         username: 'StudentUser20',
         hashedPassword: bcrypt.hashSync('password24'),
