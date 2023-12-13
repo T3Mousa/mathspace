@@ -15,6 +15,23 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
+            firstName: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            lastName: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
+            profileImg: {
+                type: Sequelize.STRING(255),
+                allowNull: false,
+                defaultValue: ""
+            },
+            userRole: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
             username: {
                 type: Sequelize.STRING(30),
                 allowNull: false,
@@ -28,11 +45,6 @@ module.exports = {
             hashedPassword: {
                 type: Sequelize.STRING.BINARY,
                 allowNull: false
-            },
-            profileImg: {
-                type: Sequelize.STRING(255),
-                allowNull: false,
-                defaultValue: ""
             },
             createdAt: {
                 allowNull: false,
