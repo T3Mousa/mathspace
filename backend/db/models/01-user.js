@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            User.hasOne(models.Teacher, { foreignKey: 'userId', constraints: false, scope: { userRole: 'teacher' }, onDelete: 'cascade', hooks: true })
+            User.hasOne(models.Student, { foreignKey: 'userId', constraints: false, scope: { userRole: 'student' }, onDelete: 'cascade', hooks: true })
         }
     }
     User.init({
