@@ -1,6 +1,6 @@
 'use strict';
 
-const { User, Sequelize } = require('../models');
+const { Teacher, Sequelize } = require('../models');
 const bcrypt = require('bcryptjs');
 
 
