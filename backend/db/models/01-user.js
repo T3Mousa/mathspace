@@ -12,9 +12,28 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            User.hasOne(models.Teacher, { foreignKey: 'userId', constraints: false, scope: { userRole: 'teacher' }, onDelete: 'cascade', hooks: true })
+            User.hasOne(models.Student, { foreignKey: 'userId', constraints: false, scope: { userRole: 'student' }, onDelete: 'cascade', hooks: true })
         }
     }
     User.init({
+        firstName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        profileImg: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: ''
+        },
+        userRole: {
+            type: DataTypes.ENUM('teacher', 'student'),
+            allowNull: false
+        },
         username: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -40,11 +59,6 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 len: [60, 60]
             }
-        },
-        profileImg: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: ''
         }
     }, {
         sequelize,
