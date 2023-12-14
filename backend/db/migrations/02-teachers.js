@@ -18,7 +18,7 @@ module.exports = {
             userId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                references: { model: 'Users', where: { userRole: 'teacher' } },
+                references: { model: 'Users', schema: options.schema, where: { userRole: 'teacher' } },
                 onDelete: 'CASCADE'
             },
         }, options);
