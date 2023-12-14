@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             Class.belongsTo(models.Teacher, { foreignKey: 'teacherId' })
+            Class.hasMany(models.ClassEnrollment, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
         }
     }
     Class.init({

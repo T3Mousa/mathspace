@@ -4,7 +4,7 @@ const {
     Validator
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Student extends Model {
+    class ClassEnrollment extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -12,18 +12,22 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Student.belongsTo(models.User, { foreignKey: 'userId' })
-            Student.hasMany(models.ClassEnrollment, { foreignKey: 'studentId', onDelete: 'cascade', hooks: 'true' })
+            ClassEnrollment.belongsTo(models.Class, { foreignKey: 'classId' })
+            ClassEnrollment.belongsTo(models.Student, { foreignKey: 'studentId' })
         }
     }
-    Student.init({
-        userId: {
+    ClassEnrollment.init({
+        classId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        studentId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         }
     }, {
         sequelize,
-        modelName: 'Student',
+        modelName: 'ClassEnrollment',
     });
-    return Student;
+    return ClassEnrollment;
 };
