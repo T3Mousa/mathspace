@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
             Class.belongsTo(models.Teacher, { foreignKey: 'teacherId' })
             Class.hasMany(models.ClassEnrollment, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
+            Class.belongsToMany(models.Student, { through: models.ClassEnrollment })
         }
     }
     Class.init({
