@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {};
-options.tableName = "Users";
+options.tableName = "ClassEnrollments";
 if (process.env.NODE_ENV === 'production') {
     options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -15,36 +15,17 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            firstName: {
-                type: Sequelize.STRING,
+            classId: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
+                references: { model: 'Classes', schema: options.schema },
+                onDelete: 'CASCADE'
             },
-            lastName: {
-                type: Sequelize.STRING,
+            studentId: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
-            },
-            profileImg: {
-                type: Sequelize.STRING(255),
-                allowNull: false,
-                defaultValue: ""
-            },
-            userRole: {
-                type: Sequelize.ENUM('teacher', 'student'),
-                allowNull: false
-            },
-            username: {
-                type: Sequelize.STRING(30),
-                allowNull: false,
-                unique: true
-            },
-            email: {
-                type: Sequelize.STRING(256),
-                allowNull: false,
-                unique: true
-            },
-            hashedPassword: {
-                type: Sequelize.STRING.BINARY,
-                allowNull: false
+                references: { model: 'Students', schema: options.schema },
+                onDelete: 'CASCADE'
             },
             createdAt: {
                 allowNull: false,
