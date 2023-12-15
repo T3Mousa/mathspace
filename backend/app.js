@@ -41,18 +41,6 @@ app.use(
     })
 );
 
-const restoreXSRF = async () => {
-    const res = await fetch('/api/csrf/restore');
-    if (res.ok) {
-        let data = await res.json();
-        document.cookie = data;
-    } else {
-        throw new Error("Could not restore token.")
-    }
-}
-
-app.use(restoreXSRF)
-
 //apply middleware to allow for usage of static react app from build
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use(express.static(path.join(__dirname, '../frontend/dist/favicon.ico')));
