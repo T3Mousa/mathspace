@@ -4,7 +4,7 @@ const {
     Validator
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Class extends Model {
+    class Lesson extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -12,22 +12,20 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Class.belongsTo(models.Teacher, { foreignKey: 'teacherId' })
-            Class.hasMany(models.ClassEnrollment, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
-            Class.belongsToMany(models.Student, { through: models.ClassEnrollment, foreignKey: 'studentId', otherKey: 'classId' })
-            Class.hasMany(models.Lesson, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
-            Class.hasMany(models.Assignment, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
+            Lesson.belongsTo(models.Class, { foreignKey: 'classId' })
+            Lesson.hasMany(models.StudentLesson, { foreignKey: 'lessonId', onDelete: 'cascade', hooks: 'true' })
+            Lesson.belongsToMany(models.Student, { through: models.StudentLesson, foreignKey: 'studentId', otherKey: 'lessonId' })
         }
     }
-    Class.init({
-        name: {
+    Lesson.init({
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [4, 50]
             }
         },
-        classImg: {
+        lessonImg: {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: ''
@@ -37,13 +35,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: ''
         },
-        teacherId: {
+        lessonContent: {
+            type: DataTypes.BLOB,
+            allowNull: false,
+            defaultValue: ''
+        },
+        classId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         }
     }, {
         sequelize,
-        modelName: 'Class',
+        modelName: 'Lesson',
     });
-    return Class;
+    return Lesson;
 };

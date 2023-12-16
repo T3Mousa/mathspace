@@ -19,6 +19,18 @@ module.exports = {
         return queryInterface.bulkInsert(options, [
             {
                 classId: 1,
+                studentId: 1
+            },
+            {
+                classId: 1,
+                studentId: 2
+            },
+            {
+                classId: 1,
+                studentId: 3
+            },
+            {
+                classId: 1,
                 studentId: 4
             },
             {
@@ -34,12 +46,16 @@ module.exports = {
                 studentId: 7
             },
             {
-                classId: 1,
-                studentId: 8
+                classId: 5,
+                studentId: 1
             },
             {
-                classId: 1,
-                studentId: 9
+                classId: 5,
+                studentId: 2
+            },
+            {
+                classId: 5,
+                studentId: 3
             },
             {
                 classId: 5,
@@ -58,11 +74,11 @@ module.exports = {
                 studentId: 7
             },
             {
-                classId: 5,
+                classId: 8,
                 studentId: 8
             },
             {
-                classId: 5,
+                classId: 8,
                 studentId: 9
             },
             {
@@ -86,8 +102,12 @@ module.exports = {
                 studentId: 14
             },
             {
-                classId: 8,
-                studentId: 15
+                classId: 6,
+                studentId: 8
+            },
+            {
+                classId: 6,
+                studentId: 9
             },
             {
                 classId: 6,
@@ -110,7 +130,7 @@ module.exports = {
                 studentId: 14
             },
             {
-                classId: 6,
+                classId: 3,
                 studentId: 15
             },
             {
@@ -136,6 +156,10 @@ module.exports = {
             {
                 classId: 3,
                 studentId: 21
+            },
+            {
+                classId: 4,
+                studentId: 15
             },
             {
                 classId: 4,
