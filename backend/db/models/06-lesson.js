@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             Lesson.belongsTo(models.Class, { foreignKey: 'classId' })
+            Lesson.hasMany(models.StudentLesson, { foreignKey: 'lessonId', onDelete: 'cascade', hooks: 'true' })
+            Lesson.belongsToMany(models.Student, { through: models.StudentLesson, foreignKey: 'studentId', otherKey: 'lessonId' })
         }
     }
     Lesson.init({
