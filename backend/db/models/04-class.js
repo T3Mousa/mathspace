@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             Class.hasMany(models.ClassEnrollment, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
             Class.belongsToMany(models.Student, { through: models.ClassEnrollment, foreignKey: 'studentId', otherKey: 'classId' })
             Class.hasMany(models.Lesson, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
+            Class.hasMany(models.Assignment, { foreignKey: 'classId', onDelete: 'cascade', hooks: 'true' })
         }
     }
     Class.init({
