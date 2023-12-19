@@ -21,6 +21,16 @@ module.exports = {
                 references: { model: 'Users', schema: options.schema, where: { userRole: 'student' } },
                 onDelete: 'CASCADE'
             },
+            createdAt: {
+                allowNull: false,
+                type: Sequelize.DATE,
+                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            },
+            updatedAt: {
+                allowNull: false,
+                type: Sequelize.DATE,
+                defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            }
         }, options);
     },
 

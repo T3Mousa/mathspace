@@ -2,6 +2,8 @@ import { csrfFetch } from './csrf';
 
 //Constants
 const SET_USER = 'session/setUser';
+const ADD_TEACHER = 'session/addTeacher'
+const ADD_STUDENT = 'session/addStudent'
 const REMOVE_USER = 'session/removeUser';
 const EDIT_USER = 'session/editUser'
 
@@ -9,6 +11,16 @@ const setUser = (user) => ({
     type: SET_USER,
     payload: user
 });
+
+const addTeacher = (userId) => ({
+    type: ADD_TEACHER,
+    payload: userId
+})
+
+const addStudent = (userId) => ({
+    type: ADD_STUDENT,
+    payload: userId
+})
 
 const removeUser = () => ({
     type: REMOVE_USER
@@ -22,22 +34,22 @@ const editUser = (user) => ({
 
 
 export const thunkAuthenticate = () => async (dispatch) => {
-    try{
+    try {
         const response = await csrfFetch("/api/restore-user");
         if (response.ok) {
             const data = await response.json();
             dispatch(setUser(data));
         }
-    } catch (e){
+    } catch (e) {
         return e
     }
 };
 
 export const thunkLogin = (credentials) => async dispatch => {
-    const {email, password} = credentials
+    const { email, password } = credentials
     const response = await csrfFetch("/api/session", {
         method: "POST",
-        body: JSON.stringify({credential: email, password})
+        body: JSON.stringify({ credential: email, password })
     });
 
     if (response.ok) {
@@ -60,7 +72,13 @@ export const thunkSignup = (user) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
+        console.log(data.user)
         dispatch(setUser(data));
+        if (data.userRole === "teacher") {
+            dispatch(addTeacher(data.id))
+        } else if (data.userRole === "student") {
+            dispatch(addStudent(data.id))
+        }
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages
@@ -79,7 +97,7 @@ export const thunkLogout = () => async (dispatch) => {
 
 export const updateUserThunk = (userId, form) => async (dispatch) => {
     const { img_url } = form
-    try{
+    try {
 
         const formData = new FormData();
 
@@ -108,12 +126,14 @@ export const updateUserThunk = (userId, form) => async (dispatch) => {
             }
         }
         return response;
-    } catch(e){
+    } catch (e) {
         return e
     }
 }
 
-const initialState = { user: null };
+const initialState = {
+    user: null,
+};
 
 function sessionReducer(state = initialState, action) {
     let newState;

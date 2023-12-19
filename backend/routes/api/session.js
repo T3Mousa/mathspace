@@ -14,7 +14,7 @@ const validateLogin = [
     check('credential')
         .exists({ checkFalsy: true })
         .notEmpty()
-        .withMessage('Please provide a valid email or username.'),
+        .withMessage('Please provide a valid email.'),
     check('password')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a password.'),
@@ -23,7 +23,7 @@ const validateLogin = [
 
 
 // Log in
-router.post('/', async (req, res, next) => {
+router.post('/', validateLogin, async (req, res, next) => {
     const { credential, password } = req.body;
     console.log(credential, password, "************")
     const user = await User.unscoped().findOne({
@@ -39,14 +39,16 @@ router.post('/', async (req, res, next) => {
         const err = new Error('Login failed');
         err.status = 401;
         err.title = 'Login failed';
-        err.errors = { credential: 'The provided credentials were invalid.' };
+        err.errors = { message: 'The provided credentials were invalid.' };
         return next(err);
     }
 
     const safeUser = {
         id: user.id,
         email: user.email,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        // username: user.username,
     };
 
     await setTokenCookie(res, safeUser);
