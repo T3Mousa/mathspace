@@ -28,10 +28,11 @@ router.post('/', validateLogin, async (req, res, next) => {
     console.log(credential, password, "************")
     const user = await User.unscoped().findOne({
         where: {
-            [Op.or]: {
-                username: credential,
-                email: credential
-            }
+            email: credential
+            // [Op.or]: {
+            //     username: credential,
+            //     email: credential
+            // }
         }
     });
 
