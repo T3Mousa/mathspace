@@ -31,7 +31,7 @@ function SignupFormModal() {
       )
         .then((serverResponse) => {
           if (serverResponse) {
-            console.log(serverResponse)
+            // console.log(serverResponse)
             if (serverResponse.errors) {
               setErrors(serverResponse.errors)
             } else {

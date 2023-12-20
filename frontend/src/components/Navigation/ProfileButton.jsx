@@ -8,7 +8,7 @@ import SignupFormModal from "../SignupFormModal";
 function ProfileButton() {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  const user = useSelector((store) => store.session.user);
+  const user = useSelector((store) => store.session?.user?.user);
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -47,7 +47,7 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
+              <li>{user.firstName} {user.lastName}</li>
               <li>{user.email}</li>
               <li>
                 <button onClick={logout}>Log Out</button>
