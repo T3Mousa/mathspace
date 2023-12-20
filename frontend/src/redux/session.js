@@ -57,6 +57,7 @@ export const thunkLogin = (credentials) => async dispatch => {
         dispatch(setUser(data));
     } else if (response.status < 500) {
         const errorMessages = await response.json();
+        console.log(errorMessages)
         return errorMessages
     } else {
         return { server: "Something went wrong. Please try again" }
@@ -101,7 +102,7 @@ export const updateUserThunk = (userId, form) => async (dispatch) => {
 
         const formData = new FormData();
 
-        formData.append('userId', userId)
+        formData.append('userId', +userId)
         formData.append("image", img_url);
 
         const option = {
@@ -112,7 +113,7 @@ export const updateUserThunk = (userId, form) => async (dispatch) => {
 
 
 
-        const response = await csrfFetch(`/api/users/${userId}/update`, option);
+        const response = await csrfFetch(`/api/users/${+userId}/update`, option);
         if (response.ok) {
             const user = await response.json();
             dispatch(editUser(user));
