@@ -20,14 +20,6 @@ const validateSignup = [
     check('lastName')
         .exists({ checkNull: true })
         .withMessage('Last name is required.'),
-    // check('username')
-    //     .exists({ checkFalsy: true })
-    //     .isLength({ min: 4 })
-    //     .withMessage('Please provide a username with at least 4 characters.'),
-    // check('username')
-    //     .not()
-    //     .isEmail()
-    //     .withMessage('Username cannot be an email.'),
     check('password')
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
@@ -75,8 +67,8 @@ router.post('/', validateSignup, async (req, res) => {
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        userRole: user.userRole
-        // username: user.username,
+        userRole: user.userRole,
+        profileImg: user.profileImg
     };
 
     await setTokenCookie(res, safeUser);
@@ -95,7 +87,8 @@ router.get('/', (req, res) => {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            // username: user.username,
+            userRole: user.userRole,
+            profileImg: user.profileImg
         };
         return res.json({
             user: safeUser

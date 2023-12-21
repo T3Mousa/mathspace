@@ -118,7 +118,9 @@ information.
         "id": 1,
         "firstName": "John",
         "lastName": "Smith",
-        "email": "john.smith@gmail.com"
+        "email": "john.smith@gmail.com",
+        "profileImg": "profile image",
+        "userRole": "teacher",
       }
     }
     ```
@@ -187,7 +189,8 @@ user's information.
         "email": "john.smith@gmail.com",
         "firstName": "John",
         "lastName": "Smith",
-        "userRole": "teacher"
+        "userRole": "teacher",
+        "profileImg": "",
       }
     }
     ```
@@ -233,6 +236,7 @@ user's information.
 Returns all the classes owned (created) by the current teacher user.
 
 * Require Authentication: true
+* Require Authorization: true
 * Request
   * Method: GET
   * URL: /classes/current-user
@@ -286,8 +290,10 @@ Returns all the classes the current student user is enrolled in.
           "classImg": "class image url",
           "description": "Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.",
           "teacherId": 1,
-          "numIncompleteAssignments": 2,
-          "overallGrade": 81
+          "createdAt": "2021-11-19 20:39:36",
+          "updatedAt": "2021-11-19 20:39:36",
+          "numLessons": 3,
+          "numAssignments": 2,
         }
       ]
     }
@@ -324,13 +330,15 @@ Returns the details of a class specified by its id.
       "updatedAt": "2021-11-19 20:39:36",
       "Students": [
         {
-          "id": 1,
+          "studentId": 1,
+          "userId": 5,
           "firstName": "First",
           "lastName": "Student",
           "email": "firststudent@user.io"
         },
         {
-          "id": 2,
+          "studentId": 2,
+          "userId": 6,
           "firstName": "Second",
           "lastName": "Student",
           "email": "secondstudent@user.io"
@@ -359,6 +367,22 @@ Returns the details of a class specified by its id.
           "description": ,
           "assignmentContent": ,
           "dueDate": ,
+          "Grades": [
+            {
+              "id": 1,
+              "assignmentId": 1,
+              "studentId": 1,
+              "isCompleted": true,
+              "grade": 99
+            },
+            {
+              "id": 2,
+              "assignmentId": 1,
+              "studentId": 2,
+              "isCompleted": false,
+              "grade": null
+            }
+          ]
         },
         {
           "id": 2,
@@ -366,6 +390,22 @@ Returns the details of a class specified by its id.
           "description": ,
           "assignmentContent": ,
           "dueDate": ,
+          "Grades": [
+            {
+              "id": 3,
+              "assignmentId": 2,
+              "studentId": 1,
+              "isCompleted": true,
+              "grade": 99
+            },
+            {
+              "id": 4,
+              "assignmentId": 2,
+              "studentId": 2,
+              "isCompleted": false,
+              "grade": null
+            }
+          ]
         }
       ],
     }
@@ -382,7 +422,7 @@ Returns the details of a class specified by its id.
       "teacherId": 1,
       "createdAt": "2021-11-19 20:39:36",
       "updatedAt": "2021-11-19 20:39:36",
-      "Teacher": {
+      "Instructor": {
         "id": 1,
         "firstName": "John",
         "lastName": "Smith",
@@ -420,6 +460,20 @@ Returns the details of a class specified by its id.
           "dueDate": ,
         }
       ],
+      "Grades": [
+        {
+          "id": 1,
+          "assignmentId": 1,
+          "isCompleted": true,
+          "grade": 99
+        },
+        {
+          "id": 2,
+          "assignmentId": 2,
+          "isCompleted": false,
+          "grade": null
+        }
+      ]
     }
     ```
 
