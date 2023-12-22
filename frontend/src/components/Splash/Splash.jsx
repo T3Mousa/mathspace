@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { updateUserThunk } from '../../redux/session';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from "react-router-dom";
 
 const Splash = () => {
   const dispatch = useDispatch();
@@ -31,14 +32,15 @@ const Splash = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const img_url = imgUrl;
-    const form = {img_url};
+    const form = { img_url };
     const updateUser = await dispatch(updateUserThunk(user.id, form))
   }
 
 
 
   return (
-    <div>
+    <>
+      <div>
         <h1>Welcome</h1>
         <form onSubmit={handleSubmit}>
           <div>
@@ -50,8 +52,8 @@ const Splash = () => {
                   name="img_url"
                   onChange={updateImage}
                   accept='.jpg, .jpeg, .png, .gif'
-                  />
-                </label>
+                />
+              </label>
             )}
             {!showUpload && (
               <div>
@@ -64,7 +66,18 @@ const Splash = () => {
             )}
           </div>
         </form>
-    </div>
+      </div>
+      <div>
+        {user &&
+          <NavLink
+            to="/classes"
+            className="userClasses"
+          >
+            Classes
+          </NavLink>
+        }
+      </div>
+    </>
   );
 }
 
