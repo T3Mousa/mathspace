@@ -22,7 +22,8 @@ function LoginFormModal() {
     );
 
     if (serverResponse) {
-      setErrors(serverResponse);
+      // console.log(serverResponse)
+      setErrors(serverResponse.errors);
     } else {
       closeModal();
     }
@@ -32,6 +33,7 @@ function LoginFormModal() {
     <>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
+        {errors.message && <p className='errors'>{errors.message}</p>}
         <label>
           Email
           <input
