@@ -22,7 +22,7 @@ module.exports = {
             },
             classImg: {
                 type: Sequelize.STRING(255),
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
             description: {
