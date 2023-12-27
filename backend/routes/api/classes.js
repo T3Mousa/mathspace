@@ -153,6 +153,7 @@ router.get('/:classId', requireAuth, async (req, res) => {
             }
             classData.Students = Students
             delete classData.ClassEnrollments
+            // console.log({ "Class": classData })
             res.json({ "Class": classData })
 
         } else if (role === "student") {
@@ -243,6 +244,91 @@ router.post('/', requireAuth, validateClassParams, async (req, res) => {
         })
     }
 });
+
+
+// edit a class (teacher users only)
+router.put('/:classId', requireAuth, validateClassParams, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { classId } = req.params
+    console.log(classId)
+    const { name, classImg, description } = req.body
+    const existingClass = await Class.findOne({
+        where: { id: classId },
+        attributes: [
+            "id",
+            "name",
+            "classImg",
+            "description",
+            "teacherId"
+        ]
+    })
+    if (existingClass) {
+        if (userId && role === "teacher") {
+            const existingClassObject = existingClass.toJSON()
+            if (userId === existingClassObject.teacherId) {
+                if (name !== undefined) existingClass.name = name
+                if (classImg !== undefined) existingClass.classImg = classImg
+                if (description !== undefined) existingClass.description = description
+
+                await existingClass.save()
+                console.log(existingClass)
+                res.json(existingClass)
+            } else {
+                res.status(403)
+                return res.json({
+                    "message": "Forbidden"
+                })
+            }
+        } else {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        }
+    } else {
+        res.status(404);
+        return res.json({
+            "message": "Class couldn't be found",
+        })
+    }
+})
+
+// delete a class
+
+router.delete('/:classId', requireAuth, async (req, res) => {
+    const userId = req.user.id
+    const { classId } = req.params
+    const role = req.user.userRole
+
+    const existingClass = await Class.findByPk(classId)
+
+    if (existingClass) {
+        if (userId && role === "teacher") {
+            if (userId === existingClass.teacherId) {
+                await existingClass.destroy()
+                res.json({
+                    "message": "Successfully deleted"
+                })
+            } else {
+                res.status(403)
+                return res.json({
+                    "message": "Forbidden"
+                })
+            }
+        } else {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        }
+    } else {
+        res.status(404);
+        return res.json({
+            "message": "Class couldn't be found",
+        })
+    }
+})
 
 
 

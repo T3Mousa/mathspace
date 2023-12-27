@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         assignmentContent: {
             type: DataTypes.BLOB,
-            allowNull: false,
+            allowNull: true,
             defaultValue: ''
         },
         dueDate: {

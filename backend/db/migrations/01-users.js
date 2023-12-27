@@ -25,7 +25,7 @@ module.exports = {
             },
             profileImg: {
                 type: Sequelize.STRING(255),
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
             userRole: {
