@@ -27,7 +27,7 @@ module.exports = {
             },
             assignmentContent: {
                 type: Sequelize.BLOB,
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
             dueDate: {

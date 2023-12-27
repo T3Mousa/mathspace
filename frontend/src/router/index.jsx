@@ -4,6 +4,9 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Splash from '../components/Splash';
 import ClassManagerPage from '../components/ClassManagerPage';
+import ClassDetailsPage from '../components/ClassDetailsPage';
+import CreateNewClassModal from '../components/CreateNewClassModal';
+// import UpdateClassModal from '../components/UpdateClassModal';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +28,18 @@ export const router = createBrowserRouter([
         path: "/classes",
         element: <ClassManagerPage />,
       },
+      {
+        path: "/classes/:classId",
+        element: <ClassDetailsPage />,
+      },
+      {
+        path: "/add-new-class",
+        element: <CreateNewClassModal />,
+      },
+      // {
+      //   path: "/edit-class",
+      //   element: <UpdateClassModal />,
+      // },
     ],
   },
 

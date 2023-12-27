@@ -5,9 +5,9 @@ import './TeacherClassTile.css'
 const TeacherClassTile = ({ cls }) => {
 
     return (
-        <>
+        <div>
             <NavLink
-                className="classTile"
+                className="classNameTile"
                 to={`/classes/${cls.id}`}
                 key={cls.id}
             >
@@ -18,17 +18,17 @@ const TeacherClassTile = ({ cls }) => {
                         className="clsImg"
                     />
                 </div>
+                <div className="className">
+                    <p>Class Name: {cls.name}</p>
+                </div>
             </NavLink>
-            <div className="className">
-                <h4>Name: </h4> {cls.name}
-            </div>
-            <div className="classDescription">
+            {/* <div className="classDescription">
                 <h4>Description: </h4> {cls.description}
-            </div>
+            </div> */}
             <div className="studentCount">
-                <h4>Class Roster: </h4> {cls.studentCount}
+                <p>Class Roster: {cls.studentCount} students</p>
             </div>
-        </>
+        </div>
     )
 
 };

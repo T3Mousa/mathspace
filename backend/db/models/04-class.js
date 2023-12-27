@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         classImg: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             defaultValue: ''
         },
         description: {

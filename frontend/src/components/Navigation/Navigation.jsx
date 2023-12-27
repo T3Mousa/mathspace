@@ -10,8 +10,8 @@ function Navigation() {
 
   return (
     <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
+      <li >
+        <NavLink className="homeButton" to="/">mathspace</NavLink>
       </li>
 
       <li>
@@ -19,7 +19,7 @@ function Navigation() {
       </li>
       {user && (
         <li>
-          {user?.profileImg ?
+          {user.profileImg ?
             <img
               src={user.profileImg}
               style={{ height: "70px", width: '70px', borderRadius: "50%" }}
