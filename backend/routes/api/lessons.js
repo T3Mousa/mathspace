@@ -1,8 +1,9 @@
 const express = require('express');
-const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, sequelize, Sequelize } = require('../../db/models');
+const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, StudentLesson, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 
 const { Op } = require("sequelize");
+const e = require('express');
 
 const router = express.Router();
 
@@ -45,19 +46,19 @@ router.get('/', requireAuth, async (req, res) => {
         for (let i = 0; i < lessons.length; i++) {
             const lesson = lessons[i]
             const lessonData = lesson.toJSON()
-            console.log(lessonData)
+            // console.log(lessonData)
             const lessonClass = {
                 id: lessonData.Class.id,
                 name: lessonData.Class.name
             }
-            console.log(lessonClass)
+            // console.log(lessonClass)
             const lessonTeacher = {
                 teacherId: lessonData.Class.teacherId,
                 userId: lessonData.Class.Teacher.userId,
                 firstName: lessonData.Class.Teacher.User.firstName,
                 lastName: lessonData.Class.Teacher.User.lastName
             }
-            console.log(lessonTeacher)
+            // console.log(lessonTeacher)
 
             lessonData.ClassInfo = lessonClass
             lessonData.Teacher = lessonTeacher
@@ -70,6 +71,57 @@ router.get('/', requireAuth, async (req, res) => {
         res.status(403)
         return res.json({
             "message": "Forbidden"
+        })
+    }
+
+});
+
+//get details of a lesson from an id
+router.get('/:lessonId', requireAuth, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { lessonId } = req.params
+    const existingLesson = await Lesson.findByPk(lessonId)
+    if (existingLesson) {
+        if (role === "teacher") {
+            const teacherLessonData = await Lesson.findOne({
+                where: { id: lessonId },
+                include: [
+                    {
+                        model: Class,
+                        attributes: ["teacherId"],
+                        include: [
+                            {
+                                model: Teacher,
+                                attributes: ["id", "userId"]
+                            }
+                        ]
+                    }
+                ],
+                attributes: [
+                    "id",
+                    "title",
+                    "lessonImg",
+                    "description",
+                    "lessonContent",
+                    "classId",
+                    "createdAt",
+                    "updatedAt",
+                ]
+            })
+
+            res.json({ "Lesson": teacherLessonData })
+        } else {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        }
+    }
+    if (!existingLesson) {
+        res.status(404);
+        return res.json({
+            "message": "Lesson couldn't be found",
         })
     }
 

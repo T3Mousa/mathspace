@@ -1,0 +1,54 @@
+.lessonTileLink img {
+    height: 150px;
+    width: 150px;
+    padding-right: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.lessonTileLink {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.lessonTile {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.lessonTitle {
+    font-weight: bold;
+}
+
+.lessonTile:hover {
+    border: 2px solid #9C0D63;
+}
+
+.splashPageLeftSideMenu {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+.userClasses,
+.userLessons {
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    color: black;
+    font-weight: 400;
+}
+
+.userClasses:hover,
+.userLessons:hover {
+    text-decoration: underline;
+}

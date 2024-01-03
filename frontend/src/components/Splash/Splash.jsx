@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { updateUserThunk } from '../../redux/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
+import AllLessonsPage from './AllLessonsPage';
+import './Splash.css'
 
 const Splash = () => {
   const dispatch = useDispatch();
@@ -67,15 +69,29 @@ const Splash = () => {
           </div>
         </form>
       </div>
-      <div>
+      <div className='splashPageLeftSideMenu'>
+        YOUR STUFF
+        <div>
+          {user &&
+            <NavLink
+              to="/classes"
+              className="userClasses"
+            >
+              Classes
+            </NavLink>
+          }
+        </div>
         {user &&
           <NavLink
-            to="/classes"
-            className="userClasses"
+            to="/lessons"
+            className="userLessons"
           >
-            Classes
+            Custom Lessons
           </NavLink>
         }
+        <div>
+          <AllLessonsPage />
+        </div>
       </div>
     </>
   );

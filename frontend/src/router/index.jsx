@@ -6,6 +6,8 @@ import Splash from '../components/Splash';
 import ClassManagerPage from '../components/ClassManagerPage';
 import ClassDetailsPage from '../components/ClassDetailsPage';
 import CreateNewClassModal from '../components/CreateNewClassModal';
+import LessonDetailsPage from '../components/LessonDetailsPage/LessonDetailsPage';
+import LessonManagerPage from '../components/LessonManagerPage';
 // import UpdateClassModal from '../components/UpdateClassModal';
 
 export const router = createBrowserRouter([
@@ -40,6 +42,14 @@ export const router = createBrowserRouter([
       //   path: "/edit-class",
       //   element: <UpdateClassModal />,
       // },
+      {
+        path: "/lessons",
+        element: <LessonManagerPage />,
+      },
+      {
+        path: "/lessons/:lessonId",
+        element: <LessonDetailsPage />,
+      },
     ],
   },
 
