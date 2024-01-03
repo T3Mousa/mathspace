@@ -78,7 +78,7 @@ export const addNewClass = (classInfo) => async (dispatch) => {
     if (response.ok) {
         const newClass = await response.json()
         dispatch(addClass(newClass))
-        // dispatch(getAllClasses())
+        dispatch(getAllClasses())
         return newClass
     } else if (response.status < 500) {
         const errorMessages = await response.json();
@@ -183,7 +183,7 @@ const classesReducer = (state = initialState, action) => {
             })
             newState.editedClass = { ...action.payload }
             newState.allClassesById[action.payload.id] = { ...action.payload }
-            console.log(newState)
+            // console.log(newState)
             return newState
         case REMOVE_CLASS:
             newState = { ...state }
