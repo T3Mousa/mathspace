@@ -51,7 +51,7 @@ function ClassMenuButton({ cls }) {
                         <OpenModalMenuItem
                             itemText="Edit Class"
                             onItemClick={closeMenu}
-                            modalComponent={<UpdateClassModal cls={cls} />}
+                            modalComponent={<UpdateClassModal classId={cls.id} />}
                         />
                         <OpenModalMenuItem
                             itemText="Delete Class"

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function Navigation() {
   const user = useSelector((state) => state?.session?.user);
-  console.log(user)
+  // console.log(user)
   const handleNonFunctioningLinks = () => {
     alert("Feature Coming Soon...");
   };

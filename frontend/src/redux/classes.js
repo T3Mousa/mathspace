@@ -90,7 +90,7 @@ export const addNewClass = (classInfo) => async (dispatch) => {
 
 export const editClass = (classId, editedClassData) => async (dispatch) => {
     // console.log(editedClassData.id)
-    const response = await csrfFetch(`/api/classes/${classId}`, {
+    const response = await csrfFetch(`/api/classes/${+classId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editedClassData)
@@ -98,7 +98,7 @@ export const editClass = (classId, editedClassData) => async (dispatch) => {
     // console.log(response)
     if (response.ok) {
         const edited = await response.json()
-        dispatch(editClass(edited))
+        dispatch(updateClass(edited))
         return edited
     } else if (response.status < 500) {
         const errorMessages = await response.json();
