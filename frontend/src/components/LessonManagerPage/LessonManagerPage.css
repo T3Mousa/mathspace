@@ -1,0 +1,41 @@
+.teacherLessonLink img {
+    height: 100px;
+    width: 100px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+.teacherLessonLink {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: black
+}
+
+.teacherLessonTile {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teacherLessonTile:hover {
+    border: 2px solid #9C0D63;
+}
+
+.lessonMenuButton {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-solid.fa-ellipsis-vertical {
+    font-size: large;
+}

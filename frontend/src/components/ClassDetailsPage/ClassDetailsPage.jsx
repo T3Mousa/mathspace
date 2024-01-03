@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { getClassDetails } from '../../redux/classes';
 import './ClassDetailsPage.css'
 
@@ -8,6 +8,8 @@ import './ClassDetailsPage.css'
 const ClassDetailsPage = () => {
     const { classId } = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const user = useSelector(state => state.session.user)
     const cls = useSelector(state => state?.classes?.classDeets)
     // console.log(cls)
     const [selectedLesson, setSelectedLesson] = useState(null)
@@ -19,8 +21,13 @@ const ClassDetailsPage = () => {
 
     const handleLessonSelection = (e) => {
         const lessonId = parseInt(e.target.value)
+        console.log(lessonId)
         const selected = cls.Lessons.find((lesson) => lesson.id === lessonId)
+        console.log(selected)
+        // console.log(selectedLesson)
+        // console.log(setSelectedLesson(selected))
         setSelectedLesson(selected)
+        navigate(`/lessons/${lessonId}`)
     }
 
     return (
@@ -32,9 +39,11 @@ const ClassDetailsPage = () => {
                         <h2>{cls.name}</h2>
                         <h3>{cls.description}</h3>
                     </div>
-                    <div className='classRoster'>
-                        Class Roster: {cls.Students.length} students
-                    </div>
+                    {user.userRole === "teacher" &&
+                        <div className='classRoster'>
+                            Class Roster: {cls.Students.length} students
+                        </div>
+                    }
                     <label>
                         Lessons:
                         <select
@@ -50,17 +59,19 @@ const ClassDetailsPage = () => {
                             )}
                         </select>
                     </label>
-                    <button>
-                        Create New Lesson
-                    </button>
-                    {selectedLesson && (
-                        <div>
-                            <h3>{selectedLesson.lessonImg}</h3>
-                            <h3>{selectedLesson.title}</h3>
-                            <h4>{selectedLesson.description}</h4>
-                            <h4>{selectedLesson.lesonContent}</h4>
-                        </div>
-                    )}
+                    {user.userRole === "teacher" &&
+                        <button>
+                            Create New Lesson
+                        </button>
+                    }
+                    {/* {selectedLesson && (
+                        <>
+                            {selectedLesson.lessonImg}
+                            {selectedLesson.title}
+                            {selectedLesson.description}
+                            {selectedLesson.lessonContent}
+                        </>
+                    )} */}
                 </>
             }
         </>
