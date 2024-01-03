@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import OpenModalButton from "../OpenModalButton/OpenModalButtton";
 import LoginFormModal from "../LoginFormModal";
