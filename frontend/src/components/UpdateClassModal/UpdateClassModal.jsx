@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import './UpdateClass.css'
 
-function UpdateClassModal({ cls }) {
+function UpdateClassModal({ classId }) {
     // const { classId } = useParams()
     // console.log(classId)
-    const classId = cls.id
-    console.log(+classId)
+    // const classId = cls.id
+    // console.log(+classId)
     const dispatch = useDispatch()
-    const classToEdit = useSelector(state => state?.classes?.allClassesById[classId])
+    const classToEdit = useSelector(state => state?.classes?.allClassesById[+classId])
     console.log(classToEdit)
     const [name, setName] = useState("")
     const [classImg, setClassImg] = useState("")
@@ -56,7 +56,7 @@ function UpdateClassModal({ cls }) {
             description
         }
 
-        dispatch(editClass(+classId, classInfo))
+        await dispatch(editClass(+classId, classInfo))
             .then(() => {
 
                 closeModal()

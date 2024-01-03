@@ -70,8 +70,10 @@ const Splash = () => {
         </form>
       </div>
       <div className='splashPageLeftSideMenu'>
-        YOUR STUFF
-        <div>
+        {user &&
+          <p>YOUR STUFF</p>
+        }
+        <p>
           {user &&
             <NavLink
               to="/classes"
@@ -80,17 +82,21 @@ const Splash = () => {
               Classes
             </NavLink>
           }
-        </div>
-        {user &&
-          <NavLink
-            to="/lessons"
-            className="userLessons"
-          >
-            Custom Lessons
-          </NavLink>
-        }
+        </p>
+        <p>
+          {user &&
+            <NavLink
+              to="/lessons"
+              className="userLessons"
+            >
+              Custom Lessons
+            </NavLink>
+          }
+        </p>
         <div>
-          <AllLessonsPage />
+          {user &&
+            <AllLessonsPage />
+          }
         </div>
       </div>
     </>

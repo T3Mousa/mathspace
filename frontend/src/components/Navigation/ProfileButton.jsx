@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import OpenModalButton from "../OpenModalButton/OpenModalButtton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
-function ProfileButton({ user }) {
+function ProfileButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const [showMenu, setShowMenu] = useState(false);
-  // const user = useSelector((state) => state?.session?.user);
+  const user = useSelector((state) => state?.session?.user);
   const ulRef = useRef();
 
   const toggleMenu = (e) => {

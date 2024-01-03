@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { addNewClass, getAllClasses } from "../../redux/classes";
 import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import './CreateNewClass.css'
 
@@ -12,9 +11,8 @@ function CreateNewClassModal() {
     const [description, setDescription] = useState("")
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
-    const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const newClassInfo = {
@@ -23,15 +21,14 @@ function CreateNewClassModal() {
             description
         }
 
-        await dispatch(addNewClass(newClassInfo))
+        dispatch(addNewClass(newClassInfo))
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 if (res.message) {
                     setErrors({ message: res.message })
                 } else {
                     closeModal()
                     dispatch(getAllClasses())
-                    // navigate(`/classes/${res.id}`)
                 }
             })
     };

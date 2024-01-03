@@ -5,7 +5,7 @@ import { getAllLessons } from '../../redux/lessons';
 
 const AllLessonsPage = () => {
     const dispatch = useDispatch()
-    const allLessons = useSelector(state => state.lessons.allLessons)
+    const allLessons = useSelector(state => state?.lessons?.allLessons)
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
@@ -17,7 +17,7 @@ const AllLessonsPage = () => {
             {isLoaded &&
                 <div className='allLessonsContainer'>
                     {allLessons?.map(lesson => (
-                        <div className='lessonTile'>
+                        <div className='lessonTile' key={lesson.id}>
                             <NavLink className="lessonTileLink" to={`/lessons/${lesson.id}`} key={lesson.id}>
                                 <div className='lessonTileImage'>
                                     <img src={lesson.lessonImg ? lesson.lessonImg : "/images/placeholder.jpeg"} alt={`lesson ${lesson.id} image`} />
