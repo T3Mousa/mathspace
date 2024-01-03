@@ -22,9 +22,6 @@ const TeacherClassTile = ({ cls }) => {
                     <p>Class Name: {cls.name}</p>
                 </div>
             </NavLink>
-            {/* <div className="classDescription">
-                <h4>Description: </h4> {cls.description}
-            </div> */}
             <div className="studentCount">
                 <p>Class Roster: {cls.studentCount} students</p>
             </div>

@@ -4,29 +4,47 @@ import "./Navigation.css";
 import { useSelector } from "react-redux";
 
 function Navigation() {
-  const user = useSelector((state) => state.session?.user?.user);
+  const user = useSelector((state) => state?.session?.user);
   // console.log(user)
-
+  const handleNonFunctioningLinks = () => {
+    alert("Feature Coming Soon...");
+  };
 
   return (
-    <ul>
-      <li >
+    <div className="navBar">
+      <div>
         <NavLink className="homeButton" to="/">mathspace</NavLink>
-      </li>
+      </div>
 
-      <li>
-        <ProfileButton />
-      </li>
+      <div className="searchBar">
+        <input
+          type="text"
+          className="searchBarInput"
+          placeholder="Search"
+        />
+        <div className="searchIcon">
+          <div
+            className="magnifyingGlass"
+            onClick={handleNonFunctioningLinks}
+          >
+            <i className="fas fa-search" />
+          </div>
+        </div>
+      </div>
+
+      <div className="rightNavBar">
+        <ProfileButton user={user} />
+      </div>
       {user && (
-        <li>
+        <div>
           {user.profileImg ?
             <img
               src={user.profileImg}
               style={{ height: "70px", width: '70px', borderRadius: "50%" }}
             /> : null}
-        </li>
+        </div>
       )}
-    </ul>
+    </div>
   );
 }
 
