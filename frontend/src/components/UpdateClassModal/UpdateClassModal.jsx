@@ -11,7 +11,7 @@ function UpdateClassModal({ classId }) {
     // console.log(+classId)
     const dispatch = useDispatch()
     const classToEdit = useSelector(state => state?.classes?.allClassesById[+classId])
-    console.log(classToEdit)
+    // console.log(classToEdit)
     const [name, setName] = useState("")
     const [classImg, setClassImg] = useState("")
     const [description, setDescription] = useState("")
@@ -19,8 +19,8 @@ function UpdateClassModal({ classId }) {
     const [isFormValid, setIsFormValid] = useState(false)
     const { closeModal } = useModal()
 
-    const errorsObject = {}
     useEffect(() => {
+        const errorsObject = {}
         if (!name) errorsObject.name = "Class name is required"
         if (!description) errorsObject.description = "Class description is required"
         if (classImg && (!classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"

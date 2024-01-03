@@ -70,7 +70,7 @@ const LessonManagerPage = () => {
                 {user && user.userRole === "teacher" && allUserLessons &&
                     < div className='teacherLessonContainer'>
                         {allUserLessons?.map(lesson => (
-                            <div className='teacherLessonTile'>
+                            <div className='teacherLessonTile' key={lesson.id}>
                                 <NavLink
                                     className="teacherLessonLink"
                                     to={`/lessons/${lesson.id}`}
