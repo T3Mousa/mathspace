@@ -1,19 +1,23 @@
 import { useState } from "react";
-import { addNewClass, getAllClasses } from "../../redux/classes";
+import { addNewClass } from "../../redux/classes";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import './CreateNewClass.css'
 
 function CreateNewClassModal() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [name, setName] = useState("")
     const [classImg, setClassImg] = useState("")
     const [description, setDescription] = useState("")
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
 
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({})
 
         const newClassInfo = {
             name,
@@ -21,16 +25,33 @@ function CreateNewClassModal() {
             description
         }
 
-        dispatch(addNewClass(newClassInfo))
-            .then((res) => {
-                // console.log(res)
-                if (res.message) {
-                    setErrors({ message: res.message })
-                } else {
-                    closeModal()
-                    dispatch(getAllClasses())
-                }
-            })
+        let errorsObj = {}
+        if (!name) errorsObj.name = "Class name is required"
+        if (name.startsWith(" ")) errorsObj.name = "Class name cannot begin with an empty space"
+        if (!description) errorsObj.description = "Class description is required"
+        if (description.startsWith(" ")) errorsObj.description = "Class description cannot begin with an empty space"
+        if (classImg && !classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg')) errorsObj.classImg = "Class image URL must end in .png, .jpg, .jpeg"
+
+
+        if (Object.values(errorsObj).length) {
+            setErrors(errorsObj)
+        } else {
+            let newClass = await dispatch(addNewClass(newClassInfo))
+            if (newClass?.id) navigate('/classes')
+            closeModal()
+
+        }
+        // await dispatch(addNewClass(newClassInfo))
+        //     .then((res) => {
+        //         if (res.message) {
+        //             setErrors({ message: res.message })
+        //         } else {
+        //             console.log(res)
+        //             closeModal()
+        //             // dispatch(getAllClasses())
+        //             navigate("/classes")
+        //         }
+        //     })
     };
 
     return (

@@ -6,6 +6,7 @@ import './LessonDetailsPage.css'
 
 const LessonDetailsPage = () => {
     const { lessonId } = useParams()
+    // console.log(lessonId)
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     const lesson = useSelector(state => state?.lessons?.lessonDeets)

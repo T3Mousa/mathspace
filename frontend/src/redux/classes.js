@@ -17,7 +17,7 @@ const classDetails = (classData) => ({
     payload: classData
 })
 
-const addClass = (classInfo) => ({
+const createClass = (classInfo) => ({
     type: CREATE_CLASS,
     payload: classInfo
 })
@@ -77,8 +77,8 @@ export const addNewClass = (classInfo) => async (dispatch) => {
     })
     if (response.ok) {
         const newClass = await response.json()
-        dispatch(addClass(newClass))
-        dispatch(getAllClasses())
+        // console.log(newClass)
+        dispatch(createClass(newClass))
         return newClass
     } else if (response.status < 500) {
         const errorMessages = await response.json();
@@ -141,6 +141,7 @@ const classesReducer = (state = initialState, action) => {
                     classesById[cls.id] = cls;
                 });
                 newState = {
+                    ...state,
                     allClasses: action.payload,
                     allClassesById: classesById,
                 };
@@ -163,15 +164,16 @@ const classesReducer = (state = initialState, action) => {
             }
         case CREATE_CLASS:
             if (action.payload) {
-                newState = {
-                    ...state,
-                    newClassAdded: action.payload
+                if (!newState.allClassesById) {
+                    newState.allClassesById = {}
                 }
+                newState.allClasses = [...state.allClasses, action.payload]
+                newState.allClassesById[action.payload.id] = { ...action.payload }
+
+                console.log(newState)
                 return newState
             } else {
-                return {
-                    ...state
-                }
+                return { ...state }
             }
         case UPDATE_CLASS:
             newState = { ...state }

@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { updateUserThunk } from '../../redux/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
+// import { getAllLessons } from '../../redux/lessons';
 import AllLessonsPage from './AllLessonsPage';
 import './Splash.css'
 
 const Splash = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user)
-
+  const user = useSelector((state) => state?.session?.user)
+  // const allLessons = useSelector(state => state?.lessons?.allLessons)
+  const [isLoaded, setIsLoaded] = useState(false)
   //image url to send to aws
   const [imgUrl, setImgUrl] = useState("");
   //telling us if we should show the image
@@ -16,6 +18,9 @@ const Splash = () => {
   //img url we will load in react
   const [previewUrl, setPreviewUrl] = useState("");
 
+  // useEffect(() => {
+  //   dispatch(getAllLessons())
+  // }, [dispatch])
 
 
   //function to get image from local
@@ -93,13 +98,32 @@ const Splash = () => {
             </NavLink>
           }
         </p>
-        <div>
-          {user &&
-            <AllLessonsPage />
-          }
-        </div>
       </div>
+      {/* <div className='spalshPageRightSide'>
+        <div className='allLessonsContainer'>
+          {user && allLessons?.map(lesson => (
+            <div className='lessonTile' key={lesson.id}>
+              <NavLink className="lessonTileLink" to={`/lessons/${lesson.id}`} key={lesson.id}>
+                <div className='lessonTileImage'>
+                  <img src={lesson.lessonImg ? lesson.lessonImg : "/images/placeholder.jpeg"} alt={`lesson ${lesson.id} image`} />
+                </div>
+                <div className='lessonTileInfo'>
+                  <p className='lessonTitle'>{lesson.title} </p>
+                  <p>By: {lesson.Teacher.firstName} {lesson.Teacher.lastName}</p>
+                  <p>{lesson.description}</p>
+                </div>
+              </NavLink>
+            </div>
+          ))}
+        </div> */}
+      <div>
+        {user &&
+          <AllLessonsPage />
+        }
+      </div>
+      {/* </div> */}
     </>
+
   );
 }
 

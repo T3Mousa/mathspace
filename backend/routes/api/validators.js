@@ -16,7 +16,18 @@ const validateClassParams = [
     handleValidationErrors
 ]
 
+const validateLessonParams = [
+    check('title')
+        .exists({ checkFalsy: true })
+        .withMessage('Lesson title is required'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .withMessage('Lesson description is required'),
+    handleValidationErrors
+]
+
 
 module.exports = {
-    validateClassParams
+    validateClassParams,
+    validateLessonParams
 }

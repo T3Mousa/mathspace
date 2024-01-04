@@ -15,6 +15,9 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const submitDisabled = (email.startsWith(" ") || firstName.startsWith(" ") || lastName.startsWith(" ") || password.startsWith(" "))
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -63,6 +66,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
+        {email.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
         <label>
           First Name
           <input
@@ -73,6 +77,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.firstName && <p>{errors.firstName}</p>}
+        {firstName.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
         <label>
           Last Name
           <input
@@ -83,6 +88,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.lastName && <p>{errors.lastName}</p>}
+        {lastName.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
         <label>
           Are you a teacher or a student?
           <select
@@ -106,6 +112,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
+        {password.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
         <label>
           Confirm Password
           <input
@@ -116,7 +123,7 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={submitDisabled}>Sign Up</button>
       </form>
     </>
   );

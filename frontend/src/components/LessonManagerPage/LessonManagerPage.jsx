@@ -80,8 +80,9 @@ const LessonManagerPage = () => {
                                         <img src={lesson.lessonImg} alt={lesson.title} />
                                     </div>
                                     <div className='lessonTitleAuthor'>
-                                        <p>{lesson.title}</p>
-                                        <p>By: {lesson.Teacher.firstName} {lesson.Teacher.lastName}</p>
+                                        <p>Title: {lesson.title}</p>
+                                        <p>Class: {lesson.ClassInfo.name}</p>
+                                        <p>By: You</p>
                                     </div>
                                 </NavLink>
                                 <div className='lessonMenuButton'>

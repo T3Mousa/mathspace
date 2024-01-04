@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate } from 'react-router-dom';
 import { getClassDetails } from '../../redux/classes';
 import './ClassDetailsPage.css'
 
@@ -11,7 +11,6 @@ const ClassDetailsPage = () => {
     const navigate = useNavigate()
     const user = useSelector(state => state.session.user)
     const cls = useSelector(state => state?.classes?.classDeets)
-    // console.log(cls)
     const [selectedLesson, setSelectedLesson] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -32,7 +31,7 @@ const ClassDetailsPage = () => {
 
     return (
         <>
-            {isLoaded &&
+            {isLoaded && cls?.id &&
                 <>
                     <div className='classDetailsHeading'>
                         <h2>{cls.classImg}</h2>
