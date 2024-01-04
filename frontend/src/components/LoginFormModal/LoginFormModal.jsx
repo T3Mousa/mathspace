@@ -46,16 +46,18 @@ function LoginFormModal() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
+        {email.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
         <label>
           Password
           <input
-            type="password"
+            type="text"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
+        {password.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
         <button type="submit" disabled={submitDisabled}>Log In</button>
       </form>
     </>
