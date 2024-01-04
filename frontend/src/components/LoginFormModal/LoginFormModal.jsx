@@ -11,6 +11,8 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const submitDisabled = (email.startsWith(" ") || password.startsWith(" "))
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,7 +23,7 @@ function LoginFormModal() {
       })
     );
 
-    if (serverResponse) {
+    if (serverResponse.errors) {
       // console.log(serverResponse)
       setErrors(serverResponse.errors);
     } else {
@@ -54,7 +56,7 @@ function LoginFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={submitDisabled}>Log In</button>
       </form>
     </>
   );

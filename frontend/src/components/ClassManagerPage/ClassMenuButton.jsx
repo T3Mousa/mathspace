@@ -31,11 +31,7 @@ function ClassMenuButton({ cls }) {
 
     const closeMenu = () => setShowMenu(false);
 
-    // const logout = (e) => {
-    //     e.preventDefault();
-    //     dispatch(thunkLogout());
-    //     closeMenu();
-    // };
+
     const ulClassName = "class-menu-dropdown" + (showMenu ? "" : " hidden");
     //   const closeMenu = () => setShowMenu(false);
 

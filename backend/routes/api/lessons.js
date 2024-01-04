@@ -1,6 +1,7 @@
 const express = require('express');
 const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, StudentLesson, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
+const { validateLessonParams } = require('./validators');
 
 const { Op } = require("sequelize");
 const e = require('express');
@@ -125,6 +126,102 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
         })
     }
 
+});
+
+// edit a lesson (teacher users only)
+router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { lessonId } = req.params
+    const { title, lessonImg, description, lessonContent } = req.body
+    const existingLesson = await Lesson.findOne({
+        where: { id: lessonId },
+        include: [
+            {
+                model: Class,
+                attributes: ['id'],
+                include: [
+                    {
+                        model: Teacher,
+                        attributes: ["userId"]
+                    }
+                ]
+            }
+        ]
+    })
+
+    if (userId && role === 'teacher') {
+        if (existingLesson && existingLesson.Class.Teacher.userId === userId) {
+            if (title !== undefined) existingLesson.title = title
+            if (lessonImg !== undefined) existingLesson.lessonImg = lessonImg
+            if (description !== undefined) existingLesson.description = description
+            if (lessonContent !== undefined) existingLesson.lessonContent = lessonContent
+
+            await existingLesson.save()
+            res.json(existingLesson)
+        } else if (existingLesson && existingLesson.Class.Teacher.userId !== userId) {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        } else if (!existingLesson) {
+            res.status(404);
+            return res.json({
+                "message": "Lesson couldn't be found",
+            })
+        }
+    } else if (userId && role !== 'teacher') {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden"
+        })
+    }
+});
+
+// delete a lesson (teacher users only)
+router.delete('/:lessonId', requireAuth, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { lessonId } = req.params
+    const existingLesson = await Lesson.findOne({
+        where: { id: lessonId },
+        include: [
+            {
+                model: Class,
+                attributes: ['id'],
+                include: [
+                    {
+                        model: Teacher,
+                        attributes: ["userId"]
+                    }
+                ]
+            }
+        ]
+    })
+
+    if (userId && role === 'teacher') {
+        if (existingLesson && existingLesson.Class.Teacher.userId === userId) {
+            await existingLesson.destroy()
+            res.json({
+                "message": "Successfully deleted"
+            })
+        } else if (existingLesson && existingLesson.Class.Teacher.userId !== userId) {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        } else if (!existingLesson) {
+            res.status(404);
+            return res.json({
+                "message": "Lesson couldn't be found",
+            })
+        }
+    } else if (userId && role !== 'teacher') {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden"
+        })
+    }
 })
 
 

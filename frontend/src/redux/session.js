@@ -38,6 +38,7 @@ export const thunkAuthenticate = () => async (dispatch) => {
         const response = await csrfFetch("/api/restore-user");
         if (response.ok) {
             const data = await response.json();
+            console.log(data)
             dispatch(setUser(data));
         }
     } catch (e) {
@@ -54,8 +55,10 @@ export const thunkLogin = (credentials) => async dispatch => {
 
     if (response.ok) {
         const data = await response.json();
-        // console.log(data.user)
-        dispatch(setUser(data.user));
+        const currentUser = data.user
+        console.log(data.user)
+        dispatch(setUser(currentUser));
+        return currentUser
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         console.log(errorMessages)
@@ -66,21 +69,30 @@ export const thunkLogin = (credentials) => async dispatch => {
 };
 
 export const thunkSignup = (user) => async (dispatch) => {
+    const { email, firstName, lastName, userRole, password } = user;
     const response = await csrfFetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
+        body: JSON.stringify({
+            email,
+            firstName,
+            lastName,
+            userRole,
+            password
+        })
     });
 
     if (response.ok) {
         const data = await response.json();
-        console.log(data.user)
-        dispatch(setUser(data));
-        if (data.userRole === "teacher") {
-            dispatch(addTeacher(data.id))
-        } else if (data.userRole === "student") {
-            dispatch(addStudent(data.id))
+        // console.log(data.user)
+        const newUser = data.user
+        dispatch(setUser(newUser));
+        if (newUser.userRole === "teacher") {
+            dispatch(addTeacher(newUser.id))
+        } else if (newUser.userRole === "student") {
+            dispatch(addStudent(newUser.id))
         }
+        return newUser
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages
@@ -118,6 +130,7 @@ export const updateUserThunk = (userId, form) => async (dispatch) => {
         if (response.ok) {
             const user = await response.json();
             dispatch(editUser(user));
+            return user
 
         } else if (response.status < 500) {
             const data = await response.json();
