@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Navigate, useNavigate, NavLink } from 'react-router-dom';
 import { getClassDetails } from '../../redux/classes';
 import './ClassDetailsPage.css'
+import { getAllClassLessons } from '../../redux/lessons';
 
 
 const ClassDetailsPage = () => {
@@ -11,6 +12,8 @@ const ClassDetailsPage = () => {
     const navigate = useNavigate()
     const user = useSelector(state => state.session.user)
     const cls = useSelector(state => state?.classes?.classDeets)
+    const clsLessons = useSelector(state => state?.lessons?.allClassLessons)
+    console.log(clsLessons)
     const [selectedLesson, setSelectedLesson] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -18,15 +21,19 @@ const ClassDetailsPage = () => {
         dispatch(getClassDetails(classId)).then(() => setIsLoaded(true))
     }, [dispatch, classId, isLoaded])
 
+    useEffect(() => {
+        dispatch(getAllClassLessons(classId))
+    }, [dispatch, classId])
+
     const handleLessonSelection = (e) => {
         const lessonId = parseInt(e.target.value)
         console.log(lessonId)
         const selected = cls.Lessons.find((lesson) => lesson.id === lessonId)
         console.log(selected)
-        // console.log(selectedLesson)
         // console.log(setSelectedLesson(selected))
         setSelectedLesson(selected)
-        navigate(`/lessons/${lessonId}`)
+        console.log(selectedLesson)
+        // navigate(`/lessons/${lessonId}`)
     }
 
     return (
@@ -50,7 +57,7 @@ const ClassDetailsPage = () => {
                             onChange={handleLessonSelection}
                         >
                             <option value="" disabled>Select a lesson...</option>
-                            {cls.Lessons.map((lesson) => (
+                            {clsLessons?.map((lesson) => (
                                 <option key={lesson.id} value={lesson.id}>
                                     {lesson.title}
                                 </option>
@@ -63,14 +70,14 @@ const ClassDetailsPage = () => {
                             Create New Lesson
                         </button>
                     }
-                    {/* {selectedLesson && (
-                        <>
-                            {selectedLesson.lessonImg}
-                            {selectedLesson.title}
-                            {selectedLesson.description}
-                            {selectedLesson.lessonContent}
-                        </>
-                    )} */}
+                    {selectedLesson && <div>
+                        <p>Title: {selectedLesson.title}</p>
+                        <p>Description: {selectedLesson.description}</p>
+                        <NavLink to={`/lessons/${selectedLesson.id}`}>
+                            Go to lesson details page <i className="fa-solid fa-arrow-right"></i>
+                        </NavLink>
+                    </div>}
+
                 </>
             }
         </>

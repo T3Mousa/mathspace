@@ -13,6 +13,19 @@ function LoginFormModal() {
 
   const submitDisabled = (email.startsWith(" ") || password.startsWith(" "))
 
+  const demoSignIn = (e) => {
+    // e.preventDefault()
+    setErrors({});
+    setEmail('demo_teacher@user.io')
+    setPassword('password')
+    return dispatch(thunkLogin({ credential, password }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,6 +59,7 @@ function LoginFormModal() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
+        {email.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
         <label>
           Password
           <input
@@ -56,7 +70,11 @@ function LoginFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit" disabled={submitDisabled}>Log In</button>
+        {password.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        <div className='logInFormButtons'>
+          <button type="submit" disabled={submitDisabled}>Log In</button>
+          <button type='submit' className="demoUserButton" onClick={(e) => demoSignIn(e)}>Demo Teacher User</button>
+        </div>
       </form>
     </>
   );
