@@ -18,7 +18,7 @@ function LoginFormModal() {
     setErrors({});
     setEmail('demo_teacher@user.io')
     setPassword('password')
-    return dispatch(thunkLogin({ credential, password }))
+    return dispatch(thunkLogin({ email, password }))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json();
