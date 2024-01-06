@@ -107,7 +107,7 @@ export const addNewLesson = (classId, lessonInfo) => async (dispatch) => {
     }
 }
 
-export const editlesson = (lessonId, editedLessonData) => async (dispatch) => {
+export const editLesson = (lessonId, editedLessonData) => async (dispatch) => {
     const response = await csrfFetch(`/api/lessons/${lessonId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -134,7 +134,7 @@ export const deleteLesson = (lessonId) => async (dispatch) => {
         const deletedLesson = await response.json()
         dispatch(removeLesson(lessonId))
         dispatch(getAllLessons())
-        return deleteLesson
+        return deletedLesson
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages

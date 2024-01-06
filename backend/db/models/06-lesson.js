@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         lessonImg: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             defaultValue: ''
         },
         description: {
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         lessonContent: {
             type: DataTypes.BLOB,
-            allowNull: false,
+            allowNull: true,
             defaultValue: ''
         },
         classId: {
