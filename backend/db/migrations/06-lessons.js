@@ -22,7 +22,7 @@ module.exports = {
             },
             lessonImg: {
                 type: Sequelize.STRING(255),
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
             description: {
@@ -32,7 +32,7 @@ module.exports = {
             },
             lessonContent: {
                 type: Sequelize.BLOB,
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
             classId: {

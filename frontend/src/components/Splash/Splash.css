@@ -1,21 +1,26 @@
 .lessonTileLink img {
     height: 150px;
     width: 150px;
-    padding-right: 10px;
+    padding-right: 15px;
     font-family: 'Roboto', sans-serif;
 }
 
 .lessonTileLink {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     text-decoration: none;
     color: black;
     font-family: 'Roboto', sans-serif;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin: 20px 10px;
+    font-weight: bold;
 }
 
-.lessonTile {
+/* .lessonTile {
     border: 2px solid lightgray;
     border-radius: 5px;
     padding: 2px 10px;
@@ -25,13 +30,13 @@
     justify-content: space-between;
     align-items: center;
     font-family: 'Roboto', sans-serif;
-}
+} */
 
-.lessonTitle {
+/* .lessonTitle {
     font-weight: bold;
-}
+} */
 
-.lessonTile:hover {
+.lessonTileLink:hover {
     border: 2px solid #9C0D63;
 }
 
