@@ -51,6 +51,10 @@ function SignupFormModal() {
     });
   };
 
+  const handleNonFunctioningLinks = () => {
+    alert("Student User Features Coming Soon...");
+  };
+
   return (
     <>
       <h1>Sign Up</h1>
@@ -89,7 +93,7 @@ function SignupFormModal() {
         </label>
         {errors.lastName && <p>{errors.lastName}</p>}
         {lastName.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
-        <label>
+        {/* <label>
           Are you a teacher or a student?
           <select
             value={userRole}
@@ -100,6 +104,25 @@ function SignupFormModal() {
             <option value="teacher">Teacher</option>
             <option value="student">Student</option>
           </select>
+        </label> */}
+        <label>
+          Role:
+          Teacher
+          <input
+            type="radio"
+            value="teacher"
+            checked={userRole === 'teacher'}
+            onChange={(e) => setUserRole(e.target.value)}
+          />
+        </label>
+        <label>
+          Student
+          <input
+            type="radio"
+            value="student"
+            checked={userRole === 'student'}
+            onChange={handleNonFunctioningLinks}
+          />
         </label>
         {errors.userRole && <p>{errors.userRole}</p>}
         <label>

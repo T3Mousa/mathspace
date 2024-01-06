@@ -267,12 +267,17 @@ router.put('/:classId', requireAuth, validateClassParams, async (req, res) => {
             "classImg",
             "description",
             "teacherId"
+        ],
+        include: [
+            {
+                model: Teacher,
+                attributes: ["userId"]
+            }
         ]
     })
     if (existingClass) {
         if (userId && role === "teacher") {
-            const existingClassObject = existingClass.toJSON()
-            if (userId === existingClassObject.teacherId) {
+            if (userId === existingClass.Teacher.userId) {
                 if (name !== undefined) existingClass.name = name
                 if (classImg !== undefined) existingClass.classImg = classImg
                 if (description !== undefined) existingClass.description = description
@@ -301,17 +306,23 @@ router.put('/:classId', requireAuth, validateClassParams, async (req, res) => {
 })
 
 // delete a class
-
 router.delete('/:classId', requireAuth, async (req, res) => {
     const userId = req.user.id
     const { classId } = req.params
     const role = req.user.userRole
-
-    const existingClass = await Class.findByPk(classId)
-
+    const existingClass = await Class.findOne({
+        where: { id: classId },
+        include: [
+            {
+                model: Teacher,
+                attributes: ["userId"]
+            }
+        ]
+    })
+    console.log(existingClass)
     if (existingClass) {
         if (userId && role === "teacher") {
-            if (userId === existingClass.teacherId) {
+            if (userId === existingClass.Teacher.userId) {
                 await existingClass.destroy()
                 res.json({
                     "message": "Successfully deleted"
