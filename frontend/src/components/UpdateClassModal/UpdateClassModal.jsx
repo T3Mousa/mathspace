@@ -5,10 +5,6 @@ import { useModal } from "../../context/Modal";
 import './UpdateClass.css'
 
 function UpdateClassModal({ classId }) {
-    // const { classId } = useParams()
-    // console.log(classId)
-    // const classId = cls.id
-    // console.log(+classId)
     const dispatch = useDispatch()
     const classToEdit = useSelector(state => state?.classes?.allClassesById[+classId])
     // console.log(classToEdit)
@@ -16,18 +12,9 @@ function UpdateClassModal({ classId }) {
     const [classImg, setClassImg] = useState("")
     const [description, setDescription] = useState("")
     const [errors, setErrors] = useState({})
-    const [isFormValid, setIsFormValid] = useState(false)
     const { closeModal } = useModal()
 
-    useEffect(() => {
-        const errorsObject = {}
-        if (!name) errorsObject.name = "Class name is required"
-        if (!description) errorsObject.description = "Class description is required"
-        if (classImg && (!classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"
-
-        setErrors(errorsObject)
-        setIsFormValid(Object.keys(errorsObject.length === 0))
-    }, [name, description, classImg])
+    const submitDisabled = (name.startsWith(" ") || description.startsWith(" ") || classImg.startsWith(" "))
 
     useEffect(() => {
         if (classToEdit) {
@@ -37,18 +24,9 @@ function UpdateClassModal({ classId }) {
         }
     }, [classToEdit])
 
-    // const validateForm = () => {
-    //     const errorsObject = {}
-    //     if (!name) errorsObject.name = "Class name is required"
-    //     if (!description) errorsObject.description = "Class description is required"
-    //     if (classImg && (!classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"
-
-    //     setErrors(errorsObject)
-    //     setIsFormValid(Object.keys(errorsObject.length === 0))
-    // }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrors({})
 
         const classInfo = {
             name,
@@ -56,12 +34,24 @@ function UpdateClassModal({ classId }) {
             description
         }
 
-        await dispatch(editClass(+classId, classInfo))
-            .then(() => {
+        const errorsObject = {}
+        if (!name) errorsObject.name = "Class name is required"
+        if (name.startsWith(" ")) errorsObject.name = "Class name cannot begin with an empty space"
+        if (!description) errorsObject.description = "Class description is required"
+        if (description.startsWith(" ")) errorsObject.description = "Class description cannot begin with an empty space"
+        if (classImg && (!classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"
 
-                closeModal()
-                dispatch(getAllClasses())
-            })
+        if (Object.values(errorsObject).length) {
+            setErrors(errorsObject)
+        } else {
+
+            await dispatch(editClass(+classId, classInfo))
+                .then(() => {
+
+                    dispatch(getAllClasses())
+                    closeModal()
+                })
+        }
     };
 
 
@@ -79,6 +69,7 @@ function UpdateClassModal({ classId }) {
                     />
                 </label>
                 {errors.name && <p>{errors.name}</p>}
+                {name.startsWith(" ") && <p>Class name cannot begin with an empty space</p>}
                 <label>
                     Class Image
                     <input
@@ -88,6 +79,7 @@ function UpdateClassModal({ classId }) {
                     />
                 </label>
                 {errors.classImg && <p>{errors.classImg}</p>}
+                {classImg.startsWith(" ") && <p>Class image URL cannot begin with an empty space</p>}
                 <label>
                     Class Description
                     <textarea
@@ -98,8 +90,9 @@ function UpdateClassModal({ classId }) {
                     />
                 </label>
                 {errors.description && <p>{errors.description}</p>}
+                {description.startsWith(" ") && <p>Class description cannot begin with an empty space</p>}
                 <button onClick={closeModal}>Cancel</button>
-                <button type="submit" disabled={!isFormValid}>Save</button>
+                <button type="submit" disabled={submitDisabled}>Save</button>
             </form>
         </>
     );

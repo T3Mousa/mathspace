@@ -14,6 +14,7 @@ function CreateNewClassModal() {
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
 
+    const submitDisabled = (name.startsWith(" ") || description.startsWith(" ") || classImg.startsWith(" "))
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -69,6 +70,7 @@ function CreateNewClassModal() {
                     />
                 </label>
                 {errors.name && <p>{errors.name}</p>}
+                {name.startsWith(" ") && <p>Class name cannot begin with an empty space</p>}
                 <label>
                     Class Description
                     <textarea
@@ -80,8 +82,9 @@ function CreateNewClassModal() {
                     />
                 </label>
                 {errors.description && <p>{errors.description}</p>}
+                {description.startsWith(" ") && <p>Class description cannot begin with an empty space</p>}
                 <button onClick={closeModal}>Cancel</button>
-                <button type="submit">Add Class</button>
+                <button type="submit" disabled={submitDisabled}>Add Class</button>
             </form>
         </>
     );
