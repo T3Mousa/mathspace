@@ -13,17 +13,20 @@ function LoginFormModal() {
 
   const submitDisabled = (email.startsWith(" ") || password.startsWith(" "))
 
-  const demoSignIn = (e) => {
+  const demoSignIn = () => {
     // e.preventDefault()
-    setErrors({});
-    setEmail('demo_teacher@user.io')
-    setPassword('password')
-    return dispatch(thunkLogin({ email, password }))
+    // setErrors({});
+    // setEmail('demo_teacher@user.io')
+    // setPassword('password')
+    return dispatch(thunkLogin({
+      email: 'demo_teacher@user.io',
+      password: 'password'
+    }))
       .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
+    // .catch(async (res) => {
+    //   const data = await res.json();
+    //   if (data && data.errors) setErrors(data.errors);
+    // });
   }
 
   const handleSubmit = async (e) => {

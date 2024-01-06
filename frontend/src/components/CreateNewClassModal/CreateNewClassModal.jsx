@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addNewClass } from "../../redux/classes";
+import { addNewClass, getAllClasses } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
@@ -38,21 +38,13 @@ function CreateNewClassModal() {
             setErrors(errorsObj)
         } else {
             let newClass = await dispatch(addNewClass(newClassInfo))
-            if (newClass?.id) navigate('/classes')
+            if (newClass?.id) {
+                await dispatch(getAllClasses())
+                navigate('/classes')
+            }
             closeModal()
 
         }
-        // await dispatch(addNewClass(newClassInfo))
-        //     .then((res) => {
-        //         if (res.message) {
-        //             setErrors({ message: res.message })
-        //         } else {
-        //             console.log(res)
-        //             closeModal()
-        //             // dispatch(getAllClasses())
-        //             navigate("/classes")
-        //         }
-        //     })
     };
 
     return (
