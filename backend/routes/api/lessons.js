@@ -198,7 +198,6 @@ router.delete('/:lessonId', requireAuth, async (req, res) => {
             }
         ]
     })
-
     if (userId && role === 'teacher') {
         if (existingLesson && existingLesson.Class.Teacher.userId === userId) {
             await existingLesson.destroy()
