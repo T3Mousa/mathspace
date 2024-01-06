@@ -16,6 +16,9 @@ const AllLessonsPage = () => {
         <>
             {isLoaded &&
                 <div className='allLessonsContainer'>
+                    <h3>
+                        Featured Teacher Lessons
+                    </h3>
                     {allLessons?.map(lesson => (
                         // <div className='lessonTile' key={lesson.id}>
                         <NavLink className="lessonTileLink" to={`/lessons/${lesson.id}`} key={lesson.id}>

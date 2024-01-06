@@ -15,22 +15,23 @@ function Navigation() {
       <div>
         <NavLink className="homeButton" to="/">mathspace</NavLink>
       </div>
-
-      <div className="searchBar">
-        <input
-          type="text"
-          className="searchBarInput"
-          placeholder="Search"
-        />
-        <div className="searchIcon">
-          <div
-            className="magnifyingGlass"
-            onClick={handleNonFunctioningLinks}
-          >
-            <i className="fas fa-search" />
+      {user &&
+        <div className="searchBar">
+          <input
+            type="text"
+            className="searchBarInput"
+            placeholder="Search"
+          />
+          <div className="searchIcon">
+            <div
+              className="magnifyingGlass"
+              onClick={handleNonFunctioningLinks}
+            >
+              <i className="fas fa-search" />
+            </div>
           </div>
         </div>
-      </div>
+      }
 
       <div className="rightNavBar">
         <ProfileButton user={user} />
