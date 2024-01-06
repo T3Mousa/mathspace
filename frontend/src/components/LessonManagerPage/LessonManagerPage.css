@@ -1,14 +1,14 @@
 .teacherLessonLink img {
     height: 100px;
     width: 100px;
-    padding-right: 10px;
+    padding-right: 15px;
     padding-top: 5px;
 }
 
 .teacherLessonLink {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     text-decoration: none;
     color: black;

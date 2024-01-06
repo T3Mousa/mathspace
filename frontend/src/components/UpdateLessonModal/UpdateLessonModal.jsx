@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { editLesson, getLessonDetails } from "../../redux/lessons";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import './UpdateLesson.css'
 
@@ -10,7 +10,7 @@ function UpdateLessonModal({ lessonId }) {
     // console.log(lessonId)
     const dispatch = useDispatch()
     const lessonToEdit = useSelector(state => state?.lessons?.lessonDeets)
-    console.log(lessonToEdit)
+    // console.log(lessonToEdit)
     const [title, setTitle] = useState("")
     const [lessonImg, setLessonImg] = useState("")
     const [description, setDescription] = useState("")
