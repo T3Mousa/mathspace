@@ -9,13 +9,14 @@ function SignupFormModal() {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [profileImg, setProfileImg] = useState("")
   const [userRole, setUserRole] = useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const submitDisabled = (email.startsWith(" ") || firstName.startsWith(" ") || lastName.startsWith(" ") || password.startsWith(" "))
+  const submitDisabled = (email.startsWith(" ") || firstName.startsWith(" ") || lastName.startsWith(" ") || password.startsWith(" ") || profileImg.startsWith(" "))
 
 
   const handleSubmit = (e) => {
@@ -28,6 +29,7 @@ function SignupFormModal() {
         email,
         firstName,
         lastName,
+        profileImg,
         userRole,
         password,
       })
@@ -57,9 +59,9 @@ function SignupFormModal() {
 
   return (
     <>
-      <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
+      <form className="signUpForm" onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
+        {errors.server && <p>{errors.server}</p>}
         <label>
           Email
           <input
@@ -106,25 +108,38 @@ function SignupFormModal() {
           </select>
         </label> */}
         <label>
+          Profile Image (optional)
+          <input
+            type="text"
+            value={profileImg}
+            onChange={(e) => setProfileImg(e.target.value)}
+          />
+        </label>
+        {profileImg.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        <div>
           Role:
-          Teacher
-          <input
-            type="radio"
-            value="teacher"
-            checked={userRole === 'teacher'}
-            onChange={(e) => setUserRole(e.target.value)}
-          />
-        </label>
-        <label>
-          Student
-          <input
-            type="radio"
-            value="student"
-            checked={userRole === 'student'}
-            onChange={handleNonFunctioningLinks}
-          />
-        </label>
-        {errors.userRole && <p>{errors.userRole}</p>}
+          <label>
+
+            <input
+              type="radio"
+              value="teacher"
+              checked={userRole === 'teacher'}
+              onChange={(e) => setUserRole(e.target.value)}
+            />
+            Teacher
+          </label>
+          <label>
+
+            <input
+              type="radio"
+              value="student"
+              checked={userRole === 'student'}
+              onChange={handleNonFunctioningLinks}
+            />
+            Student
+          </label>
+          {errors.userRole && <p>{errors.userRole}</p>}
+        </div>
         <label>
           Password
           <input

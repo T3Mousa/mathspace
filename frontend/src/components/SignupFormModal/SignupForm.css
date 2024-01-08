@@ -1,0 +1,10 @@
+.signUpForm {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+}
+
+.signUpForm button {
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}

@@ -60,47 +60,56 @@ const ClassDetailsPage = () => {
             {isLoaded && cls?.id &&
                 <>
                     <div className='classDetailsHeading'>
-                        <h2>{cls.classImg}</h2>
-                        <h2>{cls.name}</h2>
-                        {user.userRole === "teacher" &&
-                            <p className='classRoster'>
-                                Class Roster: {cls.Students.length} students
-                            </p>
-                        }
-                        <h3>{cls.description}</h3>
+                        <div className='classNameRoster'>
+                            <h2>{cls.name}</h2>
+                            {user.userRole === "teacher" &&
+                                <h3 className='classRoster'>
+                                    Class Roster: {cls.Students.length} students
+                                </h3>
+                            }
+                        </div>
+                        <div className="classImageDesc">
+                            {cls.classImg &&
+                                <img
+                                    src={cls.classImg}
+                                    alt={cls.name}
+                                    className="clsImg"
+                                />
+                            }
+                            <h4>{cls.description}</h4>
+                        </div>
                     </div>
                     <p>
                         {user.userRole === "teacher" &&
                             <>
-                                {/* <button>
-                                    Create New Lesson
-                                </button> */}
-                                <div className="createLessonButton">
+                                <button className="createLessonButton">
                                     <OpenModalButton
                                         buttonText='Create a New Lesson'
                                         onButtonClick={closeMenu}
                                         modalComponent={<CreateNewLessonModal classId={cls.id} />}
                                     />
-                                </div>
+                                </button>
                             </>
                         }
                     </p>
                     <p>
-                        <label>
-                            Class Lessons:
-                            <select
-                                value={selectedLesson ? selectedLesson.id : ''}
-                                onChange={handleLessonSelection}
-                            >
-                                <option value="" disabled>Select a lesson...</option>
-                                {clsLessons?.map((lesson) => (
-                                    <option key={lesson.id} value={lesson.id}>
-                                        {lesson.title}
-                                    </option>
-                                )
-                                )}
-                            </select>
-                        </label>
+                        <div className='.lessonDropDownList'>
+                            <label>
+                                Class Lessons:
+                                <select
+                                    value={selectedLesson ? selectedLesson.id : ''}
+                                    onChange={handleLessonSelection}
+                                >
+                                    <option value="" disabled>Select a lesson...</option>
+                                    {clsLessons?.map((lesson) => (
+                                        <option key={lesson.id} value={lesson.id}>
+                                            {lesson.title}
+                                        </option>
+                                    )
+                                    )}
+                                </select>
+                            </label>
+                        </div>
                     </p>
                     {selectedLesson &&
                         <div>

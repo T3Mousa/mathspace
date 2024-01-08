@@ -49,8 +49,8 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="logInForm" onSubmit={handleSubmit}>
+        <h1>Log In</h1>
         {errors.message && <p className='errors'>{errors.message}</p>}
         <label>
           Email
@@ -74,8 +74,10 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         {password.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
-        <div className='logInFormButtons'>
+        <div className='logInFormButton'>
           <button type="submit" disabled={submitDisabled}>Log In</button>
+        </div>
+        <div className="demoUserButton">
           <button type='submit' className="demoUserButton" onClick={(e) => demoSignIn(e)}>Demo Teacher User</button>
         </div>
       </form>

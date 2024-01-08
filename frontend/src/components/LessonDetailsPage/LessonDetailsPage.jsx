@@ -50,34 +50,36 @@ const LessonDetailsPage = () => {
             {isLoaded &&
                 <>
                     <div className='lessonDetailsHeading'>
-                        <img src={lesson?.lessonImg} alt={lesson.title} />
+                        <img src={lesson.lessonImg} alt={lesson.title} />
                         <h2>{lesson.title}</h2>
                         <h3>{lesson.description}</h3>
 
                     </div>
                     <div className='lessonContent'>
-                        {lesson.lessonContent.data.map((content, idx) => (
-                            <div key={idx}>
-                                {content}
-                            </div>
-                        ))}
+                        {lesson.lessonContent}
                     </div>
-                    {lesson.Class.Teacher.userId === user.id && (
-                        <>
-                            {/* <button>Edit Lesson</button> */}
-                            <OpenModalButton
-                                buttonText="Edit Lesson"
-                                onButtonClick={closeMenu}
-                                modalComponent={<UpdateLessonModal lessonId={lesson.id} />}
-                            />
-                            {/* <button>Delete Lesson</button> */}
-                            <OpenModalButton
-                                buttonText="Delete Lesson"
-                                onButtonClick={closeMenu}
-                                modalComponent={<DeleteLessonModal lessonId={lesson.id} />}
-                            />
-                        </>
-                    )}
+                    <div className='lessonDetailsButtons'>
+                        {lesson.Class.Teacher.userId === user.id && (
+                            <>
+                                <button className='editLessonButton'>
+                                    <OpenModalButton
+                                        buttonText="Edit Lesson"
+                                        className="editLessonButton"
+                                        onButtonClick={closeMenu}
+                                        modalComponent={<UpdateLessonModal lessonId={lesson.id} />}
+                                    />
+                                </button>
+                                {/* <button>Delete Lesson</button> */}
+                                <button className='deleteLessonButton'>
+                                    <OpenModalButton
+                                        buttonText="Delete Lesson"
+                                        onButtonClick={closeMenu}
+                                        modalComponent={<DeleteLessonModal lessonId={lesson.id} />}
+                                    />
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </>
             }
         </>

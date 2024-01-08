@@ -1,17 +1,33 @@
 .navBar {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
+    display: grid;
+    grid-template-columns: 20% 25% 25% 30%;
     padding-top: 5px;
     padding-bottom: 15px;
     padding-left: 10px;
-    padding-right: 10px
+    /* padding-right: 10px; */
 }
 
 .profile-dropdown {
     position: absolute;
-    list-style-type: none;
-    left: 90%
+    top: 8%;
+    left: 67%;
+    z-index: 5;
+    font-family: 'Roboto', sans-serif;
+    border: 4px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: white;
+
+}
+
+.profile-dropdown div {
+    padding: 5px;
 }
 
 .homeButton {
@@ -27,8 +43,8 @@
 }
 
 .searchBar {
-    width: 50%;
-    height: 100%;
+    width: 100%;
+    height: 80%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -62,19 +78,20 @@
     justify-content: flex-end;
     align-items: center;
     position: absolute;
-    right: 2%;
+    right: 1%;
     top: 50%;
     /* background-color: lightgray; */
     transform: translateY(-50%);
     /* fill: lightgray; */
     transition: transform 0.3s ease;
     overflow: hidden;
+    padding-left: 6px;
 }
 
 .searchIcon:hover {
     background-color: rgb(235, 235, 235);
-    height: 80%;
-    width: 20%
+    height: 30px;
+    width: 30px
 }
 
 .magnifyingGlass {
@@ -151,13 +168,46 @@
 
 .profileNameButton {
     border: none;
-    padding: 10px 20px;
+    padding: 3px 12px;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    color: rgb(55, 55, 55)
+    color: rgb(55, 55, 55);
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.profileNameButton img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding-right: 5px;
+    padding-top: 2px;
 }
 
 .fas.fa-caret-down {
     margin-left: 5px;
     font-size: 20px;
+}
+
+.withUserNavBar {
+    display: flex;
+    flex-direction: row;
+}
+
+.noUserNavBar {
+    display: flex;
+    flex-direction: row;
+}
+
+.logOutButton {
+    border-color: white;
+    background-color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logOutButton:hover {
+    cursor: pointer;
 }

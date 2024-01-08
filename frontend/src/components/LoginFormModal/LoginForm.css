@@ -1,0 +1,10 @@
+.logInForm {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logInForm button {
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}

@@ -44,7 +44,8 @@ const Splash = () => {
 
   return (
     <>
-      {/* <div>
+      <div className='splashPageContainer'>
+        {/* <div>
         <h1>Welcome</h1>
         <form onSubmit={handleSubmit}>
           <div>
@@ -71,32 +72,32 @@ const Splash = () => {
           </div>
         </form>
       </div> */}
-      <div className='splashPageLeftSideMenu'>
-        {user &&
-          <p>YOUR STUFF</p>
-        }
-        <p>
+        <div className='splashPageLeftSide'>
           {user &&
-            <NavLink
-              to="/classes"
-              className="userClasses"
-            >
-              Classes
-            </NavLink>
+            <p>YOUR STUFF</p>
           }
-        </p>
-        <p>
-          {user &&
-            <NavLink
-              to="/lessons"
-              className="userLessons"
-            >
-              Lessons
-            </NavLink>
-          }
-        </p>
-      </div>
-      {/* <div className='spalshPageRightSide'>
+          <p>
+            {user &&
+              <NavLink
+                to="/classes"
+                className="userClasses"
+              >
+                Classes
+              </NavLink>
+            }
+          </p>
+          <p>
+            {user &&
+              <NavLink
+                to="/lessons"
+                className="userLessons"
+              >
+                Lessons
+              </NavLink>
+            }
+          </p>
+        </div>
+        {/* <div className='spalshPageRightSide'>
         <div className='allLessonsContainer'>
           {user && allLessons?.map(lesson => (
             <div className='lessonTile' key={lesson.id}>
@@ -113,12 +114,13 @@ const Splash = () => {
             </div>
           ))}
         </div> */}
-      <div className='splashPageRightSide'>
-        {user &&
-          <AllLessonsPage />
-        }
+        <div className='splashPageRightSide'>
+          {user &&
+            <AllLessonsPage />
+          }
+        </div>
+        {/* </div> */}
       </div>
-      {/* </div> */}
     </>
 
   );
