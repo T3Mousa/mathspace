@@ -15,36 +15,31 @@ function Navigation() {
       <div>
         <NavLink className="homeButton" to="/">mathspace</NavLink>
       </div>
-      {user &&
-        <div className="searchBar">
-          <input
-            type="text"
-            className="searchBarInput"
-            placeholder="Search"
-          />
-          <div className="searchIcon">
-            <div
-              className="magnifyingGlass"
-              onClick={handleNonFunctioningLinks}
-            >
-              <i className="fas fa-search" />
+      <div>
+        {user &&
+          <div className="searchBar">
+            <input
+              type="text"
+              className="searchBarInput"
+              placeholder="Search"
+            />
+            <div className="searchIcon">
+              <div
+                className="magnifyingGlass"
+                onClick={handleNonFunctioningLinks}
+              >
+                <i className="fas fa-search" />
+              </div>
             </div>
           </div>
-        </div>
-      }
+        }
+      </div>
+      <div>
 
+      </div>
       <div className="rightNavBar">
         <ProfileButton user={user} />
       </div>
-      {user && (
-        <div>
-          {user.profileImg ?
-            <img
-              src={user.profileImg}
-              style={{ height: "70px", width: '70px', borderRadius: "50%" }}
-            /> : null}
-        </div>
-      )}
     </div>
   );
 }

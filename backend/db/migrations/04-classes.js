@@ -16,17 +16,17 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             name: {
-                type: Sequelize.STRING(50),
+                type: Sequelize.STRING,
                 allowNull: false,
                 // unique: true
             },
             classImg: {
-                type: Sequelize.STRING(255),
+                type: Sequelize.STRING,
                 allowNull: true,
                 defaultValue: ""
             },
             description: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
                 allowNull: false,
                 defaultValue: ""
             },

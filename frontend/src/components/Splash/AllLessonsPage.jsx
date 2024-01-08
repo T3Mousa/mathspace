@@ -26,8 +26,8 @@ const AllLessonsPage = () => {
                                 <img src={lesson.lessonImg ? lesson.lessonImg : "/images/placeholder.jpeg"} alt={`lesson ${lesson.id} image`} />
                             </div>
                             <div className='lessonTileInfo'>
-                                <p className='lessonTitle'>{lesson.title} </p>
-                                <p>By: {lesson.Teacher.firstName} {lesson.Teacher.lastName}</p>
+                                <h4 className='lessonTitle'>{lesson.title} </h4>
+                                <h5>By: {lesson.Teacher.firstName} {lesson.Teacher.lastName}</h5>
                                 <p>{lesson.description}</p>
                             </div>
                         </NavLink>

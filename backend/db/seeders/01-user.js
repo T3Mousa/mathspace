@@ -1,8 +1,9 @@
+
 'use strict';
 
 const { User, Sequelize } = require('../models');
 const bcrypt = require('bcryptjs');
-
+const { faker } = require('@faker-js/faker')
 
 let options = {};
 options.tableName = 'Users';
@@ -11,8 +12,8 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
 
-module.exports = {
 
+module.exports = {
 
   up: async (queryInterface, Sequelize) => {
     options.tableName = "Users";
@@ -24,7 +25,7 @@ module.exports = {
         email: 'demo_teacher@user.io',
         username: 'Demo-teacher',
         hashedPassword: bcrypt.hashSync('password'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'First',
@@ -33,7 +34,7 @@ module.exports = {
         email: 'teacher1@user.io',
         username: 'TeacherUser1',
         hashedPassword: bcrypt.hashSync('password2'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Third',
@@ -42,7 +43,7 @@ module.exports = {
         email: 'teacher2@user.io',
         username: 'TeacherUser2',
         hashedPassword: bcrypt.hashSync('password3'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Demo',
@@ -51,7 +52,7 @@ module.exports = {
         email: 'demo_student@user.io',
         username: 'Demo-student',
         hashedPassword: bcrypt.hashSync('password4'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'First',
@@ -60,7 +61,7 @@ module.exports = {
         email: 'student1@user.io',
         username: 'StudentUser1',
         hashedPassword: bcrypt.hashSync('password5'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Second',
@@ -69,7 +70,7 @@ module.exports = {
         email: 'student2@user.io',
         username: 'StudentUser2',
         hashedPassword: bcrypt.hashSync('password6'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Third',
@@ -78,7 +79,7 @@ module.exports = {
         email: 'student3@user.io',
         username: 'StudentUser3',
         hashedPassword: bcrypt.hashSync('password7'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Fourth',
@@ -87,7 +88,7 @@ module.exports = {
         email: 'student4@user.io',
         username: 'StudentUser4',
         hashedPassword: bcrypt.hashSync('password8'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Fifth',
@@ -96,7 +97,7 @@ module.exports = {
         email: 'student5@user.io',
         username: 'StudentUser5',
         hashedPassword: bcrypt.hashSync('password9'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Sixth',
@@ -105,7 +106,7 @@ module.exports = {
         email: 'student6@user.io',
         username: 'StudentUser6',
         hashedPassword: bcrypt.hashSync('password10'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Seventh',
@@ -114,7 +115,7 @@ module.exports = {
         email: 'student7@user.io',
         username: 'StudentUser7',
         hashedPassword: bcrypt.hashSync('password11'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Eighth',
@@ -123,7 +124,7 @@ module.exports = {
         email: 'student8@user.io',
         username: 'StudentUser8',
         hashedPassword: bcrypt.hashSync('password12'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Ninth',
@@ -132,7 +133,7 @@ module.exports = {
         email: 'student9@user.io',
         username: 'StudentUser9',
         hashedPassword: bcrypt.hashSync('password13'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Tenth',
@@ -141,7 +142,7 @@ module.exports = {
         email: 'student10@user.io',
         username: 'StudentUser10',
         hashedPassword: bcrypt.hashSync('password14'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Eleventh',
@@ -150,7 +151,7 @@ module.exports = {
         email: 'student11@user.io',
         username: 'StudentUser11',
         hashedPassword: bcrypt.hashSync('password15'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Twelfth',
@@ -159,7 +160,7 @@ module.exports = {
         email: 'student12@user.io',
         username: 'StudentUser12',
         hashedPassword: bcrypt.hashSync('password16'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Thirteenth',
@@ -168,7 +169,7 @@ module.exports = {
         email: 'student13@user.io',
         username: 'StudentUser13',
         hashedPassword: bcrypt.hashSync('password17'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Fourteenth',
@@ -177,7 +178,7 @@ module.exports = {
         email: 'student14@user.io',
         username: 'StudentUser14',
         hashedPassword: bcrypt.hashSync('password18'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Fifteenth',
@@ -186,7 +187,7 @@ module.exports = {
         email: 'student15@user.io',
         username: 'StudentUser15',
         hashedPassword: bcrypt.hashSync('password19'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Sixteenth',
@@ -195,7 +196,7 @@ module.exports = {
         email: 'student16@user.io',
         username: 'StudentUser16',
         hashedPassword: bcrypt.hashSync('password20'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Seventeenth',
@@ -204,7 +205,7 @@ module.exports = {
         email: 'student17@user.io',
         username: 'StudentUser17',
         hashedPassword: bcrypt.hashSync('password21'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Eighteenth',
@@ -213,7 +214,7 @@ module.exports = {
         email: 'student18@user.io',
         username: 'StudentUser18',
         hashedPassword: bcrypt.hashSync('password22'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Ninteenth',
@@ -222,7 +223,7 @@ module.exports = {
         email: 'student19@user.io',
         username: 'StudentUser19',
         hashedPassword: bcrypt.hashSync('password23'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
       {
         firstName: 'Twentieth',
@@ -231,7 +232,7 @@ module.exports = {
         email: 'student20@user.io',
         username: 'StudentUser20',
         hashedPassword: bcrypt.hashSync('password24'),
-        profileImg: ''
+        profileImg: faker.image.avatar()
       },
     ], {})
   },

@@ -22,7 +22,7 @@ function UpdateLessonModal({ lessonId }) {
         dispatch(getLessonDetails(lessonId))
     }, [dispatch, lessonId])
 
-    const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" "))
+    const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" ") || lessonContent.startsWith(" "))
 
     useEffect(() => {
         if (lessonToEdit) {
@@ -50,7 +50,8 @@ function UpdateLessonModal({ lessonId }) {
         if (!description) errorsObject.description = "Lesson description is required"
         if (description.startsWith(" ")) errorsObject.description = "Lesson description cannot begin with an empty space"
         if (lessonImg && (!lessonImg.endsWith('.png') && !lessonImg.endsWith('.jpg') && !lessonImg.endsWith('.jpeg'))) errorsObject.lessonImg = "Lesson image URL must end in .png, .jpg, or .jpeg"
-        // if (lessonContent.startsWith(" ")) errorsObject.lessonContent = "Lesson content cannot begin with an empty space"
+        if (lessonImg.startsWith(" ")) errorsObject.lessonImg = "Lesson image URL cannot begin with an empty space"
+        if (lessonContent.startsWith(" ")) errorsObject.lessonContent = "Lesson content cannot begin with an empty space"
 
         if (Object.values(errorsObject).length) {
             setErrors(errorsObject)
@@ -81,7 +82,7 @@ function UpdateLessonModal({ lessonId }) {
                 {errors.title && <p>{errors.title}</p>}
                 {title.startsWith(" ") && <p>Lesson title cannot begin with an empty space</p>}
                 <label>
-                    Lesson Image
+                    Lesson Image (optional)
                     <input
                         type="text"
                         value={lessonImg}
@@ -101,6 +102,16 @@ function UpdateLessonModal({ lessonId }) {
                 </label>
                 {errors.description && <p>{errors.description}</p>}
                 {description.startsWith(" ") && <p>Lesson description cannot begin with an empty space</p>}
+                <label>
+                    Lesson Content (optional)
+                    <textarea
+                        type="text"
+                        value={lessonContent}
+                        onChange={(e) => setLessonContent(e.target.value)}
+                    />
+                </label>
+                {errors.lessonContent && <p>{errors.lessonContent}</p>}
+                {lessonContent.startsWith(" ") && <p>Lesson content cannot begin with an empty space</p>}
                 <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Save</button>
             </form>

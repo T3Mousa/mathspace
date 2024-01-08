@@ -17,7 +17,12 @@
     border-radius: 5px;
     padding: 2px 10px;
     margin: 20px 10px;
-    font-weight: bold;
+    /* font-weight: bold; */
+    box-shadow: 2px 2px 2px gray;
+}
+
+.allLessonsContainer h3 {
+    padding-left: 10px;
 }
 
 /* .lessonTile {
@@ -40,9 +45,16 @@
     border: 2px solid #9C0D63;
 }
 
-.splashPageLeftSideMenu {
+.splashPageLeftSide {
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+    padding-left: 10px;
+}
+
+
+
+.splashPageRightSide {
+    position: relative;
 }
 
 .userClasses,
@@ -56,4 +68,10 @@
 .userClasses:hover,
 .userLessons:hover {
     text-decoration: underline;
+    font-weight: 500;
+}
+
+.splashPageContainer {
+    display: grid;
+    grid-template-columns: 20% 80%;
 }

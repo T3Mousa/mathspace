@@ -26,12 +26,12 @@ module.exports = {
                 defaultValue: ""
             },
             description: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
                 allowNull: false,
                 defaultValue: ""
             },
             lessonContent: {
-                type: Sequelize.BLOB,
+                type: Sequelize.TEXT,
                 allowNull: true,
                 defaultValue: ""
             },
