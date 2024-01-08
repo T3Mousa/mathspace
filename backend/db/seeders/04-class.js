@@ -2,6 +2,7 @@
 
 const { Class, Sequelize } = require('../models');
 const bcrypt = require('bcryptjs');
+const { faker } = require('@faker-js/faker')
 
 
 let options = {};
@@ -19,56 +20,56 @@ module.exports = {
         return queryInterface.bulkInsert(options, [
             {
                 name: 'Algebra 1 - Period 1',
-                classImg: '',
-                description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 1
             },
             {
                 name: 'Algebra 2 - Period 2',
-                classImg: '',
-                description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 1
             },
             {
                 name: 'Geometry - Period 3',
-                classImg: '',
-                description: 'Geometry covers various concepts, including coordinate and spatial geometry, introductory trigonometry, angles, parallel lines, congruent and similar triangles, polygons and other figures, circles, the Pythagorean Theorem, etc.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Geometry covers various concepts, including coordinate and spatial geometry, introductory trigonometry, angles, parallel lines, congruent and similar triangles, polygons and other figures, circles, the Pythagorean Theorem, etc.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 1
             },
             {
                 name: 'Algebra 1 - Period 1',
-                classImg: '',
-                description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 2
             },
             {
                 name: 'Geometry - Period 2',
-                classImg: '',
-                description: 'Geometry covers various concepts, including coordinate and spatial geometry, introductory trigonometry, angles, parallel lines, congruent and similar triangles, polygons and other figures, circles, the Pythagorean Theorem, etc.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Geometry covers various concepts, including coordinate and spatial geometry, introductory trigonometry, angles, parallel lines, congruent and similar triangles, polygons and other figures, circles, the Pythagorean Theorem, etc.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 2
             },
             {
                 name: 'Algebra 2 - Period 3',
-                classImg: '',
-                description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 2
             },
             {
                 name: 'Algebra 2 - Period 1',
-                classImg: '',
-                description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 3
             },
             {
                 name: 'Geometry - Period 2',
-                classImg: '',
-                description: 'Geometry covers various concepts, including coordinate and spatial geometry, introductory trigonometry, angles, parallel lines, congruent and similar triangles, polygons and other figures, circles, the Pythagorean Theorem, etc.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Geometry covers various concepts, including coordinate and spatial geometry, introductory trigonometry, angles, parallel lines, congruent and similar triangles, polygons and other figures, circles, the Pythagorean Theorem, etc.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 3
             },
             {
                 name: 'Algebra 1 - Period 3',
-                classImg: '',
-                description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.',
+                classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
+                description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 3
             },
         ], {})

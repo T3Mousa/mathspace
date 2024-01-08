@@ -1,0 +1,35 @@
+.classDetailsHeading img {
+    width: 200px;
+    height: 200px;
+    padding-right: 15px;
+}
+
+.classDetailsHeading {
+    margin: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+.classNameRoster {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.classImageDesc {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    /* margin: auto 10px */
+}
+
+.createLessonButton {
+    margin: 20px;
+    background-color: #9C0D63;
+    border: 2px solid #9C0D63;
+    border-radius: 3px;
+}
+
+.lessonDropDownList {
+    margin: 20px
+}

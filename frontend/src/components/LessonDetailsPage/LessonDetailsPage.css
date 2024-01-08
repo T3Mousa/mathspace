@@ -1,4 +1,51 @@
 .lessonDetailsHeading img {
     height: 300px;
-    width: 300px;
+    width: 70%;
+    margin: 20px;
+}
+
+.lessonDetailsHeading h2,
+h3 {
+    margin: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.lessonDetailsButtons {
+    margin: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.lessonContent {
+    margin: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.editLessonButton {
+    border: 2px solid #9C0D63;
+    background-color: #9C0D63;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 3px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    margin: 5px
+}
+
+.editLessonButton:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.deleteLessonButton {
+    border: 2px solid #9C0D63;
+    background-color: #9C0D63;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 3px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    margin: 5px
+}
+
+.deleteLessonButton:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }

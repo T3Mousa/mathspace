@@ -8,6 +8,7 @@ import CreateNewClassModal from '../CreateNewClassModal';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import ClassMenuButton from './ClassMenuButton';
 
+
 const ClassManagerPage = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
@@ -52,14 +53,14 @@ const ClassManagerPage = () => {
                         {user && user.userRole === "teacher" &&
                             <>
                                 <h1>Manage Your Classes</h1>
-                                <div className="addClassButton">
+                                <button className="addClassButton">
                                     <OpenModalButton
                                         buttonText='Add New Class'
                                         className="addClassButtonModal"
                                         onButtonClick={closeMenu}
                                         modalComponent={<CreateNewClassModal />}
                                     />
-                                </div>
+                                </button>
                             </>
                         }
                         {user && user.userRole === "student" &&
@@ -81,25 +82,30 @@ const ClassManagerPage = () => {
                                 </thead>
                                 <tbody>
                                     {allUserClasses?.map(cls => (
-                                        <tr key={cls.id}>
-                                            {cls.classImg &&
-                                                <td>
-                                                    <NavLink
-                                                        className="classNameTile"
-                                                        to={`/classes/${cls.id}`}
-                                                        key={cls.id}
-                                                    >
-                                                        <div className="classImage">
+                                        <tr key={cls.id} className='tableRows'>
+                                            {/* {cls.classImg && */}
+                                            <td>
+                                                <NavLink
+                                                    className="classNameTile"
+                                                    to={`/classes/${cls.id}`}
+                                                    key={cls.id}
+                                                >
+                                                    <div className="classImage">
+                                                        {cls.classImg &&
                                                             <img
                                                                 src={cls.classImg}
                                                                 // alt={cls.name}
                                                                 className="clsImg"
                                                             />
-                                                        </div>
-                                                    </NavLink>
-                                                </td>
-                                            }
-                                            <td>
+                                                        }
+                                                    </div>
+                                                    <div className="className">
+                                                        <p>{cls.name}</p>
+                                                    </div>
+                                                </NavLink>
+                                            </td>
+                                            {/* } */}
+                                            {/* <td>
                                                 <NavLink
                                                     className="classNameTile"
                                                     to={`/classes/${cls.id}`}
@@ -109,7 +115,7 @@ const ClassManagerPage = () => {
                                                         <p>{cls.name}</p>
                                                     </div>
                                                 </NavLink>
-                                            </td>
+                                            </td> */}
                                             <td>
                                                 <div className="studentCount">
                                                     <p>{cls.studentCount} students</p>

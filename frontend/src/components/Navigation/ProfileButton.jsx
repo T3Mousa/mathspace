@@ -51,24 +51,38 @@ function ProfileButton() {
       <div className="withUserNavBar">
         {user && (
           <button className="profileNameButton" onClick={toggleMenu}>
-            {user.firstName} {user.lastName}
+            <div className="profilePic">
+              {user.profileImg ?
+                <img
+                  src={user.profileImg}
+                // style={{ height: "50px", width: '50px', borderRadius: "50%" }}
+                /> : null}
+            </div>
+            <div className="fullName">
+              {user.firstName} {user.lastName}
+            </div>
             <span className="caretIcon"> <i className="fas fa-caret-down"> </i> </span>
           </button>
         )}
         {showMenu && (
-          <ul className={"profile-dropdown"} ref={ulRef}>
+          <div className={"profile-dropdown"} ref={ulRef}>
             {user && (
               <>
-                <li>{user.firstName} {user.lastName}</li>
-                <li>{user.email}</li>
-                <li>
-                  <button onClick={logout}>Log Out</button>
-                </li>
+                <div>{user.firstName} {user.lastName}</div>
+                <div>{user.email}</div>
+                <div className="logOutButton" onClick={logout}>
+                  Sign out
+                </div>
               </>
             )
             }
-          </ul>
+          </div>
         )}
+        {user &&
+          <button className="worldGlobe" onClick={handleNonFunctioningLinks}>
+            <i className="fa-solid fa-globe"></i>
+          </button>
+        }
       </div>
 
       <div className="noUserNavBar">
@@ -89,12 +103,12 @@ function ProfileButton() {
                 modalComponent={<LoginFormModal />}
               />
             </div>
+            <button className="worldGlobe" onClick={handleNonFunctioningLinks}>
+              <i className="fa-solid fa-globe"></i>
+            </button>
           </>
         )}
       </div>
-      <button className="worldGlobe" onClick={handleNonFunctioningLinks}>
-        <i className="fa-solid fa-globe"></i>
-      </button>
     </>
   );
 }

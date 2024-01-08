@@ -1,0 +1,8 @@
+.createLessonForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.createLessonForm button {
+    cursor: pointer;
+}
