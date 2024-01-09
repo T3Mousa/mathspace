@@ -91,8 +91,8 @@ function UpdateClassModal({ classId }) {
                 </label>
                 {errors.description && <p className='errors'>{errors.description}</p>}
                 {description.startsWith(" ") && <p className='errors'>Class description cannot begin with an empty space</p>}
-                <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Save</button>
+                <button onClick={closeModal}>Cancel</button>
             </form>
         </>
     );

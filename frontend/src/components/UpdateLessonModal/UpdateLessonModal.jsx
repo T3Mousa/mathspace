@@ -112,8 +112,8 @@ function UpdateLessonModal({ lessonId }) {
                 </label>
                 {errors.lessonContent && <p className='errors'>{errors.lessonContent}</p>}
                 {lessonContent.startsWith(" ") && <p className='errors'>Lesson content cannot begin with an empty space</p>}
-                <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Save</button>
+                <button onClick={closeModal}>Cancel</button>
             </form>
         </>
     );
