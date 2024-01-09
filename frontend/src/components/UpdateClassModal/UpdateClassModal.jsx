@@ -57,8 +57,8 @@ function UpdateClassModal({ classId }) {
 
     return (
         <>
-            <h1>Edit Class</h1>
-            <form onSubmit={handleSubmit}>
+            <form className="editClassForm" onSubmit={handleSubmit}>
+                <h1>Edit Class</h1>
                 <label>
                     Class Name
                     <input
@@ -68,8 +68,8 @@ function UpdateClassModal({ classId }) {
                         required
                     />
                 </label>
-                {errors.name && <p>{errors.name}</p>}
-                {name.startsWith(" ") && <p>Class name cannot begin with an empty space</p>}
+                {errors.name && <p className='errors'>{errors.name}</p>}
+                {name.startsWith(" ") && <p className='errors'>Class name cannot begin with an empty space</p>}
                 <label>
                     Class Image
                     <input
@@ -78,8 +78,8 @@ function UpdateClassModal({ classId }) {
                         onChange={(e) => setClassImg(e.target.value)}
                     />
                 </label>
-                {errors.classImg && <p>{errors.classImg}</p>}
-                {classImg.startsWith(" ") && <p>Class image URL cannot begin with an empty space</p>}
+                {errors.classImg && <p className='errors'>{errors.classImg}</p>}
+                {classImg.startsWith(" ") && <p className='errors'>Class image URL cannot begin with an empty space</p>}
                 <label>
                     Class Description
                     <textarea
@@ -89,8 +89,8 @@ function UpdateClassModal({ classId }) {
                         required
                     />
                 </label>
-                {errors.description && <p>{errors.description}</p>}
-                {description.startsWith(" ") && <p>Class description cannot begin with an empty space</p>}
+                {errors.description && <p className='errors'>{errors.description}</p>}
+                {description.startsWith(" ") && <p className='errors'>Class description cannot begin with an empty space</p>}
                 <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Save</button>
             </form>

@@ -1,15 +1,39 @@
-// import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 // import { updateUserThunk } from '../../redux/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 // import { getAllLessons } from '../../redux/lessons';
 import AllLessonsPage from './AllLessonsPage';
+import OpenModalButton from '../OpenModalButton/OpenModalButtton';
+import SignupFormModal from '../SignupFormModal';
 import './Splash.css'
 
 const Splash = () => {
   // const dispatch = useDispatch();
   const user = useSelector((state) => state?.session?.user)
-  // const allLessons = useSelector(state => state?.lessons?.allLessons)
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
+
+  const toggleMenu = (e) => {
+    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    setShowMenu(!showMenu);
+  };
+
+  useEffect(() => {
+    if (!showMenu) return;
+
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    document.addEventListener("click", closeMenu);
+
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
+
+  const closeMenu = () => setShowMenu(false);
 
   // //image url to send to aws
   // const [imgUrl, setImgUrl] = useState("");
@@ -44,34 +68,57 @@ const Splash = () => {
 
   return (
     <>
-      <div className='splashPageContainer'>
-        {/* <div>
+      {/* <div>
         <h1>Welcome</h1>
         <form onSubmit={handleSubmit}>
-          <div>
-            {showUpload && (
-              <label htmlFor='file-upload'> Select From Computer
-                <input
-                  type='file'
-                  id='file-upload'
-                  name="img_url"
-                  onChange={updateImage}
-                  accept='.jpg, .jpeg, .png, .gif'
-                />
-              </label>
+        <div>
+        {showUpload && (
+          <label htmlFor='file-upload'> Select From Computer
+          <input
+          type='file'
+          id='file-upload'
+          name="img_url"
+          onChange={updateImage}
+          accept='.jpg, .jpeg, .png, .gif'
+          />
+          </label>
+          )}
+          {!showUpload && (
+            <div>
+            <img
+            src={previewUrl}
+            alt="preview"
+            />
+            <button>Change Profile</button>
+            </div>
             )}
-            {!showUpload && (
-              <div>
-                <img
-                  src={previewUrl}
-                  alt="preview"
-                />
-                <button>Change Profile</button>
-              </div>
-            )}
+            </div>
+            </form>
+          </div> */}
+      {!user &&
+        <>
+          <div className='noUserDiv'>
+            <h2>
+              Welcome to Mathspace!
+            </h2>
+            <img
+              src="../images/class_image.jpg"
+              className='noUserImage'
+            />
           </div>
-        </form>
-      </div> */}
+          <div className='noUserDiv2'>
+            <div className='noUserButton'>
+              <OpenModalButton
+                buttonText="Create your free account today!"
+                className="noUserButtonModal"
+                onButtonClick={closeMenu}
+                modalComponent={<SignupFormModal />}
+              />
+            </div>
+          </div>
+        </>
+      }
+      <div className='splashPageContainer'>
         <div className='splashPageLeftSide'>
           {user &&
             <p>YOUR STUFF</p>
@@ -120,7 +167,7 @@ const Splash = () => {
           }
         </div>
         {/* </div> */}
-      </div>
+      </div >
     </>
 
   );

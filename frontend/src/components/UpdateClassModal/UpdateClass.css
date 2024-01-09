@@ -1,0 +1,39 @@
+p.errors {
+    color: red
+}
+
+.editClassForm {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', sans-serif;
+
+    margin: 20px 40px 40px 40px;
+    padding: 20px 20px;
+}
+
+.editClassForm button {
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    padding: 8px;
+    margin: 10px;
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    color: white;
+    font-size: medium;
+    transition: transform 0.3 ease;
+    border-radius: 3px;
+}
+
+.editClassForm button:hover {
+    transform: scale(1.01);
+    box-shadow: 2px 2px 2px gray;
+}
+
+.editClassForm label {
+    margin-bottom: 5px;
+}
+
+.editClassForm input,
+textarea {
+    margin-left: 5px;
+}

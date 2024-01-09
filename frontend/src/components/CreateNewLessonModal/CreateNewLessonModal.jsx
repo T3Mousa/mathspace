@@ -61,25 +61,19 @@ function CreateNewLessonModal({ classId }) {
                         placeholder="Enter lesson title"
                     />
                 </label>
-                {errors.title && <p>{errors.title}</p>}
-                {title.startsWith(" ") && <p>Lesson title cannot begin with an empty space</p>}
+                {errors.title && <p className="errors">{errors.title}</p>}
+                {title.startsWith(" ") && <p className="errors">Lesson title cannot begin with an empty space</p>}
                 <label>
                     Lesson Image (optional)
                     <input
                         type="text"
                         value={lessonImg}
-                        onChange={(e) => {
-                            if (!e.target.value) {
-                                setLessonImg("/images/placeholder.jpeg")
-                            } else {
-                                setLessonImg(e.target.value)
-                            }
-                        }
-                        }
+                        onChange={(e) => setLessonImg(e.target.value)}
                         placeholder="Lesson image url"
                     />
                 </label>
-                {lessonImg.startsWith(" ") && <p>Lesson image URL cannot begin with an empty space</p>}
+                {errors.lessonImg && <p className="errors">{errors.lessonImg}</p>}
+                {lessonImg.startsWith(" ") && <p className="errors">Lesson image URL cannot begin with an empty space</p>}
                 <label>
                     Lesson Description
                     <textarea
@@ -90,18 +84,19 @@ function CreateNewLessonModal({ classId }) {
                         placeholder="Enter lesson description"
                     />
                 </label>
-                {errors.description && <p>{errors.description}</p>}
-                {description.startsWith(" ") && <p>Lesson description cannot begin with an empty space</p>}
+                {errors.description && <p className="errors">{errors.description}</p>}
+                {description.startsWith(" ") && <p className="errors">Lesson description cannot begin with an empty space</p>}
                 <label>
                     Lesson Content (optional)
                     <textarea
                         type="text"
-                        value={lessonContent ? lessonContent : null}
+                        value={lessonContent ? lessonContent : ""}
                         onChange={(e) => setLessonContent(e.target.value)}
                         placeholder="Lesson content"
                     />
                 </label>
-                {lessonContent.startsWith(" ") && <p>Lesson content cannot begin with an empty space</p>}
+                {errors.lessonContent && <p className="errors">{errors.lessonContent}</p>}
+                {lessonContent.startsWith(" ") && <p className="errors">Lesson content cannot begin with an empty space</p>}
                 <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Add Lesson</button>
             </form>

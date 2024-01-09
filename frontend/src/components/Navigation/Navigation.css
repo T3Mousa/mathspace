@@ -35,7 +35,8 @@
     color: rgb(153, 153, 153);
     font-size: 25px;
     font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
+    font-weight: 500;
+
 }
 
 .homeButton:hover {

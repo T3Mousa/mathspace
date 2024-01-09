@@ -1,0 +1,47 @@
+.createClassForm {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%;
+    width: 100%; */
+    margin: 40px 80px 60px 80px;
+    padding: 20px 60px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.createClassForm button {
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    padding: 8px;
+    margin: 10px
+}
+
+.createClassForm label {
+    margin-bottom: 5px;
+}
+
+.createClassForm input,
+textarea {
+    margin-left: 5px;
+}
+
+.createClassForm button {
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    padding: 8px;
+    margin: 10px;
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    color: white;
+    font-size: medium;
+    transition: transform 0.3 ease;
+    border-radius: 3px;
+}
+
+.createClassForm button:hover {
+    transform: scale(1.01);
+    box-shadow: 2px 2px 2px gray;
+}
+
+p.errors {
+    color: red
+}

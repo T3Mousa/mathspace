@@ -9,7 +9,7 @@ import DeleteLessonModal from '../DeleteLessonModal';
 
 const LessonDetailsPage = () => {
     const { lessonId } = useParams()
-    console.log(lessonId)
+    // console.log(lessonId)
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     const lesson = useSelector(state => state?.lessons?.lessonDeets)
@@ -50,7 +50,16 @@ const LessonDetailsPage = () => {
             {isLoaded &&
                 <>
                     <div className='lessonDetailsHeading'>
-                        <img src={lesson.lessonImg} alt={lesson.title} />
+                        {lesson.lessonImg ?
+                            <img
+                                src={lesson.lessonImg}
+                                className='lessonImg'
+                            /> :
+                            <img
+                                src="../images/placeholder.jpeg"
+                                className="clsImg"
+                            />
+                        }
                         <h2>{lesson.title}</h2>
                         <h3>{lesson.description}</h3>
 
@@ -61,22 +70,21 @@ const LessonDetailsPage = () => {
                     <div className='lessonDetailsButtons'>
                         {lesson.Class.Teacher.userId === user.id && (
                             <>
-                                <button className='editLessonButton'>
+                                <div className='editLessonButton'>
                                     <OpenModalButton
                                         buttonText="Edit Lesson"
                                         className="editLessonButton"
                                         onButtonClick={closeMenu}
                                         modalComponent={<UpdateLessonModal lessonId={lesson.id} />}
                                     />
-                                </button>
-                                {/* <button>Delete Lesson</button> */}
-                                <button className='deleteLessonButton'>
+                                </div>
+                                <div className='deleteLessonButton'>
                                     <OpenModalButton
                                         buttonText="Delete Lesson"
                                         onButtonClick={closeMenu}
-                                        modalComponent={<DeleteLessonModal lessonId={lesson.id} />}
+                                        modalComponent={<DeleteLessonModal lesson={lesson} />}
                                     />
-                                </button>
+                                </div>
                             </>
                         )}
                     </div>

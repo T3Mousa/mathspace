@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import './DeleteLesson.css'
 
-function DeleteLessonModal({ lessonId }) {
+function DeleteLessonModal({ lesson }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { closeModal } = useModal()
 
     const confirmDelete = (e) => {
         e.preventDefault();
-        return dispatch(deleteLesson(lessonId))
-            .then(navigate('/lessons'))
+        return dispatch(deleteLesson(lesson.id))
+            .then(navigate(`/classes/${lesson.classId}`))
             .then(closeModal)
     };
 
@@ -26,10 +26,10 @@ function DeleteLessonModal({ lessonId }) {
             <h1>Confirm Delete</h1>
             <h3>Are you sure you want to delete this lesson?</h3>
             <div className='deleteLessonModalButtons'>
-                <button className='deleteLessonButton' onClick={confirmDelete}>
+                <button className='deleteLessonModalButton' onClick={confirmDelete}>
                     Yes (Delete Lesson)
                 </button>
-                <button className='cancelDeleteLessonButton' onClick={cancelDelete}>
+                <button className='cancelDeleteLessonModalButton' onClick={cancelDelete}>
                     No (Keep Lesson)
                 </button>
             </div>
