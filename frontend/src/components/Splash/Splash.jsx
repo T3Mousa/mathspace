@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 // import { updateUserThunk } from '../../redux/session';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 // import { getAllLessons } from '../../redux/lessons';
 import AllLessonsPage from './AllLessonsPage';
