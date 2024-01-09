@@ -40,7 +40,8 @@
 }
 
 .homeButton:hover {
-    color: rgb(119, 119, 119)
+    color: rgb(119, 119, 119);
+    cursor: pointer;
 }
 
 .searchBar {
@@ -92,7 +93,8 @@
 .searchIcon:hover {
     background-color: rgb(235, 235, 235);
     height: 30px;
-    width: 30px
+    width: 30px;
+    cursor: pointer;
 }
 
 .magnifyingGlass {
@@ -165,6 +167,7 @@
     color: black;
     background-color: rgb(231, 231, 231);
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .profileNameButton {
@@ -178,6 +181,10 @@
     flex-direction: row;
     align-items: center;
     border-radius: 3px;
+}
+
+.profileNameButton:hover {
+    cursor: pointer;
 }
 
 .profileNameButton img {

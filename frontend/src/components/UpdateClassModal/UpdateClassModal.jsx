@@ -39,7 +39,7 @@ function UpdateClassModal({ classId }) {
         if (name.startsWith(" ")) errorsObject.name = "Class name cannot begin with an empty space"
         if (!description) errorsObject.description = "Class description is required"
         if (description.startsWith(" ")) errorsObject.description = "Class description cannot begin with an empty space"
-        if (classImg && (!classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"
+        // if (classImg && (!classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"
 
         if (Object.values(errorsObject).length) {
             setErrors(errorsObject)
@@ -78,7 +78,7 @@ function UpdateClassModal({ classId }) {
                         onChange={(e) => setClassImg(e.target.value)}
                     />
                 </label>
-                {errors.classImg && <p className='errors'>{errors.classImg}</p>}
+                {/* {errors.classImg && <p className='errors'>{errors.classImg}</p>} */}
                 {classImg.startsWith(" ") && <p className='errors'>Class image URL cannot begin with an empty space</p>}
                 <label>
                     Class Description

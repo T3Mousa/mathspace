@@ -49,7 +49,7 @@ function UpdateLessonModal({ lessonId }) {
         if (title.startsWith(" ")) errorsObject.title = "Lesson title cannot begin with an empty space"
         if (!description) errorsObject.description = "Lesson description is required"
         if (description.startsWith(" ")) errorsObject.description = "Lesson description cannot begin with an empty space"
-        if (lessonImg && (!lessonImg.endsWith('.png') && !lessonImg.endsWith('.jpg') && !lessonImg.endsWith('.jpeg'))) errorsObject.lessonImg = "Lesson image URL must end in .png, .jpg, or .jpeg"
+        // if (lessonImg && (!lessonImg.endsWith('.png') && !lessonImg.endsWith('.jpg') && !lessonImg.endsWith('.jpeg'))) errorsObject.lessonImg = "Lesson image URL must end in .png, .jpg, or .jpeg"
         if (lessonImg.startsWith(" ")) errorsObject.lessonImg = "Lesson image URL cannot begin with an empty space"
         if (lessonContent.startsWith(" ")) errorsObject.lessonContent = "Lesson content cannot begin with an empty space"
 
@@ -89,7 +89,7 @@ function UpdateLessonModal({ lessonId }) {
                         onChange={(e) => setLessonImg(e.target.value)}
                     />
                 </label>
-                {errors.lessonImg && <p className='errors'>{errors.lessonImg}</p>}
+                {/* {errors.lessonImg && <p className='errors'>{errors.lessonImg}</p>} */}
                 {lessonImg.startsWith(" ") && <p className='errors'>Lesson image URL cannot begin with an empty space</p>}
                 <label>
                     Lesson Description
