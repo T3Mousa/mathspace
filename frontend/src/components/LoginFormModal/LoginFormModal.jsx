@@ -61,8 +61,8 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        {email.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        {errors.email && <p className='errors'>{errors.email}</p>}
+        {email.startsWith(" ") && <p className='errors'>Input fields cannot begin with an empty space</p>}
         <label>
           Password
           <input
@@ -72,8 +72,8 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        {password.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        {errors.password && <p className='errors'>{errors.password}</p>}
+        {password.startsWith(" ") && <p className='errors'>Input fields cannot begin with an empty space</p>}
         <div className='logInFormButton'>
           <button type="submit" disabled={submitDisabled}>Log In</button>
         </div>

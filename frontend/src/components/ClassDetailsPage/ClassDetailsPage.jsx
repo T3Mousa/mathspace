@@ -69,40 +69,34 @@ const ClassDetailsPage = () => {
                             }
                         </div>
                         <div className="classImageDesc">
-                            {cls.classImg &&
+                            {cls.classImg ?
                                 <img
                                     src={cls.classImg}
-                                    alt={cls.name}
+                                    className="clsImg"
+                                /> :
+                                <img
+                                    src="../images/placeholder.jpeg"
                                     className="clsImg"
                                 />
                             }
-                            <h4>{cls.description}</h4>
+                            <div>
+                                <h4>Class Description:</h4>
+                                <p>{cls.description}</p>
+                            </div>
                         </div>
                     </div>
+
                     <p>
-                        {user.userRole === "teacher" &&
-                            <>
-                                <button className="createLessonButton">
-                                    <OpenModalButton
-                                        buttonText='Create a New Lesson'
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<CreateNewLessonModal classId={cls.id} />}
-                                    />
-                                </button>
-                            </>
-                        }
-                    </p>
-                    <p>
-                        <div className='.lessonDropDownList'>
+                        <div className='lessonDropDownList'>
                             <label>
                                 Class Lessons:
                                 <select
                                     value={selectedLesson ? selectedLesson.id : ''}
                                     onChange={handleLessonSelection}
                                 >
-                                    <option value="" disabled>Select a lesson...</option>
+                                    <option value="" disabled className='lessonOption'>Select a lesson...</option>
                                     {clsLessons?.map((lesson) => (
-                                        <option key={lesson.id} value={lesson.id}>
+                                        <option key={lesson.id} value={lesson.id} className='lessonOption'>
                                             {lesson.title}
                                         </option>
                                     )
@@ -112,14 +106,26 @@ const ClassDetailsPage = () => {
                         </div>
                     </p>
                     {selectedLesson &&
-                        <div>
+                        <div className='selectedLesson'>
                             <p>Title: {selectedLesson.title}</p>
                             <p>Description: {selectedLesson.description}</p>
-                            <NavLink to={`/lessons/${selectedLesson.id}`}>
+                            <NavLink to={`/lessons/${selectedLesson.id}`} className="lessonLink">
                                 Go to lesson details page <i className="fa-solid fa-arrow-right"></i>
                             </NavLink>
                         </div>}
-
+                    <p>
+                        {user.userRole === "teacher" &&
+                            <>
+                                <div className="createLessonButton">
+                                    <OpenModalButton
+                                        buttonText='Create a New Lesson'
+                                        onButtonClick={closeMenu}
+                                        modalComponent={<CreateNewLessonModal classId={cls.id} />}
+                                    />
+                                </div>
+                            </>
+                        }
+                    </p>
                 </>
             }
         </>

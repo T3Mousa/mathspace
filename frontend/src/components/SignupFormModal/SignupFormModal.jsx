@@ -61,7 +61,7 @@ function SignupFormModal() {
     <>
       <form className="signUpForm" onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
-        {errors.server && <p>{errors.server}</p>}
+        {errors.server && <p className="errors">{errors.server}</p>}
         <label>
           Email
           <input
@@ -71,8 +71,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        {email.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        {errors.email && <p className="errors">{errors.email}</p>}
+        {email.startsWith(" ") && <p className="errors">Input fields cannot begin with an empty space</p>}
         <label>
           First Name
           <input
@@ -82,8 +82,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        {firstName.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        {errors.firstName && <p className="errors">{errors.firstName}</p>}
+        {firstName.startsWith(" ") && <p className="errors">Input fields cannot begin with an empty space</p>}
         <label>
           Last Name
           <input
@@ -93,8 +93,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        {lastName.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        {errors.lastName && <p className="errors">{errors.lastName}</p>}
+        {lastName.startsWith(" ") && <p className="errors">Input fields cannot begin with an empty space</p>}
         {/* <label>
           Are you a teacher or a student?
           <select
@@ -115,8 +115,8 @@ function SignupFormModal() {
             onChange={(e) => setProfileImg(e.target.value)}
           />
         </label>
-        {profileImg.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
-        <div>
+        {profileImg.startsWith(" ") && <p className="errors">Input fields cannot begin with an empty space</p>}
+        <div className="userRoleRadioButtons">
           Role:
           <label>
 
@@ -138,7 +138,7 @@ function SignupFormModal() {
             />
             Student
           </label>
-          {errors.userRole && <p>{errors.userRole}</p>}
+          {errors.userRole && <p className="errors">{errors.userRole}</p>}
         </div>
         <label>
           Password
@@ -149,8 +149,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        {password.startsWith(" ") && <p>Input fields cannot begin with an empty space</p>}
+        {errors.password && <p className="errors">{errors.password}</p>}
+        {password.startsWith(" ") && <p className="errors">Input fields cannot begin with an empty space</p>}
         <label>
           Confirm Password
           <input
@@ -160,7 +160,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className="errors">{errors.confirmPassword}</p>}
         <button type="submit" disabled={submitDisabled}>Sign Up</button>
       </form>
     </>

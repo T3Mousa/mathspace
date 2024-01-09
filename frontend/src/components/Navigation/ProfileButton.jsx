@@ -56,7 +56,11 @@ function ProfileButton() {
                 <img
                   src={user.profileImg}
                 // style={{ height: "50px", width: '50px', borderRadius: "50%" }}
-                /> : null}
+                /> :
+                <img
+                  src="../images/profile_image_placeholder.jpg"
+                />
+              }
             </div>
             <div className="fullName">
               {user.firstName} {user.lastName}

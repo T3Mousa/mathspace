@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { getAllClasses } from '../../redux/classes';
 import StudentClassTile from './StudentClassTile';
-import './ClassManagerPage.css'
 import CreateNewClassModal from '../CreateNewClassModal';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import ClassMenuButton from './ClassMenuButton';
+import './ClassManagerPage.css'
 
 
 const ClassManagerPage = () => {
@@ -53,14 +53,14 @@ const ClassManagerPage = () => {
                         {user && user.userRole === "teacher" &&
                             <>
                                 <h1>Manage Your Classes</h1>
-                                <button className="addClassButton">
+                                <div className="addClassButton">
                                     <OpenModalButton
                                         buttonText='Add New Class'
                                         className="addClassButtonModal"
                                         onButtonClick={closeMenu}
                                         modalComponent={<CreateNewClassModal />}
                                     />
-                                </button>
+                                </div>
                             </>
                         }
                         {user && user.userRole === "student" &&
@@ -91,10 +91,13 @@ const ClassManagerPage = () => {
                                                     key={cls.id}
                                                 >
                                                     <div className="classImage">
-                                                        {cls.classImg &&
+                                                        {cls.classImg ?
                                                             <img
                                                                 src={cls.classImg}
-                                                                // alt={cls.name}
+                                                                className="clsImg"
+                                                            /> :
+                                                            <img
+                                                                src="../images/placeholder.jpeg"
                                                                 className="clsImg"
                                                             />
                                                         }

@@ -49,8 +49,8 @@ function CreateNewClassModal() {
 
     return (
         <>
-            <h1>Create a Class</h1>
-            <form onSubmit={handleSubmit}>
+            <form className="createClassForm" onSubmit={handleSubmit}>
+                <h1>Create a Class</h1>
                 <label>
                     Class Name
                     <input
@@ -61,8 +61,19 @@ function CreateNewClassModal() {
                         placeholder="Enter class name"
                     />
                 </label>
-                {errors.name && <p>{errors.name}</p>}
-                {name.startsWith(" ") && <p>Class name cannot begin with an empty space</p>}
+                {errors.name && <p className="errors">{errors.name}</p>}
+                {name.startsWith(" ") && <p className="errors">Class name cannot begin with an empty space</p>}
+                <label>
+                    Class Image (optional)
+                    <input
+                        type="text"
+                        value={classImg}
+                        onChange={(e) => setClassImg(e.target.value)}
+                        placeholder="Class image url"
+                    />
+                </label>
+                {errors.classImg && <p className="errors">{errors.classImg}</p>}
+                {classImg.startsWith(" ") && <p className="errors">Class image URL cannot begin with an empty space</p>}
                 <label>
                     Class Description
                     <textarea
@@ -73,8 +84,8 @@ function CreateNewClassModal() {
                         placeholder="Enter class description"
                     />
                 </label>
-                {errors.description && <p>{errors.description}</p>}
-                {description.startsWith(" ") && <p>Class description cannot begin with an empty space</p>}
+                {errors.description && <p className="errors">{errors.description}</p>}
+                {description.startsWith(" ") && <p className="errors">Class description cannot begin with an empty space</p>}
                 <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Add Class</button>
             </form>

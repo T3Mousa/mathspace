@@ -1,0 +1,38 @@
+.deleteLessonForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 20px 60px 20px;
+    padding: 20px 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.deleteLessonModalButtons {
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteLessonModalButton,
+.cancelDeleteLessonModalButton {
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    padding: 8px;
+    margin: 10px;
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    border-radius: 2px;
+    color: white;
+    font-size: medium;
+    transition: transform 0.3 ease;
+}
+
+.cancelDeleteLessonModalButton:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px gray;
+}
+
+.deleteLessonModalButton:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 2px gray;
+}

@@ -1,5 +1,5 @@
 .classDetailsHeading img {
-    width: 200px;
+    width: 300px;
     height: 200px;
     padding-right: 15px;
 }
@@ -8,12 +8,18 @@
     margin: 20px;
     padding-right: 20px;
     padding-top: 10px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .classNameRoster {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    font-family: 'Roboto', sans-serif;
+}
+
+.classRoster {
+    font-family: 'Roboto', sans-serif;
 }
 
 .classImageDesc {
@@ -23,13 +29,51 @@
     /* margin: auto 10px */
 }
 
-.createLessonButton {
-    margin: 20px;
+.createLessonButton button {
+    margin: 40px 20px;
     background-color: #9C0D63;
     border: 2px solid #9C0D63;
     border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    font-size: 18px;
+    transition: transform 0.3 ease;
 }
 
-.lessonDropDownList {
-    margin: 20px
+.createLessonButton button:hover {
+    transform: scale(1.02);
+    box-shadow: 2px 2px 2px gray;
+}
+
+.lessonDropDownList,
+.selectedLesson {
+    margin: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+.lessonOption,
+.lessonDropDownList label {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.lessonLink,
+.fa-solid.fa-arrow-right {
+    text-decoration: none;
+    color: #9c0d639a;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.lessonLink:hover,
+.fa-solid.fa-arrow-right:hover {
+    color: #9C0D63;
+}
+
+select:focus {
+    outline: none;
+    border: 2px solid #9C0D63;
+    border-radius: 2px;
 }

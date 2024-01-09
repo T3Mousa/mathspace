@@ -2,9 +2,49 @@
     display: flex;
     flex-direction: column;
     font-family: 'Roboto', sans-serif;
+
+    margin: 20px 40px 40px 40px;
+    padding: 20px 20px;
+}
+
+.signUpForm h1 {
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    justify-content: center;
 }
 
 .signUpForm button {
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
+    padding: 8px;
+    margin: 10px;
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    color: white;
+    font-size: medium;
+    transition: transform 0.3 ease;
+    border-radius: 3px;
+}
+
+p.errors {
+    color: red
+}
+
+.signUpForm button:hover {
+    transform: scale(1.01);
+    box-shadow: 2px 2px 2px gray;
+}
+
+.signUpForm label {
+    margin-bottom: 10px;
+}
+
+.signUpForm input {
+    margin-left: 5px;
+}
+
+.userRoleRadioButtons label,
+.userRoleRadioButtons input {
+    margin-left: 5px;
+    margin-bottom: 10px;
 }

@@ -68,8 +68,8 @@ function UpdateLessonModal({ lessonId }) {
 
     return (
         <>
-            <h1>Edit Lesson</h1>
-            <form onSubmit={handleSubmit}>
+            <form className="editLessonForm" onSubmit={handleSubmit}>
+                <h1>Edit Lesson</h1>
                 <label>
                     Lesson Title
                     <input
@@ -79,8 +79,8 @@ function UpdateLessonModal({ lessonId }) {
                         required
                     />
                 </label>
-                {errors.title && <p>{errors.title}</p>}
-                {title.startsWith(" ") && <p>Lesson title cannot begin with an empty space</p>}
+                {errors.title && <p className='errors'>{errors.title}</p>}
+                {title.startsWith(" ") && <p className='errors'>Lesson title cannot begin with an empty space</p>}
                 <label>
                     Lesson Image (optional)
                     <input
@@ -89,8 +89,8 @@ function UpdateLessonModal({ lessonId }) {
                         onChange={(e) => setLessonImg(e.target.value)}
                     />
                 </label>
-                {errors.lessonImg && <p>{errors.lessonImg}</p>}
-                {lessonImg.startsWith(" ") && <p>Lesson image URL cannot begin with an empty space</p>}
+                {errors.lessonImg && <p className='errors'>{errors.lessonImg}</p>}
+                {lessonImg.startsWith(" ") && <p className='errors'>Lesson image URL cannot begin with an empty space</p>}
                 <label>
                     Lesson Description
                     <textarea
@@ -100,8 +100,8 @@ function UpdateLessonModal({ lessonId }) {
                         required
                     />
                 </label>
-                {errors.description && <p>{errors.description}</p>}
-                {description.startsWith(" ") && <p>Lesson description cannot begin with an empty space</p>}
+                {errors.description && <p className='errors'>{errors.description}</p>}
+                {description.startsWith(" ") && <p className='errors'>Lesson description cannot begin with an empty space</p>}
                 <label>
                     Lesson Content (optional)
                     <textarea
@@ -110,8 +110,8 @@ function UpdateLessonModal({ lessonId }) {
                         onChange={(e) => setLessonContent(e.target.value)}
                     />
                 </label>
-                {errors.lessonContent && <p>{errors.lessonContent}</p>}
-                {lessonContent.startsWith(" ") && <p>Lesson content cannot begin with an empty space</p>}
+                {errors.lessonContent && <p className='errors'>{errors.lessonContent}</p>}
+                {lessonContent.startsWith(" ") && <p className='errors'>Lesson content cannot begin with an empty space</p>}
                 <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Save</button>
             </form>

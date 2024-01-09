@@ -41,7 +41,7 @@ function ClassMenuButton({ cls }) {
                 <i className="fa-solid fa-ellipsis-vertical"></i>
             </button>
             {showMenu && (
-                <ul className={ulClassName} ref={ulRef}>
+                <div className={ulClassName} ref={ulRef}>
 
                     <>
                         <OpenModalMenuItem
@@ -55,7 +55,7 @@ function ClassMenuButton({ cls }) {
                             modalComponent={<DeleteClassModal classId={cls.id} />}
                         />
                     </>
-                </ul>
+                </div>
             )}
         </>
     );
