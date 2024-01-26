@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {};
-options.tableName = "Assignments";
+options.tableName = "Grades";
 if (process.env.NODE_ENV === 'production') {
     options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -15,30 +15,26 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            title: {
-                type: Sequelize.STRING(50),
-                allowNull: false,
-                // unique: true
-            },
-            description: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                defaultValue: ""
-            },
-            assignmentContent: {
-                type: Sequelize.BLOB,
-                allowNull: true,
-                defaultValue: ""
-            },
-            dueDate: {
-                type: Sequelize.DATEONLY,
-                allowNull: false,
-            },
-            classId: {
+            assignmentId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                references: { model: 'Classes', schema: options.schema },
+                references: { model: 'Assignments', schema: options.schema },
                 onDelete: 'CASCADE'
+            },
+            studentId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: { model: 'Students', schema: options.schema },
+                onDelete: 'CASCADE'
+            },
+            grade: {
+                type: Sequelize.DECIMAL(5, 2),
+                allowNull: true,
+            },
+            isCompleted: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+                defaultValue: false
             },
             createdAt: {
                 allowNull: false,

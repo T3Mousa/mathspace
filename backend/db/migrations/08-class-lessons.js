@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {};
-options.tableName = "Teachers";
+options.tableName = "ClassLessons";
 if (process.env.NODE_ENV === 'production') {
     options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -15,10 +15,16 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            userId: {
+            lessonId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                references: { model: 'Users', schema: options.schema, where: { userRole: 'teacher' } },
+                references: { model: 'Lessons', schema: options.schema },
+                onDelete: 'CASCADE'
+            },
+            classId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: { model: 'Classes', schema: options.schema },
                 onDelete: 'CASCADE'
             },
         }, options);
