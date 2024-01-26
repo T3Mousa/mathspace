@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {};
-options.tableName = "Lessons";
+options.tableName = "Assignments";
 if (process.env.NODE_ENV === 'production') {
     options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -20,20 +20,19 @@ module.exports = {
                 allowNull: false,
                 // unique: true
             },
-            lessonImg: {
-                type: Sequelize.STRING(255),
-                allowNull: true,
-                defaultValue: ""
-            },
             description: {
-                type: Sequelize.TEXT,
+                type: Sequelize.STRING,
                 allowNull: false,
                 defaultValue: ""
             },
-            lessonContent: {
-                type: Sequelize.TEXT,
+            assignmentContent: {
+                type: Sequelize.BLOB,
                 allowNull: true,
                 defaultValue: ""
+            },
+            dueDate: {
+                type: Sequelize.DATEONLY,
+                allowNull: false,
             },
             // classId: {
             //     type: Sequelize.INTEGER,
