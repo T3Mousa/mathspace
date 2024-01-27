@@ -18,6 +18,18 @@ module.exports = (sequelize, DataTypes) => {
             Assignment.hasMany(models.ClassAssignment, { foreignKey: 'assignmentId', onDelete: 'cascade', hooks: 'true' })
             Assignment.belongsToMany(models.Class, { through: models.ClassAssignment, foreignKey: 'classId', otherKey: 'assignmentId' })
         }
+        addClass = async function (classId) {
+            try {
+                const existingAssociation = await this.hasClass(classId)
+                if (existingAssociation) {
+                    return;
+                }
+                await this.addClass(classId);
+                return;
+            } catch (err) {
+                throw new Error('Error adding class to lesson', err);
+            }
+        }
     }
     Assignment.init({
         title: {
