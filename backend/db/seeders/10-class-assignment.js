@@ -23,11 +23,11 @@ module.exports = {
             },
             {
                 assignmentId: 1,
-                classId: 4
+                classId: 2
             },
             {
                 assignmentId: 1,
-                classId: 9
+                classId: 3
             },
             {
                 assignmentId: 2,
@@ -35,71 +35,71 @@ module.exports = {
             },
             {
                 assignmentId: 2,
-                classId: 4
+                classId: 2
             },
             {
                 assignmentId: 2,
+                classId: 3
+            },
+            {
+                assignmentId: 3,
+                classId: 4
+            },
+            {
+                assignmentId: 3,
+                classId: 5
+            },
+            {
+                assignmentId: 3,
+                classId: 6
+            },
+            {
+                assignmentId: 4,
+                classId: 4
+            },
+            {
+                assignmentId: 4,
+                classId: 5
+            },
+            {
+                assignmentId: 4,
+                classId: 6
+            },
+            {
+                assignmentId: 5,
+                classId: 7
+            },
+            {
+                assignmentId: 5,
+                classId: 8
+            },
+            {
+                assignmentId: 5,
                 classId: 9
             },
             {
-                assignmentId: 3,
-                classId: 2
-            },
-            {
-                assignmentId: 3,
-                classId: 6
-            },
-            {
-                assignmentId: 3,
+                assignmentId: 6,
                 classId: 7
             },
             {
-                assignmentId: 4,
-                classId: 2
+                assignmentId: 6,
+                classId: 8
             },
             {
-                assignmentId: 4,
-                classId: 6
+                assignmentId: 6,
+                classId: 9
             },
             {
-                assignmentId: 4,
+                assignmentId: 7,
                 classId: 7
             },
             {
-                assignmentId: 5,
-                classId: 3
-            },
-            {
-                assignmentId: 5,
-                classId: 5
-            },
-            {
-                assignmentId: 5,
-                classId: 8
-            },
-            {
-                assignmentId: 6,
-                classId: 3
-            },
-            {
-                assignmentId: 6,
-                classId: 5
-            },
-            {
-                assignmentId: 6,
+                assignmentId: 7,
                 classId: 8
             },
             {
                 assignmentId: 7,
-                classId: 3
-            },
-            {
-                assignmentId: 7,
-                classId: 5
-            },
-            {
-                assignmentId: 7,
-                classId: 8
+                classId: 9
             },
 
         ], {})

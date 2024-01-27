@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import { getAllLessons } from '../../redux/lessons';
+import { getAllClassLessons, getAllLessons } from '../../redux/lessons';
 import './LessonManagerPage.css'
 
 const LessonManagerPage = () => {
@@ -9,9 +9,15 @@ const LessonManagerPage = () => {
     const user = useSelector(state => state.session.user)
     // console.log(user)
     const allLessons = useSelector(state => state?.lessons?.allLessons)
-    // console.log(allLessons)
-    const allUserLessons = allLessons?.filter(lesson => lesson.Teacher.userId === user.id)
-    // console.log(allUserLessons)
+    console.log(allLessons)
+    // const allLessonClassNames = allLessons?.map(subArr => subArr.ClassesInfo.map(cls => { cls.teacherUser.id === user.id }))
+    // console.log(allLessonClassNames)
+    const allUserLessons = allLessons?.map(lesson => lesson?.ClassesInfo.filter(cls => cls.teacherUserId === user.id))
+    // const allUserLessons = allLessons?.ClassesInfo?.map(lesson => lesson.teacherUser.id === user.id)
+    // const allUserLessons = allLessons?.map(subArray => subArray?.ClassLessons?.find(cls => cls?.Class.Teacher.userId === user.id))
+    // lesson?.ClassLessons?.find(cls => cls.Class.Teacher.userId === user.id)
+    console.log(allUserLessons)
+
 
     useEffect(() => {
         dispatch(getAllLessons())
@@ -45,7 +51,7 @@ const LessonManagerPage = () => {
                                 </div>
                                 <div className='lessonTitleAuthor'>
                                     <p>Title: {lesson.title}</p>
-                                    <p>Class: {lesson.ClassInfo.name}</p>
+                                    <p>Class: {allUserLessons.name}</p>
                                     <p>By: You</p>
                                 </div>
                             </NavLink>

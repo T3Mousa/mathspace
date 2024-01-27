@@ -23,11 +23,11 @@ module.exports = {
             },
             {
                 lessonId: 1,
-                classId: 4
+                classId: 2
             },
             {
                 lessonId: 1,
-                classId: 9
+                classId: 3
             },
             {
                 lessonId: 2,
@@ -35,11 +35,11 @@ module.exports = {
             },
             {
                 lessonId: 2,
-                classId: 4
+                classId: 2
             },
             {
                 lessonId: 2,
-                classId: 9
+                classId: 3
             },
             {
                 lessonId: 3,
@@ -47,83 +47,83 @@ module.exports = {
             },
             {
                 lessonId: 3,
-                classId: 4
+                classId: 2
             },
             {
                 lessonId: 3,
+                classId: 3
+            },
+            {
+                lessonId: 4,
+                classId: 4
+            },
+            {
+                lessonId: 4,
+                classId: 5
+            },
+            {
+                lessonId: 4,
+                classId: 6
+            },
+            {
+                lessonId: 5,
+                classId: 4
+            },
+            {
+                lessonId: 5,
+                classId: 5
+            },
+            {
+                lessonId: 5,
+                classId: 6
+            },
+            {
+                lessonId: 6,
+                classId: 4
+            },
+            {
+                lessonId: 6,
+                classId: 5
+            },
+            {
+                lessonId: 6,
+                classId: 6
+            },
+            {
+                lessonId: 7,
+                classId: 7
+            },
+            {
+                lessonId: 7,
+                classId: 8
+            },
+            {
+                lessonId: 7,
                 classId: 9
             },
             {
-                lessonId: 4,
-                classId: 2
-            },
-            {
-                lessonId: 4,
-                classId: 6
-            },
-            {
-                lessonId: 4,
-                classId: 7
-            },
-            {
-                lessonId: 5,
-                classId: 2
-            },
-            {
-                lessonId: 5,
-                classId: 6
-            },
-            {
-                lessonId: 5,
-                classId: 7
-            },
-            {
-                lessonId: 6,
-                classId: 2
-            },
-            {
-                lessonId: 6,
-                classId: 6
-            },
-            {
-                lessonId: 6,
-                classId: 7
-            },
-            {
-                lessonId: 7,
-                classId: 3
-            },
-            {
-                lessonId: 7,
-                classId: 5
-            },
-            {
-                lessonId: 7,
-                classId: 8
-            },
-            {
                 lessonId: 8,
-                classId: 3
-            },
-            {
-                lessonId: 8,
-                classId: 5
+                classId: 7
             },
             {
                 lessonId: 8,
                 classId: 8
             },
             {
-                lessonId: 9,
-                classId: 3
+                lessonId: 8,
+                classId: 9
             },
             {
                 lessonId: 9,
-                classId: 5
+                classId: 7
             },
             {
                 lessonId: 9,
                 classId: 8
+            },
+            {
+                lessonId: 9,
+                classId: 9
             },
 
         ], {})
