@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, sequelize, Sequelize } = require('../../db/models');
+const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, ClassLesson, ClassAssignment, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateClassParams, validateLessonParams } = require('./validators')
 const { Op } = require("sequelize");
@@ -121,16 +121,28 @@ router.get('/:classId', requireAuth, async (req, res) => {
                         ]
                     },
                     {
-                        model: Lesson,
-                        attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                        model: ClassLesson,
+                        attributes: ['classId', 'lessonId'],
+                        include: [
+                            {
+                                model: Lesson,
+                                attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                            }
+                        ]
                     },
                     {
-                        model: Assignment,
-                        attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
-                        include: {
-                            model: Grade,
-                            attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
-                        }
+                        model: ClassAssignment,
+                        attributes: ['classId', 'assignmentId'],
+                        include: [
+                            {
+                                model: Assignment,
+                                attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
+                                include: {
+                                    model: Grade,
+                                    attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
+                                }
+                            }
+                        ]
                     }
                 ],
                 attributes: [
@@ -181,17 +193,29 @@ router.get('/:classId', requireAuth, async (req, res) => {
                         ]
                     },
                     {
-                        model: Lesson,
-                        attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                        model: ClassLesson,
+                        attributes: ['classId', 'lessonId'],
+                        include: [
+                            {
+                                model: Lesson,
+                                attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                            }
+                        ]
                     },
                     {
-                        model: Assignment,
-                        attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
-                        include: {
-                            model: Grade,
-                            where: { studentId: studId },
-                            attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
-                        }
+                        model: ClassAssignment,
+                        attributes: ['classId', 'assignmentId'],
+                        include: [
+                            {
+                                model: Assignment,
+                                attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
+                                include: {
+                                    model: Grade,
+                                    where: { studentId: studId },
+                                    attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
+                                }
+                            }
+                        ]
                     }
                 ]
             })
