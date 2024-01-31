@@ -13,8 +13,8 @@ function LoginFormModal() {
 
   const submitDisabled = (email.startsWith(" ") || password.startsWith(" "))
 
-  const demoSignIn = () => {
-    // e.preventDefault()
+  const demoSignIn = (e) => {
+    e.preventDefault()
     // setErrors({});
     // setEmail('demo_teacher@user.io')
     // setPassword('password')
@@ -78,7 +78,7 @@ function LoginFormModal() {
           <button type="submit" disabled={submitDisabled}>Log In</button>
         </div>
         <div className="demoUserButton">
-          <button type='submit' className="demoUserButton" onClick={(e) => demoSignIn(e)}>Demo Teacher User</button>
+          <button className="demoUserButton" onClick={(e) => demoSignIn(e)}>Demo Teacher User</button>
         </div>
       </form>
     </>

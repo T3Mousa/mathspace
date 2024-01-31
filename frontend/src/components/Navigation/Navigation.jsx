@@ -12,10 +12,10 @@ function Navigation() {
 
   return (
     <div className="navBar">
-      <div>
+      <div className="homeButton">
         <NavLink className="homeButton" to="/">mathspace</NavLink>
       </div>
-      <div>
+      <div className="searchBarContainer">
         {user &&
           <div className="searchBar">
             <input

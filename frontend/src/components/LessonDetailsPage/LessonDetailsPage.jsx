@@ -50,6 +50,7 @@ const LessonDetailsPage = () => {
             {isLoaded &&
                 <>
                     <div className='lessonDetailsHeading'>
+                        <h2>Lesson Title: {lesson.title}</h2>
                         {lesson.lessonImg ?
                             <img
                                 src={lesson.lessonImg}
@@ -60,12 +61,13 @@ const LessonDetailsPage = () => {
                                 className="clsImg"
                             />
                         }
-                        <h2>{lesson.title}</h2>
-                        <h3>{lesson.description}</h3>
 
+                        <h3>Lesson Description: </h3>
+                        <p>{lesson.description}</p>
                     </div>
                     <div className='lessonContent'>
-                        {lesson.lessonContent}
+                        Lesson Content:
+                        <p>{lesson.lessonContent}</p>
                     </div>
                     <div className='lessonDetailsButtons'>
                         {lesson.Class.Teacher.userId === user.id && (
