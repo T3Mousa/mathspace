@@ -5,16 +5,20 @@
 }
 
 .lessonDetailsHeading h2,
-h3 {
+.lessonDetailsHeading h3,
+.lessonDetailsHeading p {
     margin: 20px;
     font-family: 'Roboto', sans-serif;
 }
 
 .lessonDetailsButtons {
+    position: absolute;
+    top: 16%;
+    right: 5%;
     margin: 20px;
     font-family: 'Roboto', sans-serif;
     display: flex;
-    flex-direction: row;
+    flex-flow: column;
     gap: 10px;
     justify-content: center;
 }
@@ -33,6 +37,8 @@ h3 {
     cursor: pointer;
     margin: 5px;
     padding: 10px;
+    width: 130px;
+    height: 50px;
 }
 
 .editLessonButton button:hover {
@@ -50,6 +56,8 @@ h3 {
     cursor: pointer;
     margin: 5px;
     padding: 10px;
+    width: 130px;
+    height: 50px;
 }
 
 .deleteLessonButton button:hover {
