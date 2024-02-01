@@ -10,7 +10,7 @@ const LessonManagerPage = () => {
     // console.log(user)
     const allUserLessons = useSelector(state => state?.lessons?.allUserLessons)
     console.log(allUserLessons)
-    const allUserLessonClasses = allUserLessons?.map(lesson => lesson?.LessonClasses.map(cls => cls.className))
+    const allUserLessonClasses = allUserLessons?.map(lesson => lesson?.LessonClasses)
     console.log(allUserLessonClasses)
 
 
@@ -35,29 +35,35 @@ const LessonManagerPage = () => {
                 {user && user.userRole === "teacher" && allUserLessons &&
                     < div className='teacherLessonContainer'>
                         {allUserLessons?.map(lesson => (
-                            // <div className='teacherLessonTile' key={lesson.id}>
+                            <div className='teacherLessonTile' key={lesson.id}>
 
-                            <NavLink
-                                className="teacherLessonLink"
-                                to={`/lessons/${lesson.id}`}
-                                key={lesson.id}
-                            >
-                                <div className='lessonImage'>
-                                    <img src={lesson.lessonImg} alt={lesson.title} />
-                                </div>
-                                <div className='lessonTitleAuthor'>
-                                    <p>Title: {lesson.title}</p>
-                                    <p>By: You</p>
-                                    <div>Classes Assigned To:
-                                        <div>
-                                            {lesson?.LessonClasses?.map((cls) => {
-                                                <p key={cls.classId}>{cls.className}</p>
-                                            })}
-                                        </div>
+                                <NavLink
+                                    className="teacherLessonLink"
+                                    to={`/lessons/${lesson.id}`}
+                                    key={lesson.id}
+                                >
+                                    <div className='lessonImage'>
+                                        <img src={lesson.lessonImg} alt={lesson.title} />
                                     </div>
-                                </div>
-                            </NavLink>
-                            // </div>
+                                    <div className='lessonTitleAuthor'>
+                                        <p>Title: {lesson.title}</p>
+                                        <p>By: You</p>
+                                        <p>Classes Assigned To:</p>
+                                        <ul>
+                                            {(() => {
+                                                const lessonClassItems = []
+                                                for (let i = 0; i < lesson.LessonClasses.length; i++) {
+                                                    const lessonClassItem = lesson.LessonClasses[i]
+                                                    lessonClassItems.push(
+                                                        <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
+                                                    )
+                                                }
+                                                return lessonClassItems
+                                            })()}
+                                        </ul>
+                                    </div>
+                                </NavLink>
+                            </div>
                         )
 
                         )}
