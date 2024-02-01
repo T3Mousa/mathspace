@@ -1,26 +1,21 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import { getAllClassLessons, getAllLessons } from '../../redux/lessons';
+import { getAllUserLessons } from '../../redux/lessons';
 import './LessonManagerPage.css'
 
 const LessonManagerPage = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     // console.log(user)
-    const allLessons = useSelector(state => state?.lessons?.allLessons)
-    console.log(allLessons)
-    // const allLessonClassNames = allLessons?.map(subArr => subArr.ClassesInfo.map(cls => { cls.teacherUser.id === user.id }))
-    // console.log(allLessonClassNames)
-    const allUserLessons = allLessons?.map(lesson => lesson?.ClassesInfo.filter(cls => cls.teacherUserId === user.id))
-    // const allUserLessons = allLessons?.ClassesInfo?.map(lesson => lesson.teacherUser.id === user.id)
-    // const allUserLessons = allLessons?.map(subArray => subArray?.ClassLessons?.find(cls => cls?.Class.Teacher.userId === user.id))
-    // lesson?.ClassLessons?.find(cls => cls.Class.Teacher.userId === user.id)
+    const allUserLessons = useSelector(state => state?.lessons?.allUserLessons)
     console.log(allUserLessons)
+    const allUserLessonClasses = allUserLessons?.map(lesson => lesson?.LessonClasses.map(cls => cls.className))
+    console.log(allUserLessonClasses)
 
 
     useEffect(() => {
-        dispatch(getAllLessons())
+        dispatch(getAllUserLessons())
     }, [dispatch])
 
 
@@ -41,6 +36,7 @@ const LessonManagerPage = () => {
                     < div className='teacherLessonContainer'>
                         {allUserLessons?.map(lesson => (
                             // <div className='teacherLessonTile' key={lesson.id}>
+
                             <NavLink
                                 className="teacherLessonLink"
                                 to={`/lessons/${lesson.id}`}
@@ -51,14 +47,20 @@ const LessonManagerPage = () => {
                                 </div>
                                 <div className='lessonTitleAuthor'>
                                     <p>Title: {lesson.title}</p>
-                                    <p>Class: {allUserLessons.name}</p>
                                     <p>By: You</p>
+                                    <div>Classes Assigned To:
+                                        <div>
+                                            {lesson?.LessonClasses?.map((cls) => {
+                                                <p key={cls.classId}>{cls.className}</p>
+                                            })}
+                                        </div>
+                                    </div>
                                 </div>
                             </NavLink>
                             // </div>
                         )
-                        )
-                        }
+
+                        )}
                     </div>
                 }
             </div >

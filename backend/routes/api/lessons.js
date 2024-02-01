@@ -44,14 +44,12 @@ router.get('/', requireAuth, async (req, res) => {
                 "lessonImg",
                 "description",
                 "lessonContent",
-                // "classId",
+                "teacherId",
                 "createdAt",
                 "updatedAt"
             ]
         })
         // console.log(lessons[0].ClassLessons[0].toJSON())
-        // console.log(lessons[0].ClassLessons[1].toJSON())
-        // console.log(lessons[0].ClassLessons[2].toJSON())
         const payload = []
         for (let i = 0; i < lessons.length; i++) {
             const lesson = lessons[i]
@@ -59,11 +57,9 @@ router.get('/', requireAuth, async (req, res) => {
             let lessonClasses = []
             for (let j = 0; j < lessonData.ClassLessons.length; j++) {
                 const cls = lessonData.ClassLessons[j].Class
-                // console.log(cls, "this is me")
-                // lessonClasses.push(cls.Class)
                 lessonClasses.push({
-                    id: cls.id,
-                    name: cls.name,
+                    classId: cls.id,
+                    className: cls.name,
                     teacherId: cls.Teacher.id,
                     teacherUserId: cls.Teacher.userId,
                     teacherUserFirstName: cls.Teacher.User.firstName,
@@ -71,16 +67,8 @@ router.get('/', requireAuth, async (req, res) => {
                 })
             }
             console.log(lessonClasses)
-            // const lessonTeacher = {
-            //     teacherId: lessonData.Class.teacherId,
-            //     userId: lessonData.Class.Teacher.userId,
-            //     firstName: lessonData.Class.Teacher.User.firstName,
-            //     lastName: lessonData.Class.Teacher.User.lastName
-            // }
-            // console.log(lessonTeacher)
 
-            lessonData.ClassesInfo = lessonClasses
-            // lessonData.Teacher = lessonTeacher
+            lessonData.LessonClasses = lessonClasses
             payload.push(lessonData)
             delete lessonData.ClassLessons
         }
@@ -95,19 +83,25 @@ router.get('/', requireAuth, async (req, res) => {
 
 });
 
-// get all lessons that belong to the current uer
+// get all lessons that belong to the current user
 router.get('/current-user', requireAuth, async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
-    if (role === "teacher") {
+    const teach = await Teacher.findOne({
+        where: { userId: userId }
+    })
+    const teachId = teach.dataValues.id
+    if (userId && role === "teacher") {
         const userLessons = await Lesson.findAll({
+            where: { teacherId: teachId },
             include: [
                 {
                     model: ClassLesson,
+                    attributes: ['classId', 'lessonId'],
                     include: [
                         {
                             model: Class,
-                            attributes: ['teacherId'],
+                            attributes: ['id', 'name', 'teacherId'],
                             include: [
                                 {
                                     model: Teacher,
@@ -116,7 +110,7 @@ router.get('/current-user', requireAuth, async (req, res) => {
                                     include: [
                                         {
                                             model: User,
-                                            attributes: ['firstName', 'lastName']
+                                            attributes: ['id', 'firstName', 'lastName']
                                         }
                                     ]
                                 }
@@ -130,6 +124,8 @@ router.get('/current-user', requireAuth, async (req, res) => {
                 "title",
                 "lessonImg",
                 "description",
+                "lessonContent",
+                "teacherId",
                 "createdAt",
                 "updatedAt"
             ],
@@ -138,46 +134,63 @@ router.get('/current-user', requireAuth, async (req, res) => {
         for (let i = 0; i < userLessons.length; i++) {
             const lessons = userLessons[i]
             const lessonData = lessons.toJSON()
+            let lessonClasses = []
+            for (let j = 0; j < lessonData.ClassLessons.length; j++) {
+                const cls = lessonData.ClassLessons[j].Class
+                lessonClasses.push({
+                    classId: cls.id,
+                    className: cls.name,
+                    teacherId: cls.Teacher.id,
+                    teacherUserId: cls.Teacher.userId,
+                    teacherUserFirstName: cls.Teacher.User.firstName,
+                    teacherUserLastName: cls.Teacher.User.lastName
+                })
+            }
+            console.log(lessonClasses)
 
+            lessonData.LessonClasses = lessonClasses
             payload.push(lessonData)
+            delete lessonData.ClassLessons
         }
         res.json({ "Lessons": payload })
 
-    } else if (role === "student") {
-        const userLessons = await Lessons.findAll({
-            include: [
-                {
-                    model: StudentLesson,
-                    where: { studentId: userId },
-                    attributes: []
-                }
-            ],
-            attributes: [
-                "id",
-                "title",
-                "lessonImg",
-                "description",
-                "createdAt",
-                "updatedAt",
-            ],
-        })
-        const payload = []
-        for (let i = 0; i < userLessons.length; i++) {
-            const lessons = userLessons[i]
-            const lessonData = lessons.toJSON()
-
-            // classData.numLessons = classLessonInfo[0].dataValues.numLessons
-            // classData.numAssignments = classAssignmentInfo[0].dataValues.numAssignments
-            payload.push(lessonData)
-        }
-        res.json({ "Lessons": payload })
-
-    } else {
-        res.status(403)
-        return res.json({
-            "message": "Forbidden"
-        })
     }
+    // else if (role === "student") {
+    //     const userLessons = await Lessons.findAll({
+    //         include: [
+    //             {
+    //                 model: StudentLesson,
+    //                 where: { studentId: userId },
+    //                 attributes: []
+    //             }
+    //         ],
+    //         attributes: [
+    //             "id",
+    //             "title",
+    //             "lessonImg",
+    //             "description",
+    // "teacherId",
+    //             "createdAt",
+    //             "updatedAt",
+    //         ],
+    //     })
+    //     const payload = []
+    //     for (let i = 0; i < userLessons.length; i++) {
+    //         const lessons = userLessons[i]
+    //         const lessonData = lessons.toJSON()
+
+    //         // classData.numLessons = classLessonInfo[0].dataValues.numLessons
+    //         // classData.numAssignments = classAssignmentInfo[0].dataValues.numAssignments
+    //         payload.push(lessonData)
+    //     }
+    //     res.json({ "Lessons": payload })
+
+    // } else {
+    //     res.status(403)
+    //     return res.json({
+    //         "message": "Forbidden"
+    //     })
+    // }
 });
 
 //get details of a lesson from an id
@@ -188,7 +201,7 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
     const existingLesson = await Lesson.findByPk(lessonId)
     if (existingLesson) {
         if (userId && role === "teacher") {
-            const teacherLessonData = await Lesson.findOne({
+            const lessonDetails = await Lesson.findOne({
                 where: { id: lessonId },
                 include: [
                     {
@@ -220,13 +233,28 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
                     "lessonImg",
                     "description",
                     "lessonContent",
-                    // "classId",
+                    "teacherId",
                     "createdAt",
                     "updatedAt",
                 ]
             })
+            const lessonDetailsData = lessonDetails.toJSON()
+            let lessonClasses = []
+            for (let i = 0; i < lessonDetailsData.ClassLessons.length; i++) {
+                const cls = lessonDetailsData.ClassLessons[i].Class
+                lessonClasses.push({
+                    classId: cls.id,
+                    className: cls.name,
+                    teacherId: cls.Teacher.id,
+                    teacherUserId: cls.Teacher.userId,
+                    teacherUserFirstName: cls.Teacher.User.firstName,
+                    teacherUserLastName: cls.Teacher.User.lastName
+                })
+            }
 
-            res.json({ "Lesson": teacherLessonData })
+            lessonDetailsData.LessonClasses = lessonClasses
+            delete lessonDetailsData.ClassLessons
+            res.json({ "Lesson": lessonDetailsData })
         } else {
             res.status(403)
             return res.json({
@@ -270,7 +298,8 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
                 title,
                 lessonImg,
                 description,
-                lessonContent
+                lessonContent,
+                teacherId: teacherId
             })
             await newLesson.save()
             console.log(newLesson)

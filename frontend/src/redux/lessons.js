@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_LESSONS = "lessons/GET_LESSONS"
+const GET_USER_LESSONS = "lessons/GET_USER_LESSONS"
 const GET_LESSON_DETAILS = "lessons/GET_LESSON_DETAILS"
 const GET_CLASS_LESSONS = "lessons/GET_CLASS_LESSONS"
 const CREATE_LESSON = "lessons/CREATE_LESSON"
@@ -11,6 +12,11 @@ const REMOVE_LESSON = "lessons/REMOVE_LESSON"
 const getLessons = (lessons) => ({
     type: GET_LESSONS,
     payload: lessons
+})
+
+const getUserLessons = (userLessons) => ({
+    type: GET_USER_LESSONS,
+    payload: userLessons
 })
 
 const lessonDetails = (lessonData) => ({
@@ -46,6 +52,22 @@ export const getAllLessons = () => async (dispatch) => {
         const lessons = data.Lessons
         dispatch(getLessons(lessons))
         return lessons
+    } else if (response.status < 500) {
+        const errorMessages = await response.json();
+        return errorMessages
+    } else {
+        return { server: "Something went wrong. Please try again" }
+    }
+}
+
+export const getAllUserLessons = () => async (dispatch) => {
+    const response = await csrfFetch('/api/lessons/current-user')
+
+    if (response.ok) {
+        const data = await response.json()
+        const userLessons = data.Lessons
+        dispatch(getUserLessons(userLessons))
+        return userLessons
     } else if (response.status < 500) {
         const errorMessages = await response.json();
         return errorMessages
@@ -159,6 +181,22 @@ const lessonsReducer = (state = initialState, action) => {
                 newState = {
                     allLessons: action.payload,
                     allLessonsById: lessonsById,
+                };
+                return newState;
+            } else {
+                newState = action.payload;
+                return newState;
+            }
+        case GET_USER_LESSONS:
+            // console.log(action.payload)
+            if (action.payload) {
+                const userLessonsById = {};
+                action.payload.forEach((lesson) => {
+                    userLessonsById[lesson.id] = lesson;
+                });
+                newState = {
+                    allUserLessons: action.payload,
+                    allUserLessonsById: userLessonsById,
                 };
                 return newState;
             } else {

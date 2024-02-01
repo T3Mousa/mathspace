@@ -400,6 +400,7 @@ router.get('/:classId/lessons', requireAuth, async (req, res) => {
     if (userId && role === "teacher") {
         if (existingClass && existingClass.teacherId === teachId) {
             const classLessons = await Lesson.findAll({
+                where: { teacherId: teachId },
                 include: [
                     {
                         model: ClassLesson,

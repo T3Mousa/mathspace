@@ -19,13 +19,13 @@ module.exports = {
         options.tableName = "Classes";
         return queryInterface.bulkInsert(options, [
             {
-                name: 'Algebra 1 - Period 1',
+                name: 'Algebra - Period 1',
                 classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
                 description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 1
             },
             {
-                name: 'Algebra 2 - Period 2',
+                name: 'Algebra - Period 2',
                 classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
                 description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 1
@@ -37,7 +37,7 @@ module.exports = {
                 teacherId: 1
             },
             {
-                name: 'Algebra 1 - Period 1',
+                name: 'Algebra - Period 1',
                 classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
                 description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 2
@@ -49,13 +49,13 @@ module.exports = {
                 teacherId: 2
             },
             {
-                name: 'Algebra 2 - Period 3',
+                name: 'Algebra - Period 3',
                 classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
                 description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 2
             },
             {
-                name: 'Algebra 2 - Period 1',
+                name: 'Algebra - Period 1',
                 classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
                 description: 'Algebra 2 covers real numbers, operations, and patterns. As well as matrices, complex numbers, logarithms, polynomial equations and inequalities, transformations, mathematical models, scatter plots, and statistics.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 3
@@ -67,7 +67,7 @@ module.exports = {
                 teacherId: 3
             },
             {
-                name: 'Algebra 1 - Period 3',
+                name: 'Algebra - Period 3',
                 classImg: faker.image.urlLoremFlickr({ category: 'nature' }),
                 description: 'Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.' + faker.lorem.sentences({ min: 2, max: 4 }),
                 teacherId: 3

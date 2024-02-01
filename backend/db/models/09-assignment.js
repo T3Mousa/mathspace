@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            // Assignment.belongsTo(models.Class, { foreignKey: 'classId' })
+            Assignment.belongsTo(models.Teacher, { foreignKey: 'teacherId' })
             Assignment.hasMany(models.Grade, { foreignKey: 'assignmentId', onDelete: 'cascade', hooks: 'true' })
             Assignment.belongsToMany(models.Student, { through: models.Grade, foreignKey: 'studentId', otherKey: 'assignmentId' })
             Assignment.hasMany(models.ClassAssignment, { foreignKey: 'assignmentId', onDelete: 'cascade', hooks: 'true' })
@@ -61,10 +61,10 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
-        // classId: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false,
-        // }
+        teacherId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        }
     }, {
         sequelize,
         modelName: 'Assignment',
