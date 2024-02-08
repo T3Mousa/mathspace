@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { getAllUserLessons } from '../../redux/lessons';
+import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import './LessonManagerPage.css'
 
 const LessonManagerPage = () => {
@@ -23,7 +24,17 @@ const LessonManagerPage = () => {
         <>
             <div className="manageLessonsHeader">
                 {user && user.userRole === "teacher" &&
-                    <h1>Manage Your Lessons</h1>
+                    <>
+                        <h1>Manage Your Lessons</h1>
+                        <div className="addLessonButton">
+                            <OpenModalButton
+                                buttonText='Add New Lesson'
+                                className="addClassButtonModal"
+                            // onButtonClick={closeMenu}
+                            // modalComponent={<CreateNewClassModal />}
+                            />
+                        </div>
+                    </>
                 }
                 {user && user.userRole === "student" &&
                     <>
