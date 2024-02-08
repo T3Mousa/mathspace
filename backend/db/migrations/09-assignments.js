@@ -34,12 +34,12 @@ module.exports = {
                 type: Sequelize.DATEONLY,
                 allowNull: false,
             },
-            // classId: {
-            //     type: Sequelize.INTEGER,
-            //     allowNull: false,
-            //     references: { model: 'Classes', schema: options.schema },
-            //     onDelete: 'CASCADE'
-            // },
+            teacherId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: { model: 'Teachers', schema: options.schema },
+                onDelete: 'CASCADE'
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,

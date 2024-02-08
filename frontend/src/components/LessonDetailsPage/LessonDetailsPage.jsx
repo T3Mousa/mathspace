@@ -14,6 +14,8 @@ const LessonDetailsPage = () => {
     const user = useSelector(state => state.session.user)
     const lesson = useSelector(state => state?.lessons?.lessonDeets)
     // console.log(lesson)
+    const lessonClassTeacher = lesson?.LessonClasses[0]
+    // console.log(lessonClassTeacher)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
@@ -50,6 +52,10 @@ const LessonDetailsPage = () => {
             {isLoaded &&
                 <>
                     <div className='lessonDetailsHeading'>
+                        <h2>Lesson Title: {lesson.title}</h2>
+                        <div>
+                            Lesson By: {lessonClassTeacher?.teacherUserFirstName} {lessonClassTeacher?.teacherUserLastName}
+                        </div>
                         {lesson.lessonImg ?
                             <img
                                 src={lesson.lessonImg}
@@ -60,15 +66,17 @@ const LessonDetailsPage = () => {
                                 className="clsImg"
                             />
                         }
-                        <h2>{lesson.title}</h2>
-                        <h3>{lesson.description}</h3>
+
+                        <h3>Lesson Description: <p>{lesson.description}</p></h3>
+
 
                     </div>
                     <div className='lessonContent'>
-                        {lesson.lessonContent}
+                        <p>Lesson Content: </p>
+                        <p>{lesson.lessonContent}</p>
                     </div>
                     <div className='lessonDetailsButtons'>
-                        {lesson.Class.Teacher.userId === user.id && (
+                        {lesson.LessonClasses.find(cls => cls.teacherUserId === user.id) && (
                             <>
                                 <div className='editLessonButton'>
                                     <OpenModalButton

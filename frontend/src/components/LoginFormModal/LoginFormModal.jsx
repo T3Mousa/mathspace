@@ -78,7 +78,7 @@ function LoginFormModal() {
           <button type="submit" disabled={submitDisabled}>Log In</button>
         </div>
         <div className="demoUserButton">
-          <button type='submit' className="demoUserButton" onClick={(e) => demoSignIn(e)}>Demo Teacher User</button>
+          <button className="demoUserButton" onClick={(e) => demoSignIn(e)}>Demo Teacher User</button>
         </div>
       </form>
     </>

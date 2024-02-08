@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, sequelize, Sequelize } = require('../../db/models');
+const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, ClassLesson, ClassAssignment, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateClassParams, validateLessonParams } = require('./validators')
 const { Op } = require("sequelize");
@@ -98,9 +98,18 @@ router.get('/:classId', requireAuth, async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
     const { classId } = req.params
-    const existingClass = await Class.findByPk(classId)
+    // const existingClass = await Class.findByPk(classId)
+    const existingClass = await Class.findOne({
+        where: { id: classId },
+        include: [
+            {
+                model: Teacher,
+                attributes: ["userId"]
+            }
+        ]
+    })
     if (existingClass) {
-        if (role === 'teacher') {
+        if (role === 'teacher' && existingClass.Teacher.userId === userId) {
             const teacherClass = await Class.findOne({
                 where: { id: classId },
                 include: [
@@ -121,16 +130,28 @@ router.get('/:classId', requireAuth, async (req, res) => {
                         ]
                     },
                     {
-                        model: Lesson,
-                        attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                        model: ClassLesson,
+                        attributes: ['classId', 'lessonId'],
+                        include: [
+                            {
+                                model: Lesson,
+                                attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                            }
+                        ]
                     },
                     {
-                        model: Assignment,
-                        attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
-                        include: {
-                            model: Grade,
-                            attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
-                        }
+                        model: ClassAssignment,
+                        attributes: ['classId', 'assignmentId'],
+                        include: [
+                            {
+                                model: Assignment,
+                                attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
+                                include: {
+                                    model: Grade,
+                                    attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
+                                }
+                            }
+                        ]
                     }
                 ],
                 attributes: [
@@ -162,6 +183,11 @@ router.get('/:classId', requireAuth, async (req, res) => {
             // console.log({ "Class": classData })
             res.json({ "Class": classData })
 
+        } else if (role === 'teacher' && existingClass.Teacher.userId !== userId) {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
         } else if (role === "student") {
             const stud = await Student.findOne({
                 where: { userId: userId }
@@ -181,17 +207,29 @@ router.get('/:classId', requireAuth, async (req, res) => {
                         ]
                     },
                     {
-                        model: Lesson,
-                        attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                        model: ClassLesson,
+                        attributes: ['classId', 'lessonId'],
+                        include: [
+                            {
+                                model: Lesson,
+                                attributes: ['id', 'title', 'lessonImg', 'description', 'lessonContent']
+                            }
+                        ]
                     },
                     {
-                        model: Assignment,
-                        attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
-                        include: {
-                            model: Grade,
-                            where: { studentId: studId },
-                            attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
-                        }
+                        model: ClassAssignment,
+                        attributes: ['classId', 'assignmentId'],
+                        include: [
+                            {
+                                model: Assignment,
+                                attributes: ['id', 'title', 'description', 'assignmentContent', 'dueDate'],
+                                include: {
+                                    model: Grade,
+                                    where: { studentId: studId },
+                                    attributes: ['id', 'assignmentId', 'studentId', 'isCompleted', 'grade']
+                                }
+                            }
+                        ]
                     }
                 ]
             })
@@ -361,7 +399,15 @@ router.get('/:classId/lessons', requireAuth, async (req, res) => {
     const teachId = teach.dataValues.id
     if (userId && role === "teacher") {
         if (existingClass && existingClass.teacherId === teachId) {
-            const classLessons = await existingClass.getLessons({
+            const classLessons = await Lesson.findAll({
+                where: { teacherId: teachId },
+                include: [
+                    {
+                        model: ClassLesson,
+                        attributes: ['classId', 'lessonId'],
+                        where: { classId: classId }
+                    }
+                ]
 
             })
             res.json({ "Lessons": classLessons })
@@ -384,49 +430,49 @@ router.get('/:classId/lessons', requireAuth, async (req, res) => {
     }
 })
 
-// create a new lesson for a class that belongs to the current user (teacher users only)
-router.post('/:classId/lessons', requireAuth, validateLessonParams, async (req, res) => {
-    const userId = req.user.id
-    const role = req.user.userRole
-    const { classId } = req.params
-    const { title, lessonImg, description, lessonContent } = req.body
-    const existingClass = await Class.findByPk(classId)
-    console.log(existingClass)
-    const teach = await Teacher.findOne({
-        where: { userId: userId }
-    })
-    const teachId = teach.dataValues.id
-    console.log(teachId)
-    if (userId && role === 'teacher') {
-        if (existingClass && existingClass.teacherId === teachId) {
-            const newLesson = Lesson.build({
-                classId: classId,
-                title,
-                lessonImg,
-                description,
-                lessonContent
-            })
-            await newLesson.save()
-            // console.log(newLesson)
-            res.status(201).json(newLesson)
-        } else if (existingClass && existingClass.teacherId !== teachId) {
-            res.status(403)
-            return res.json({
-                "message": "Forbidden"
-            })
-        } else if (!existingClass) {
-            res.status(404);
-            return res.json({
-                "message": "Class couldn't be found",
-            })
-        }
-    } else if (userId && role !== 'teacher') {
-        res.status(403)
-        return res.json({
-            "message": "Forbidden"
-        })
-    }
-})
+// // create a new lesson for a class that belongs to the current user (teacher users only)
+// router.post('/:classId/lessons', requireAuth, validateLessonParams, async (req, res) => {
+//     const userId = req.user.id
+//     const role = req.user.userRole
+//     const { classId } = req.params
+//     const { title, lessonImg, description, lessonContent } = req.body
+//     const existingClass = await Class.findByPk(classId)
+//     console.log(existingClass)
+//     const teach = await Teacher.findOne({
+//         where: { userId: userId }
+//     })
+//     const teachId = teach.dataValues.id
+//     console.log(teachId)
+//     if (userId && role === 'teacher') {
+//         if (existingClass && existingClass.teacherId === teachId) {
+//             const newLesson = Lesson.build({
+//                 classId: classId,
+//                 title,
+//                 lessonImg,
+//                 description,
+//                 lessonContent
+//             })
+//             await newLesson.save()
+//             // console.log(newLesson)
+//             res.status(201).json(newLesson)
+//         } else if (existingClass && existingClass.teacherId !== teachId) {
+//             res.status(403)
+//             return res.json({
+//                 "message": "Forbidden"
+//             })
+//         } else if (!existingClass) {
+//             res.status(404);
+//             return res.json({
+//                 "message": "Class couldn't be found",
+//             })
+//         }
+//     } else if (userId && role !== 'teacher') {
+//         res.status(403)
+//         return res.json({
+//             "message": "Forbidden"
+//         })
+//     }
+// })
 
 
 

@@ -48,7 +48,7 @@ const ClassManagerPage = () => {
     return (
         <>
             {isLoaded &&
-                <>
+                <div className='manageClassesContainer'>
                     <div className="manageClassesHeader">
                         {user && user.userRole === "teacher" &&
                             <>
@@ -79,36 +79,40 @@ const ClassManagerPage = () => {
                                         <th>Class Roster</th>
                                         <th></th>
                                     </tr>
+                                    <tr className='rowBorderBottom'>
+
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     {allUserClasses?.map(cls => (
-                                        <tr key={cls.id} className='tableRows'>
-                                            {/* {cls.classImg && */}
-                                            <td>
-                                                <NavLink
-                                                    className="classNameTile"
-                                                    to={`/classes/${cls.id}`}
-                                                    key={cls.id}
-                                                >
-                                                    <div className="classImage">
-                                                        {cls.classImg ?
-                                                            <img
-                                                                src={cls.classImg}
-                                                                className="clsImg"
-                                                            /> :
-                                                            <img
-                                                                src="../images/placeholder.jpeg"
-                                                                className="clsImg"
-                                                            />
-                                                        }
-                                                    </div>
-                                                    <div className="className">
-                                                        <p>{cls.name}</p>
-                                                    </div>
-                                                </NavLink>
-                                            </td>
-                                            {/* } */}
-                                            {/* <td>
+                                        <>
+                                            <tr key={cls.id} className='tableRows'>
+                                                {/* {cls.classImg && */}
+                                                <td>
+                                                    <NavLink
+                                                        className="classNameTile"
+                                                        to={`/classes/${cls.id}`}
+                                                        key={cls.id}
+                                                    >
+                                                        <div className="classImage">
+                                                            {cls.classImg ?
+                                                                <img
+                                                                    src={cls.classImg}
+                                                                    className="clsImg"
+                                                                /> :
+                                                                <img
+                                                                    src="../images/placeholder.jpeg"
+                                                                    className="clsImg"
+                                                                />
+                                                            }
+                                                        </div>
+                                                        <div className="className">
+                                                            <p>{cls.name}</p>
+                                                        </div>
+                                                    </NavLink>
+                                                </td>
+                                                {/* } */}
+                                                {/* <td>
                                                 <NavLink
                                                     className="classNameTile"
                                                     to={`/classes/${cls.id}`}
@@ -119,18 +123,23 @@ const ClassManagerPage = () => {
                                                     </div>
                                                 </NavLink>
                                             </td> */}
-                                            <td>
-                                                <div className="studentCount">
-                                                    <p>{cls.studentCount} students</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {/* <button className='verticalDots'>
+                                                <td>
+                                                    <div className="studentCount">
+                                                        <p>{cls.studentCount} students</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {/* <button className='verticalDots'>
                                             <i className="fa-solid fa-ellipsis-vertical"></i>
                                         </button> */}
-                                                <ClassMenuButton cls={cls} />
-                                            </td>
-                                        </tr>
+                                                    <ClassMenuButton cls={cls} />
+                                                </td>
+                                            </tr>
+
+                                            <tr className='rowBorderBottom'>
+
+                                            </tr>
+                                        </>
                                     )
                                     )
                                     }
@@ -150,7 +159,7 @@ const ClassManagerPage = () => {
                             }
                         </div>
                     </div>
-                </>
+                </div>
             }
         </>
     )
