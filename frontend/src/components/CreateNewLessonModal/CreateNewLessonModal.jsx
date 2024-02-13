@@ -18,7 +18,7 @@ function CreateNewLessonModal({ teacherClasses }) {
     const [selectedClasses, setSelectedClasses] = useState([])
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
-    console.log(teacherClasses)
+    // console.log(teacherClasses)
 
     const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" ") || lessonContent.startsWith(" "))
 
@@ -34,8 +34,6 @@ function CreateNewLessonModal({ teacherClasses }) {
             selectedClasses
         }
 
-        console.log(newLessonInfo)
-
         let errorsObj = {}
         if (!title) errorsObj.title = "Lesson title is required"
         if (title.startsWith(" ")) errorsObj.name = "Lesson title cannot begin with an empty space"
@@ -49,7 +47,6 @@ function CreateNewLessonModal({ teacherClasses }) {
             setErrors(errorsObj)
         } else {
             const newLesson = await dispatch(addNewLesson(newLessonInfo))
-            console.log(newLesson)
             await dispatch(getAllUserLessons())
             await dispatch(getAllClasses())
             if (newLesson?.id) navigate(`/my-lessons`)
@@ -115,7 +112,7 @@ function CreateNewLessonModal({ teacherClasses }) {
                         options={teacherClasses.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
                         isMulti
                         onChange={(selectedOptions) => {
-                            console.log(selectedOptions)
+                            // console.log(selectedOptions)
                             setSelectedClasses(selectedOptions)
                         }
                         }

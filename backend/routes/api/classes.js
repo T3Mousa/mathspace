@@ -236,7 +236,7 @@ router.get('/:classId', requireAuth, async (req, res) => {
             const Instructor = {}
             const studentClassData = studentClass.toJSON()
             const teacherInfo = studentClassData.Teacher
-            console.log(teacherInfo)
+            // console.log(teacherInfo)
             Instructor.teacherId = teacherInfo.userId
             Instructor.userId = teacherInfo.User.id
             Instructor.firstName = teacherInfo.User.firstName
@@ -269,7 +269,7 @@ router.post('/', requireAuth, validateClassParams, async (req, res) => {
         where: { userId: userId }
     })
     const teachId = teach.dataValues.id
-    console.log(teachId)
+    // console.log(teachId)
     if (userId && role === 'teacher') {
         const { name, classImg, description } = req.body
         const newClass = Class.build({
@@ -279,7 +279,7 @@ router.post('/', requireAuth, validateClassParams, async (req, res) => {
             description
         })
         await newClass.save()
-        console.log(newClass)
+        // console.log(newClass)
         res.status(201).json(newClass)
     } else if (userId && role !== 'teacher') {
         res.status(403)
@@ -321,7 +321,7 @@ router.put('/:classId', requireAuth, validateClassParams, async (req, res) => {
                 if (description !== undefined) existingClass.description = description
 
                 await existingClass.save()
-                console.log(existingClass)
+                // console.log(existingClass)
                 res.json(existingClass)
             } else {
                 res.status(403)

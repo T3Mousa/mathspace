@@ -110,7 +110,6 @@ export const getAllClassLessons = (classId) => async (dispatch) => {
 }
 
 export const addNewLesson = (lessonInfo) => async (dispatch) => {
-    console.log(lessonInfo)
     const response = await csrfFetch(`/api/lessons`, {
         method: "POST",
         headers: {
@@ -118,7 +117,6 @@ export const addNewLesson = (lessonInfo) => async (dispatch) => {
         },
         body: JSON.stringify(lessonInfo),
     })
-    console.log(response)
     if (response.ok) {
         const newLessonData = await response.json()
         dispatch(createLesson(newLessonData))

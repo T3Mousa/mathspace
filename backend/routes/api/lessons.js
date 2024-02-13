@@ -66,7 +66,7 @@ router.get('/', requireAuth, async (req, res) => {
                     teacherUserLastName: cls.Teacher.User.lastName
                 })
             }
-            console.log(lessonClasses)
+            // console.log(lessonClasses)
 
             lessonData.LessonClasses = lessonClasses
             payload.push(lessonData)
@@ -146,7 +146,7 @@ router.get('/current-user', requireAuth, async (req, res) => {
                     teacherUserLastName: cls.Teacher.User.lastName
                 })
             }
-            console.log(lessonClasses)
+            // console.log(lessonClasses)
 
             lessonData.LessonClasses = lessonClasses
             payload.push(lessonData)
@@ -281,17 +281,15 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
             where: { userId: userId },
             attributes: ['id', 'userId']
         })
-        // console.log(teacher)
         const teacherId = teacher.dataValues.id
         if (teacherId === userId) {
             const teacherClasses = await Class.findAll({
                 where: { teacherId: teacherId }
             })
             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-            console.log(validClassIds)
-            console.log(selectedClasses)
+            // console.log(validClassIds)
             const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
-            console.log(invalidClassIds)
+            // console.log(invalidClassIds)
             if (invalidClassIds.length > 0) {
                 res.status(403)
                 return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -304,10 +302,8 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
                 teacherId: teacherId
             })
             await newLesson.save()
-            console.log(newLesson)
             //associate lesson with specified array of classes in classIds
             for (const selectedClass of selectedClasses) {
-                console.log(selectedClass)
                 await ClassLesson.create({
                     lessonId: newLesson.id,
                     classId: selectedClass.value
