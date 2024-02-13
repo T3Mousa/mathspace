@@ -5,7 +5,8 @@
 }
 
 .lessonDetailsHeading h2,
-h3 {
+.lessonDetailsHeading h3,
+.lessonDetailsHeading p {
     margin: 20px;
     font-family: 'Lato', sans-serif;
 }

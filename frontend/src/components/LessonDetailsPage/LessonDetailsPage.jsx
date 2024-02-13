@@ -70,6 +70,8 @@ const LessonDetailsPage = () => {
                         <h3>Lesson Description: <p>{lesson.description}</p></h3>
 
 
+                        <h3>Lesson Description: </h3>
+                        <p>{lesson.description}</p>
                     </div>
                     <div className='lessonContent'>
                         <p>Lesson Content: </p>

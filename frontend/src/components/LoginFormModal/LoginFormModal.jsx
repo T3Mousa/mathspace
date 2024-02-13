@@ -13,8 +13,8 @@ function LoginFormModal() {
 
   const submitDisabled = (email.startsWith(" ") || password.startsWith(" "))
 
-  const demoSignIn = () => {
-    // e.preventDefault()
+  const demoSignIn = (e) => {
+    e.preventDefault()
     // setErrors({});
     // setEmail('demo_teacher@user.io')
     // setPassword('password')
