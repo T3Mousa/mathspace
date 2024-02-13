@@ -47,10 +47,10 @@ function CreateNewLessonModal({ teacherClasses }) {
             setErrors(errorsObj)
         } else {
             const newLesson = await dispatch(addNewLesson(newLessonInfo))
-            await dispatch(getAllUserLessons())
             await dispatch(getAllClasses())
-            if (newLesson?.id) navigate(`/my-lessons`)
-            closeModal()
+            await dispatch(getAllUserLessons())
+            if (newLesson?.id) await navigate(`/my-lessons`)
+            await closeModal()
 
         }
     };
