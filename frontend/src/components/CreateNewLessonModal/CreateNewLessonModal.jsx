@@ -1,19 +1,24 @@
 import { useState } from "react";
-import { addNewLesson } from "../../redux/lessons";
+import { addNewLesson, getAllUserLessons } from "../../redux/lessons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
+import Select from "react-select";
 import './CreateNewLesson.css'
+import { getAllClasses } from "../../redux/classes";
+// import { getAllClasses } from "../../redux/classes";
 
-function CreateNewLessonModal({ classId }) {
+function CreateNewLessonModal({ teacherClasses }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [title, setTitle] = useState("")
     const [lessonImg, setLessonImg] = useState("")
     const [description, setDescription] = useState("")
     const [lessonContent, setLessonContent] = useState("")
+    const [selectedClasses, setSelectedClasses] = useState([])
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
+    // console.log(teacherClasses)
 
     const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" ") || lessonContent.startsWith(" "))
 
@@ -25,7 +30,8 @@ function CreateNewLessonModal({ classId }) {
             title,
             lessonImg,
             description,
-            lessonContent
+            lessonContent,
+            selectedClasses
         }
 
         let errorsObj = {}
@@ -40,8 +46,10 @@ function CreateNewLessonModal({ classId }) {
         if (Object.values(errorsObj).length) {
             setErrors(errorsObj)
         } else {
-            let newLesson = await dispatch(addNewLesson(classId, newLessonInfo))
-            if (newLesson?.id) navigate(`/lessons/${newLesson.id}`)
+            const newLesson = await dispatch(addNewLesson(newLessonInfo))
+            await dispatch(getAllUserLessons())
+            await dispatch(getAllClasses())
+            if (newLesson?.id) navigate(`/my-lessons`)
             closeModal()
 
         }
@@ -97,6 +105,24 @@ function CreateNewLessonModal({ classId }) {
                 </label>
                 {errors.lessonContent && <p className="errors">{errors.lessonContent}</p>}
                 {lessonContent.startsWith(" ") && <p className="errors">Lesson content cannot begin with an empty space</p>}
+                <label>
+                    Select Classes (to add the lesson to):
+                    <Select
+                        value={selectedClasses}
+                        options={teacherClasses.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
+                        isMulti
+                        onChange={(selectedOptions) => {
+                            // console.log(selectedOptions)
+                            setSelectedClasses(selectedOptions)
+                        }
+                        }
+                    />
+                    {/* <option value="" className="classOptions">Select classes to add the lesson to...</option> */}
+
+
+                    {/* </select> */}
+                </label>
+
                 <button onClick={closeModal}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Add Lesson</button>
             </form>

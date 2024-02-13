@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
         element: <ClassDetailsPage />,
       },
       {
-        path: "/classes",
+        path: "/my-classes",
         element: <ClassManagerPage />,
       },
       // {
@@ -47,7 +47,7 @@ export const router = createBrowserRouter([
         element: <LessonDetailsPage />,
       },
       {
-        path: "/lessons",
+        path: "/my-lessons",
         element: <LessonManagerPage />,
       },
     ],

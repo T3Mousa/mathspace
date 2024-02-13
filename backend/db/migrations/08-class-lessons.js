@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {};
-options.tableName = "Lessons";
+options.tableName = "ClassLessons";
 if (process.env.NODE_ENV === 'production') {
     options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -15,30 +15,16 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            title: {
-                type: Sequelize.STRING(50),
-                allowNull: false,
-                // unique: true
-            },
-            lessonImg: {
-                type: Sequelize.STRING(255),
-                allowNull: true,
-                defaultValue: ""
-            },
-            description: {
-                type: Sequelize.TEXT,
-                allowNull: false,
-                defaultValue: ""
-            },
-            lessonContent: {
-                type: Sequelize.TEXT,
-                allowNull: true,
-                defaultValue: ""
-            },
-            teacherId: {
+            lessonId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
-                references: { model: 'Teachers', schema: options.schema },
+                references: { model: 'Lessons', schema: options.schema },
+                onDelete: 'CASCADE'
+            },
+            classId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                references: { model: 'Classes', schema: options.schema },
                 onDelete: 'CASCADE'
             },
             createdAt: {

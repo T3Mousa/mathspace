@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_LESSONS = "lessons/GET_LESSONS"
+const GET_USER_LESSONS = "lessons/GET_USER_LESSONS"
 const GET_LESSON_DETAILS = "lessons/GET_LESSON_DETAILS"
 const GET_CLASS_LESSONS = "lessons/GET_CLASS_LESSONS"
 const CREATE_LESSON = "lessons/CREATE_LESSON"
@@ -11,6 +12,11 @@ const REMOVE_LESSON = "lessons/REMOVE_LESSON"
 const getLessons = (lessons) => ({
     type: GET_LESSONS,
     payload: lessons
+})
+
+const getUserLessons = (userLessons) => ({
+    type: GET_USER_LESSONS,
+    payload: userLessons
 })
 
 const lessonDetails = (lessonData) => ({
@@ -54,6 +60,22 @@ export const getAllLessons = () => async (dispatch) => {
     }
 }
 
+export const getAllUserLessons = () => async (dispatch) => {
+    const response = await csrfFetch('/api/lessons/current-user')
+
+    if (response.ok) {
+        const data = await response.json()
+        const userLessons = data.Lessons
+        dispatch(getUserLessons(userLessons))
+        return userLessons
+    } else if (response.status < 500) {
+        const errorMessages = await response.json();
+        return errorMessages
+    } else {
+        return { server: "Something went wrong. Please try again" }
+    }
+}
+
 export const getLessonDetails = (lessonId) => async (dispatch) => {
     const response = await csrfFetch(`/api/lessons/${lessonId}`)
     if (response.ok) {
@@ -87,8 +109,8 @@ export const getAllClassLessons = (classId) => async (dispatch) => {
     }
 }
 
-export const addNewLesson = (classId, lessonInfo) => async (dispatch) => {
-    const response = await csrfFetch(`/api/classes/${classId}/lessons`, {
+export const addNewLesson = (lessonInfo) => async (dispatch) => {
+    const response = await csrfFetch(`/api/lessons`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -165,6 +187,22 @@ const lessonsReducer = (state = initialState, action) => {
                 newState = action.payload;
                 return newState;
             }
+        case GET_USER_LESSONS:
+            // console.log(action.payload)
+            if (action.payload) {
+                const userLessonsById = {};
+                action.payload.forEach((lesson) => {
+                    userLessonsById[lesson.id] = lesson;
+                });
+                newState = {
+                    allUserLessons: action.payload,
+                    allUserLessonsById: userLessonsById,
+                };
+                return newState;
+            } else {
+                newState = action.payload;
+                return newState;
+            }
         case GET_LESSON_DETAILS:
             if (action.payload) {
                 return {
@@ -192,11 +230,11 @@ const lessonsReducer = (state = initialState, action) => {
             }
         case CREATE_LESSON:
             if (action.payload) {
-                if (!newState.allClassLessonsById) {
-                    newState.allClassLessonsById = {}
+                if (!newState.allUserLessonsById) {
+                    newState.allUserLessonsById = {}
                 }
-                newState.allClassLessons = [...state.allClassLessons, action.payload]
-                newState.allClassLessonsById[action.payload.id] = { ...action.payload }
+                newState.allUserLessons = [...state.allUserLessons, action.payload]
+                newState.allUserLessonsById[action.payload.id] = { ...action.payload }
 
                 console.log(newState)
                 return newState

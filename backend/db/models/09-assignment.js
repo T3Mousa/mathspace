@@ -12,9 +12,23 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Assignment.belongsTo(models.Class, { foreignKey: 'classId' })
+            Assignment.belongsTo(models.Teacher, { foreignKey: 'teacherId' })
             Assignment.hasMany(models.Grade, { foreignKey: 'assignmentId', onDelete: 'cascade', hooks: 'true' })
             Assignment.belongsToMany(models.Student, { through: models.Grade, foreignKey: 'studentId', otherKey: 'assignmentId' })
+            Assignment.hasMany(models.ClassAssignment, { foreignKey: 'assignmentId', onDelete: 'cascade', hooks: 'true' })
+            Assignment.belongsToMany(models.Class, { through: models.ClassAssignment, foreignKey: 'classId', otherKey: 'assignmentId' })
+        }
+        addClass = async function (classId) {
+            try {
+                const existingAssociation = await this.hasClass(classId)
+                if (existingAssociation) {
+                    return;
+                }
+                await this.addClass(classId);
+                return;
+            } catch (err) {
+                throw new Error('Error adding class to lesson', err);
+            }
         }
     }
     Assignment.init({
@@ -47,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
-        classId: {
+        teacherId: {
             type: DataTypes.INTEGER,
             allowNull: false,
         }

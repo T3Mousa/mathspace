@@ -35,8 +35,11 @@ function Navigation() {
         }
       </div>
       <div>
-
       </div>
+      <div>
+      </div>
+      <div></div>
+      <div></div>
       <div className="rightNavBar">
         <ProfileButton user={user} />
       </div>

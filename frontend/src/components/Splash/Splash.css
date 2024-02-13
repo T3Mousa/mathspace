@@ -78,6 +78,8 @@
 .splashPageContainer {
     display: grid;
     grid-template-columns: 20% 80%;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .noUserDiv {
@@ -117,7 +119,7 @@
     border-color: #9C0D63;
     background-color: #9C0D63;
     color: white;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     transition: transform 0.3s ease;
 }
 

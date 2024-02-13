@@ -1,3 +1,31 @@
+.manageLessonsHeader {
+    font-family: 'Roboto', sans-serif;
+    margin: 20px 35px;
+    display: flex;
+    flex-flow: row wrap;
+    place-items: center;
+    justify-content: space-between;
+}
+
+.addLessonButton button {
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    transition: transform 0.3 ease;
+}
+
+.addLessonButton button:hover {
+    transform: scale(1.02);
+    box-shadow: 2px 2px 2px gray;
+}
+
+.teacherLessons {
+    font-family: 'Roboto', sans-serif;
+    margin: auto 25px
+}
+
 .teacherLessonLink img {
     height: 100px;
     width: 100px;
@@ -35,4 +63,9 @@
 
 .fa-solid.fa-ellipsis-vertical {
     font-size: large;
+}
+
+li {
+    list-style: none;
+    padding-bottom: 5px;
 }

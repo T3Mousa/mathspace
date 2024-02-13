@@ -126,7 +126,7 @@ const Splash = () => {
           <p>
             {user &&
               <NavLink
-                to="/classes"
+                to="/my-classes"
                 className="userClasses"
               >
                 Classes
@@ -136,7 +136,7 @@ const Splash = () => {
           <p>
             {user &&
               <NavLink
-                to="/lessons"
+                to="/my-lessons"
                 className="userLessons"
               >
                 Lessons

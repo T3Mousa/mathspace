@@ -6,6 +6,11 @@ import { getAllLessons } from '../../redux/lessons';
 const AllLessonsPage = () => {
     const dispatch = useDispatch()
     const allLessons = useSelector(state => state?.lessons?.allLessons)
+    // console.log(allLessons)
+    // const allLessonClasses = allLessons?.map(lesson => lesson?.LessonClasses)
+    // console.log(allLessonClasses)
+    // const allClassLessons = allLessonClasses?.map(cls => cls)
+    // console.log(allClassLessons)
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
@@ -20,18 +25,18 @@ const AllLessonsPage = () => {
                         Featured Teacher Lessons
                     </h3>
                     {allLessons?.map(lesson => (
-                        // <div className='lessonTile' key={lesson.id}>
-                        <NavLink className="lessonTileLink" to={`/lessons/${lesson.id}`} key={lesson.id}>
-                            <div className='lessonTileImage'>
-                                <img src={lesson.lessonImg ? lesson.lessonImg : "/images/placeholder.jpeg"} alt={`lesson ${lesson.id} image`} />
-                            </div>
-                            <div className='lessonTileInfo'>
-                                <h4 className='lessonTitle'>{lesson.title} </h4>
-                                <h5>By: {lesson.Teacher.firstName} {lesson.Teacher.lastName}</h5>
-                                <p>{lesson.description}</p>
-                            </div>
-                        </NavLink>
-                        // </div>
+                        <div className='lessonTile' key={lesson.id}>
+                            <NavLink className="lessonTileLink" to={`/lessons/${lesson.id}`} key={lesson.id}>
+                                <div className='lessonTileImage'>
+                                    <img src={lesson.lessonImg ? lesson.lessonImg : "/images/placeholder.jpeg"} alt={`lesson ${lesson.id} image`} />
+                                </div>
+                                <div className='lessonTileInfo'>
+                                    <h4 className='lessonTitle'>{lesson.title} </h4>
+                                    <h5>By: {lesson.LessonClasses[0].teacherUserFirstName} {lesson.LessonClasses[0].teacherUserLastName}</h5>
+                                    <p>{lesson.description}</p>
+                                </div>
+                            </NavLink>
+                        </div>
                     ))}
                 </div>
             }

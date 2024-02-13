@@ -40,7 +40,7 @@ function CreateNewClassModal() {
             let newClass = await dispatch(addNewClass(newClassInfo))
             if (newClass?.id) {
                 await dispatch(getAllClasses())
-                navigate('/classes')
+                navigate('/my-classes')
             }
             closeModal()
 

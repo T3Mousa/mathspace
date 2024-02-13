@@ -89,8 +89,8 @@ function ProfileButton() {
         }
       </div>
 
-      <div className="noUserNavBar">
-        {!user && (
+      {!user && (
+        <div className="noUserNavBar">
           <>
             <div className="signUpButton">
               <OpenModalButton
@@ -111,8 +111,8 @@ function ProfileButton() {
               <i className="fa-solid fa-globe"></i>
             </button>
           </>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }
