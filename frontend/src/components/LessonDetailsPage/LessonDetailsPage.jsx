@@ -53,9 +53,9 @@ const LessonDetailsPage = () => {
                 <>
                     <div className='lessonDetailsHeading'>
                         <h2>Lesson Title: {lesson.title}</h2>
-                        <div>
+                        <p>
                             Lesson By: {lessonClassTeacher?.teacherUserFirstName} {lessonClassTeacher?.teacherUserLastName}
-                        </div>
+                        </p>
                         {lesson.lessonImg ?
                             <img
                                 src={lesson.lessonImg}
