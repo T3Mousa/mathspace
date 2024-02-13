@@ -78,6 +78,8 @@
 .splashPageContainer {
     display: grid;
     grid-template-columns: 20% 80%;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .noUserDiv {

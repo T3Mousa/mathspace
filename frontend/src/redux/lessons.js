@@ -109,14 +109,16 @@ export const getAllClassLessons = (classId) => async (dispatch) => {
     }
 }
 
-export const addNewLesson = (classId, lessonInfo) => async (dispatch) => {
-    const response = await csrfFetch(`/api/classes/${classId}/lessons`, {
+export const addNewLesson = (lessonInfo) => async (dispatch) => {
+    console.log(lessonInfo)
+    const response = await csrfFetch(`/api/lessons`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(lessonInfo),
     })
+    console.log(response)
     if (response.ok) {
         const newLessonData = await response.json()
         dispatch(createLesson(newLessonData))
@@ -230,11 +232,11 @@ const lessonsReducer = (state = initialState, action) => {
             }
         case CREATE_LESSON:
             if (action.payload) {
-                if (!newState.allClassLessonsById) {
-                    newState.allClassLessonsById = {}
+                if (!newState.allUserLessonsById) {
+                    newState.allUserLessonsById = {}
                 }
-                newState.allClassLessons = [...state.allClassLessons, action.payload]
-                newState.allClassLessonsById[action.payload.id] = { ...action.payload }
+                newState.allUserLessons = [...state.allUserLessons, action.payload]
+                newState.allUserLessonsById[action.payload.id] = { ...action.payload }
 
                 console.log(newState)
                 return newState

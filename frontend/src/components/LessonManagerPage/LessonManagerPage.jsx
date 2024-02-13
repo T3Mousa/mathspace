@@ -1,23 +1,52 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import { getAllUserLessons } from '../../redux/lessons';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import './LessonManagerPage.css'
+import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
+import { getAllClasses } from '../../redux/classes';
 
 const LessonManagerPage = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     // console.log(user)
     const allUserLessons = useSelector(state => state?.lessons?.allUserLessons)
-    console.log(allUserLessons)
-    const allUserLessonClasses = allUserLessons?.map(lesson => lesson?.LessonClasses)
-    console.log(allUserLessonClasses)
+    // console.log(allUserLessons)
+    const allTeacherClasses = useSelector(state => state?.classes?.allClasses)
+    // const allUserLessonClasses = allUserLessons?.map(lesson => lesson?.LessonClasses)
+    // console.log(allTeacherClasses)
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [showMenu, setShowMenu] = useState(false);
+    const ulRef = useRef()
+
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+    }
 
 
     useEffect(() => {
-        dispatch(getAllUserLessons())
+        dispatch(getAllUserLessons()).then(() => dispatch(getAllClasses())).then(() => setIsLoaded(true))
     }, [dispatch])
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
+
+    const closeMenu = () => {
+        setShowMenu(false)
+    }
 
 
     return (
@@ -28,10 +57,10 @@ const LessonManagerPage = () => {
                         <h1>Manage Your Lessons</h1>
                         <div className="addLessonButton">
                             <OpenModalButton
-                                buttonText='Add New Lesson'
+                                buttonText='Create a New Lesson'
                                 className="addClassButtonModal"
-                            // onButtonClick={closeMenu}
-                            // modalComponent={<CreateNewClassModal />}
+                                onButtonClick={closeMenu}
+                                modalComponent={<CreateNewLessonModal teacherClasses={allTeacherClasses} />}
                             />
                         </div>
                     </>

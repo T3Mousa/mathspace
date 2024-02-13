@@ -275,7 +275,7 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
 router.post('/', requireAuth, validateLessonParams, async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
-    const { title, lessonImg, description, lessonContent, classIds } = req.body
+    const { title, lessonImg, description, lessonContent, selectedClasses } = req.body
     if (userId && role === 'teacher') {
         const teacher = await Teacher.findOne({
             where: { userId: userId },
@@ -289,7 +289,9 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
             })
             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
             console.log(validClassIds)
-            const invalidClassIds = classIds.filter(id => !validClassIds.includes(id))
+            console.log(selectedClasses)
+            const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+            console.log(invalidClassIds)
             if (invalidClassIds.length > 0) {
                 res.status(403)
                 return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -304,14 +306,15 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
             await newLesson.save()
             console.log(newLesson)
             //associate lesson with specified array of classes in classIds
-            for (const classId of classIds) {
+            for (const selectedClass of selectedClasses) {
+                console.log(selectedClass)
                 await ClassLesson.create({
                     lessonId: newLesson.id,
-                    classId: classId
+                    classId: selectedClass.value
                 })
             }
 
-            res.status(201).json({ "message": "Lesson created successfully", newLesson })
+            res.status(201).json(newLesson)
         } else {
             res.status(403)
             return res.json({

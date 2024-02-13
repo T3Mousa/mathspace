@@ -4,8 +4,8 @@ import { useParams, NavLink } from 'react-router-dom';
 import { getClassDetails } from '../../redux/classes';
 import './ClassDetailsPage.css'
 import { getAllClassLessons } from '../../redux/lessons';
-import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
-import OpenModalButton from '../OpenModalButton/OpenModalButtton';
+// import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
+// import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 
 
 const ClassDetailsPage = () => {
@@ -113,7 +113,7 @@ const ClassDetailsPage = () => {
                                 Go to lesson details page <i className="fa-solid fa-arrow-right"></i>
                             </NavLink>
                         </div>}
-                    <p>
+                    {/* <p>
                         {user.userRole === "teacher" &&
                             <>
                                 <div className="createLessonButton">
@@ -125,7 +125,7 @@ const ClassDetailsPage = () => {
                                 </div>
                             </>
                         }
-                    </p>
+                    </p> */}
                 </>
             }
         </>
