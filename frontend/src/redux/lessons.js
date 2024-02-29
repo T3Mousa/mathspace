@@ -77,7 +77,7 @@ export const getAllUserLessons = () => async (dispatch) => {
 }
 
 export const getLessonDetails = (lessonId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/lessons/${lessonId}`)
+    const response = await csrfFetch(`/api/lessons/${+lessonId}`)
     if (response.ok) {
         const data = await response.json()
         // console.log(data)

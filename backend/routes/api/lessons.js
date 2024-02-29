@@ -54,23 +54,41 @@ router.get('/', requireAuth, async (req, res) => {
         for (let i = 0; i < lessons.length; i++) {
             const lesson = lessons[i]
             const lessonData = lesson.toJSON()
-            let lessonClasses = []
-            for (let j = 0; j < lessonData.ClassLessons.length; j++) {
-                const cls = lessonData.ClassLessons[j].Class
-                lessonClasses.push({
-                    classId: cls.id,
-                    className: cls.name,
-                    teacherId: cls.Teacher.id,
-                    teacherUserId: cls.Teacher.userId,
-                    teacherUserFirstName: cls.Teacher.User.firstName,
-                    teacherUserLastName: cls.Teacher.User.lastName
-                })
-            }
-            // console.log(lessonClasses)
+            const teacherUserOwnsLesson = lessonData.ClassLessons.find(clsLesson => clsLesson.Class.Teacher.userId === userId)
+            if (teacherUserOwnsLesson !== undefined) {
+                let lessonClasses = []
+                for (let j = 0; j < lessonData.ClassLessons.length; j++) {
+                    const cls = lessonData.ClassLessons[j].Class
+                    lessonClasses.push({
+                        classId: cls.id,
+                        className: cls.name,
+                        teacherId: cls.Teacher.id,
+                    })
+                }
+                // console.log(lessonClasses)
 
-            lessonData.LessonClasses = lessonClasses
+                lessonData.LessonClasses = lessonClasses
+            }
+
+            lessonData.LessonTeacherFirstName = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.firstName)[0]
+            lessonData.LessonTeacherLastName = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.lastName)[0]
             payload.push(lessonData)
             delete lessonData.ClassLessons
+            if (!lessonData.LessonClasses) {
+                const teacher = await Teacher.findOne({
+                    where: { id: lessonData.teacherId },
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'firstName', 'lastName']
+                        }
+                    ]
+                })
+                const teacherData = teacher.toJSON()
+                // console.log(teacherData)
+                lessonData.LessonTeacherFirstName = teacherData.User.firstName
+                lessonData.LessonTeacherLastName = teacherData.User.lastName
+            }
         }
 
         res.json({ "Lessons": payload })
@@ -140,17 +158,31 @@ router.get('/current-user', requireAuth, async (req, res) => {
                 lessonClasses.push({
                     classId: cls.id,
                     className: cls.name,
-                    teacherId: cls.Teacher.id,
-                    teacherUserId: cls.Teacher.userId,
-                    teacherUserFirstName: cls.Teacher.User.firstName,
-                    teacherUserLastName: cls.Teacher.User.lastName
+                    teacherId: cls.Teacher.id
                 })
             }
-            // console.log(lessonClasses)
-
             lessonData.LessonClasses = lessonClasses
+            lessonData.LessonTeacherFirstName = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.firstName)[0]
+            lessonData.LessonTeacherLastName = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.lastName)[0]
+            lessonData.LessonTeacherUserId = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.id)[0]
             payload.push(lessonData)
             delete lessonData.ClassLessons
+            if (!lessonData.LessonClasses) {
+                const teacher = await Teacher.findOne({
+                    where: { id: lessonData.teacherId },
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'firstName', 'lastName']
+                        }
+                    ]
+                })
+                const teacherData = teacher.toJSON()
+                // console.log(teacherData)
+                lessonData.LessonTeacherUserId = teacherData.User.id
+                lessonData.LessonTeacherFirstName = teacherData.User.firstName
+                lessonData.LessonTeacherLastName = teacherData.User.lastName
+            }
         }
         res.json({ "Lessons": payload })
 
@@ -199,6 +231,7 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
     const role = req.user.userRole
     const { lessonId } = req.params
     const existingLesson = await Lesson.findByPk(lessonId)
+    // console.log(existingLesson)
     if (existingLesson) {
         if (userId && role === "teacher") {
             const lessonDetails = await Lesson.findOne({
@@ -238,22 +271,43 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
                     "updatedAt",
                 ]
             })
+            // console.log(lessonDetails)
             const lessonDetailsData = lessonDetails.toJSON()
-            let lessonClasses = []
-            for (let i = 0; i < lessonDetailsData.ClassLessons.length; i++) {
-                const cls = lessonDetailsData.ClassLessons[i].Class
-                lessonClasses.push({
-                    classId: cls.id,
-                    className: cls.name,
-                    teacherId: cls.Teacher.id,
-                    teacherUserId: cls.Teacher.userId,
-                    teacherUserFirstName: cls.Teacher.User.firstName,
-                    teacherUserLastName: cls.Teacher.User.lastName
-                })
-            }
+            const teacherUserOwnsLesson = lessonDetailsData.ClassLessons.find(clsLesson => clsLesson.Class.Teacher.userId === userId)
+            if (teacherUserOwnsLesson !== undefined) {
+                let lessonClasses = []
+                for (let i = 0; i < lessonDetailsData.ClassLessons.length; i++) {
+                    const cls = lessonDetailsData.ClassLessons[i].Class
+                    lessonClasses.push({
+                        classId: cls.id,
+                        className: cls.name,
+                        teacherId: cls.Teacher.id,
+                        teacherUserId: cls.Teacher.userId
+                    })
+                }
 
-            lessonDetailsData.LessonClasses = lessonClasses
+                lessonDetailsData.LessonClasses = lessonClasses
+            }
+            lessonDetailsData.LessonTeacherFirstName = lessonDetailsData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.firstName)[0]
+            lessonDetailsData.LessonTeacherLastName = lessonDetailsData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.lastName)[0]
+            lessonDetailsData.LessonTeacherUserId = lessonDetailsData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.id)[0]
             delete lessonDetailsData.ClassLessons
+            if (!lessonDetailsData.LessonClasses) {
+                const teacher = await Teacher.findOne({
+                    where: { id: lessonDetailsData.teacherId },
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'firstName', 'lastName']
+                        }
+                    ]
+                })
+                const teacherData = teacher.toJSON()
+                // console.log(teacherData)
+                lessonDetailsData.LessonTeacherFirstName = teacherData.User.firstName
+                lessonDetailsData.LessonTeacherLastName = teacherData.User.lastName
+                lessonDetailsData.LessonTeacherUserId = teacherData.User.id
+            }
             res.json({ "Lesson": lessonDetailsData })
         } else {
             res.status(403)
@@ -330,7 +384,7 @@ router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => 
     const userId = req.user.id
     const role = req.user.userRole
     const { lessonId } = req.params
-    const { title, lessonImg, description, lessonContent, classIds } = req.body
+    const { title, lessonImg, description, lessonContent, selectedClasses } = req.body
     const existingLesson = await Lesson.findOne({
         where: { id: lessonId },
         include: [
@@ -340,6 +394,7 @@ router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => 
             }
         ]
     })
+    const existingLessonJSON = existingLesson.toJSON()
     if (userId && role === 'teacher') {
         if (existingLesson) {
             const teacher = await Teacher.findOne({
@@ -353,8 +408,9 @@ router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => 
                     where: { teacherId: teacherId }
                 })
                 const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-                console.log(validClassIds)
-                const invalidClassIds = classIds.filter(id => !validClassIds.includes(id))
+                // console.log(validClassIds)
+                const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+                // console.log(invalidClassIds)
                 if (invalidClassIds.length > 0) {
                     res.status(403)
                     return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -364,19 +420,23 @@ router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => 
                 if (lessonImg !== undefined) existingLesson.lessonImg = lessonImg
                 if (description !== undefined) existingLesson.description = description
                 if (lessonContent !== undefined) existingLesson.lessonContent = lessonContent
-
-                await existingLesson.save()
+                // if (selectedClasses !== undefined) existingLesson.ClassLessons = selectedClasses
+                const updatedLesson = await existingLesson.save()
+                // await existingLesson.save()
 
                 await ClassLesson.destroy({ where: { lessonId: lessonId } })
-
-                for (const classId of classIds) {
+                // const newClassAssociations = LessonClasses.map(classId => ({
+                //     lessonId: lessonId,
+                //     classId: classId
+                // }))
+                // await ClassLesson.bulkCreate(newClassAssociations)
+                for (const selectedClass of selectedClasses) {
                     await ClassLesson.create({
                         lessonId: lessonId,
-                        classId: classId
+                        classId: selectedClass.value
                     })
                 }
-
-                await res.status(201).json(existingLesson)
+                res.status(201).json(updatedLesson)
             } else {
                 res.status(403)
                 return res.json({

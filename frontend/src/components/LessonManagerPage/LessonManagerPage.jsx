@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { getAllUserLessons } from '../../redux/lessons';
-import OpenModalButton from '../OpenModalButton/OpenModalButtton';
+// import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import './LessonManagerPage.css'
-import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
+// import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
 import { getAllClasses } from '../../redux/classes';
 
 const LessonManagerPage = () => {
@@ -13,7 +13,7 @@ const LessonManagerPage = () => {
     // console.log(user)
     const allUserLessons = useSelector(state => state?.lessons?.allUserLessons)
     // console.log(allUserLessons)
-    const allTeacherClasses = useSelector(state => state?.classes?.allClasses)
+    // const allTeacherClasses = useSelector(state => state?.classes?.allClasses)
     // const allUserLessonClasses = allUserLessons?.map(lesson => lesson?.LessonClasses)
     // console.log(allTeacherClasses)
     const [isLoaded, setIsLoaded] = useState(false)
@@ -57,14 +57,17 @@ const LessonManagerPage = () => {
                         {user && user.userRole === "teacher" &&
                             <>
                                 <h1>Manage Your Lessons</h1>
-                                <div className="addLessonButton">
+                                {/* <div className="addLessonButton">
                                     <OpenModalButton
                                         buttonText='Create a New Lesson'
                                         className="addClassButtonModal"
                                         onButtonClick={closeMenu}
                                         modalComponent={<CreateNewLessonModal teacherClasses={allTeacherClasses} />}
                                     />
-                                </div>
+                                </div> */}
+                                <button className="addLessonButton">
+                                    <Link to='/create-new-lesson' className='createLessonLink'>Create a New Lesson </Link>
+                                </button>
                             </>
                         }
                         {user && user.userRole === "student" &&
@@ -91,18 +94,21 @@ const LessonManagerPage = () => {
                                                 <p>Title: {lesson.title}</p>
                                                 <p>By: You</p>
                                                 <p>Classes Assigned To:</p>
-                                                <ul>
-                                                    {(() => {
-                                                        const lessonClassItems = []
-                                                        for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
-                                                            const lessonClassItem = lesson?.LessonClasses[i]
-                                                            lessonClassItems.push(
-                                                                <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
-                                                            )
-                                                        }
-                                                        return lessonClassItems
-                                                    })()}
-                                                </ul>
+                                                {lesson.LessonClasses.length ?
+                                                    <ul>
+                                                        {(() => {
+                                                            const lessonClassItems = []
+                                                            for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
+                                                                const lessonClassItem = lesson?.LessonClasses[i]
+                                                                lessonClassItems.push(
+                                                                    <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
+                                                                )
+                                                            }
+                                                            return lessonClassItems
+                                                        })()}
+                                                    </ul> :
+                                                    <ul>This lesson has not been assigned to any classes</ul>
+                                                }
                                             </div>
                                         </NavLink>
                                     </div>

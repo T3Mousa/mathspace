@@ -32,7 +32,7 @@ const AllLessonsPage = () => {
                                 </div>
                                 <div className='lessonTileInfo'>
                                     <h4 className='lessonTitle'>{lesson.title} </h4>
-                                    <h5>By: {lesson.LessonClasses[0].teacherUserFirstName} {lesson.LessonClasses[0].teacherUserLastName}</h5>
+                                    <h5>By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}</h5>
                                     <p>{lesson.description}</p>
                                 </div>
                             </NavLink>

@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getLessonDetails } from '../../redux/lessons';
 import './LessonDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
@@ -13,9 +13,6 @@ const LessonDetailsPage = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     const lesson = useSelector(state => state?.lessons?.lessonDeets)
-    // console.log(lesson)
-    const lessonClassTeacher = lesson?.LessonClasses[0]
-    // console.log(lessonClassTeacher)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
@@ -54,8 +51,29 @@ const LessonDetailsPage = () => {
                     <div className='lessonDetailsHeading'>
                         <h2>Lesson Title: {lesson.title}</h2>
                         <p>
-                            Lesson By: {lessonClassTeacher?.teacherUserFirstName} {lessonClassTeacher?.teacherUserLastName}
+                            Lesson By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
                         </p>
+                        <p>Classes Assigned To:</p>
+                        {lesson.LessonClasses ?
+                            <div className='lessonClassList'>
+                                <ul>
+                                    {(() => {
+                                        const lessonClassItems = []
+                                        for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
+                                            const lessonClassItem = lesson?.LessonClasses[i]
+                                            lessonClassItems.push(
+                                                <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
+                                            )
+                                        }
+                                        return lessonClassItems
+                                    })()}
+                                </ul>
+
+                            </div> :
+                            <div>
+                                <ul>This lesson has not been assigned to any classes</ul>
+                            </div>
+                        }
                         {lesson.lessonImg ?
                             <img
                                 src={lesson.lessonImg}
@@ -78,15 +96,18 @@ const LessonDetailsPage = () => {
                         <p>{lesson.lessonContent}</p>
                     </div>
                     <div className='lessonDetailsButtons'>
-                        {lesson.LessonClasses.find(cls => cls.teacherUserId === user.id) && (
+                        {lesson.LessonTeacherUserId === user.id && (
                             <>
                                 <div className='editLessonButton'>
-                                    <OpenModalButton
+                                    <button className="addLessonButton">
+                                        <Link to={`/lessons/${lessonId}/edit`} className='editLessonLink'>Edit Lesson </Link>
+                                    </button>
+                                    {/* <OpenModalButton
                                         buttonText="Edit Lesson"
                                         className="editLessonButton"
                                         onButtonClick={closeMenu}
                                         modalComponent={<UpdateLessonModal lessonId={lesson.id} />}
-                                    />
+                                    /> */}
                                 </div>
                                 <div className='deleteLessonButton'>
                                     <OpenModalButton
