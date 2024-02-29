@@ -9,6 +9,7 @@ import ClassDetailsPage from '../components/ClassDetailsPage';
 import LessonDetailsPage from '../components/LessonDetailsPage/LessonDetailsPage';
 import LessonManagerPage from '../components/LessonManagerPage';
 import CreateLessonFormPage from '../components/CreateLessonFormPage';
+import UpdateLessonFormPage from '../components/UpdateLessonFormPage';
 // import UpdateClassModal from '../components/UpdateClassModal';
 
 export const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
         element: <ClassManagerPage />,
       },
       {
+        path: "/lessons/:lessonId/edit",
+        element: <UpdateLessonFormPage />
+      },
+      {
         path: "/lessons/:lessonId",
         element: <LessonDetailsPage />,
       },
@@ -46,7 +51,7 @@ export const router = createBrowserRouter([
       {
         path: "create-new-lesson",
         element: <CreateLessonFormPage />
-      }
+      },
     ],
   },
 

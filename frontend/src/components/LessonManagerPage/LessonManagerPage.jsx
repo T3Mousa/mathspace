@@ -94,18 +94,21 @@ const LessonManagerPage = () => {
                                                 <p>Title: {lesson.title}</p>
                                                 <p>By: You</p>
                                                 <p>Classes Assigned To:</p>
-                                                <ul>
-                                                    {(() => {
-                                                        const lessonClassItems = []
-                                                        for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
-                                                            const lessonClassItem = lesson?.LessonClasses[i]
-                                                            lessonClassItems.push(
-                                                                <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
-                                                            )
-                                                        }
-                                                        return lessonClassItems
-                                                    })()}
-                                                </ul>
+                                                {lesson.LessonClasses.length ?
+                                                    <ul>
+                                                        {(() => {
+                                                            const lessonClassItems = []
+                                                            for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
+                                                                const lessonClassItem = lesson?.LessonClasses[i]
+                                                                lessonClassItems.push(
+                                                                    <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
+                                                                )
+                                                            }
+                                                            return lessonClassItems
+                                                        })()}
+                                                    </ul> :
+                                                    <ul>This lesson has not been assigned to any classes</ul>
+                                                }
                                             </div>
                                         </NavLink>
                                     </div>
