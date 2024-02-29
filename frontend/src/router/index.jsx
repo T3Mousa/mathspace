@@ -8,6 +8,8 @@ import ClassDetailsPage from '../components/ClassDetailsPage';
 // import CreateNewClassModal from '../components/CreateNewClassModal';
 import LessonDetailsPage from '../components/LessonDetailsPage/LessonDetailsPage';
 import LessonManagerPage from '../components/LessonManagerPage';
+import CreateLessonFormPage from '../components/CreateLessonFormPage';
+import UpdateLessonFormPage from '../components/UpdateLessonFormPage';
 // import UpdateClassModal from '../components/UpdateClassModal';
 
 export const router = createBrowserRouter([
@@ -34,14 +36,10 @@ export const router = createBrowserRouter([
         path: "/my-classes",
         element: <ClassManagerPage />,
       },
-      // {
-      //   path: "/add-new-class",
-      //   element: <CreateNewClassModal />,
-      // },
-      // {
-      //   path: "/edit-class",
-      //   element: <UpdateClassModal />,
-      // },
+      {
+        path: "/lessons/:lessonId/edit",
+        element: <UpdateLessonFormPage />
+      },
       {
         path: "/lessons/:lessonId",
         element: <LessonDetailsPage />,
@@ -49,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-lessons",
         element: <LessonManagerPage />,
+      },
+      {
+        path: "create-new-lesson",
+        element: <CreateLessonFormPage />
       },
     ],
   },

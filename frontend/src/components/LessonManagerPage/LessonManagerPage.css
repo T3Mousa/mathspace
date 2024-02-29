@@ -7,16 +7,33 @@
     justify-content: space-between;
 }
 
-.addLessonButton button {
+button {
+    border: none;
+}
+
+button.addLessonButton {
     background-color: #9C0D63;
     border-color: #9C0D63;
     border-radius: 3px;
     font-family: 'Roboto', sans-serif;
     padding: 10px;
     transition: transform 0.3 ease;
+    box-shadow: none;
 }
 
-.addLessonButton button:hover {
+button .createLessonLink {
+    text-decoration: none;
+    color: white;
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    transition: transform 0.3 ease;
+    font-size: 18px;
+}
+
+button.addLessonButton:hover {
     transform: scale(1.02);
     box-shadow: 2px 2px 2px gray;
 }
