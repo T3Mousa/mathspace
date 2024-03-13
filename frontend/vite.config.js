@@ -17,6 +17,9 @@ export default defineConfig((mode) => ({
       external: ['react-select']
     }
   },
+  optimizeDeps: {
+    include: ['react-select'],
+  },
   server: {
     port: 3000,
     proxy: {

@@ -4,7 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getLessonDetails } from '../../redux/lessons';
 import './LessonDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
-import UpdateLessonModal from '../UpdateLessonModal';
+// import UpdateLessonModal from '../UpdateLessonModal';
 import DeleteLessonModal from '../DeleteLessonModal';
 
 const LessonDetailsPage = () => {
