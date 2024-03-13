@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
         element: <LessonManagerPage />,
       },
       {
-        path: "create-new-lesson",
+        path: "/create-new-lesson",
         element: <CreateLessonFormPage />
       },
     ],

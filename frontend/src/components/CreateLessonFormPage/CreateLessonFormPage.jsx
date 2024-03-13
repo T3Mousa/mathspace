@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addNewLesson, getAllUserLessons } from "../../redux/lessons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,10 @@ function CreateLessonFormPage() {
     const [lessonContent, setLessonContent] = useState("")
     const [selectedClasses, setSelectedClasses] = useState([])
     const [errors, setErrors] = useState({})
+
+    useEffect(() => {
+        dispatch(getAllClasses())
+    }, [dispatch])
 
     const teacherClasses = useSelector(state => state?.classes?.allClasses)
 
@@ -107,7 +111,7 @@ function CreateLessonFormPage() {
                     Select Classes (to add the lesson to):
                     <Select
                         value={selectedClasses}
-                        options={teacherClasses.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
+                        options={teacherClasses?.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
                         isMulti
                         onChange={(selectedOptions) => {
                             // console.log(selectedOptions)
