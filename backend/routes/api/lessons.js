@@ -458,10 +458,10 @@ router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => 
 });
 
 // delete a lesson from the class it is associated with (teacher users only)
-router.delete('/:lessonId/classes/:classId', requireAuth, async (req, res) => {
+router.delete('/:lessonId', requireAuth, async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
-    const { lessonId, classId } = req.params
+    const { lessonId } = req.params
     const existingLesson = await Lesson.findOne({
         where: { id: lessonId },
         include: [
@@ -480,7 +480,7 @@ router.delete('/:lessonId/classes/:classId', requireAuth, async (req, res) => {
             // console.log(teacher)
             const teacherId = teacher.dataValues.id
             if (teacherId === userId) {
-                await ClassLesson.destroy({ where: { lessonId: lessonId, classId: classId } })
+                await existingLesson.destroy({ where: { id: lessonId } })
 
                 res.json({
                     "message": "Successfully deleted"
