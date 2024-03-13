@@ -155,7 +155,6 @@ export const deleteLesson = (lessonId) => async (dispatch) => {
     if (response.ok) {
         const deletedLesson = await response.json()
         dispatch(removeLesson(lessonId))
-        dispatch(getAllLessons())
         return deletedLesson
     } else if (response.status < 500) {
         const errorMessages = await response.json();

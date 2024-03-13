@@ -12,7 +12,7 @@ function DeleteLessonModal({ lesson }) {
     const confirmDelete = (e) => {
         e.preventDefault();
         return dispatch(deleteLesson(lesson.id))
-            .then(navigate(`/classes/${lesson.classId}`))
+            .then(navigate('/my-lessons'))
             .then(closeModal)
     };
 
@@ -25,6 +25,8 @@ function DeleteLessonModal({ lesson }) {
         <div className="deleteLessonForm">
             <h1>Confirm Delete</h1>
             <h3>Are you sure you want to delete this lesson?</h3>
+            <p>Deleting the lesson will remove the lesson from your account and all classes that it has been assigned to. This cannot be undone!</p>
+            <p>If you would like to keep the lesson but delete it from some or all classes it has been assigned to, go to the lesson details page and click &quot;Edit Lesson&quot;.</p>
             <div className='deleteLessonModalButtons'>
                 <button className='deleteLessonModalButton' onClick={confirmDelete}>
                     Yes (Delete Lesson)
