@@ -14,15 +14,16 @@ function CreateLessonFormPage() {
     const [description, setDescription] = useState("")
     const [lessonContent, setLessonContent] = useState("")
     const [selectedClasses, setSelectedClasses] = useState([])
+    const [isLoaded, setIsLoaded] = useState(false);
     const [errors, setErrors] = useState({})
 
     useEffect(() => {
-        dispatch(getAllClasses())
-    }, [dispatch])
+        dispatch(getAllClasses()).then(dispatch(getAllUserLessons())).then(() => setIsLoaded(true))
+    }, [dispatch, isLoaded])
 
     const teacherClasses = useSelector(state => state?.classes?.allClasses)
 
-    console.log(teacherClasses)
+    // console.log(teacherClasses)
 
     const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" ") || lessonContent.startsWith(" "))
 
