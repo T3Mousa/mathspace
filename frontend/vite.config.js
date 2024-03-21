@@ -12,14 +12,14 @@ export default defineConfig((mode) => ({
       failOnError: mode === "production",
     }),
   ],
-  build: {
-    rollupOptions: {
-      external: ['react-select']
-    }
-  },
-  optimizeDeps: {
-    include: ['react-select'],
-  },
+  // build: {
+  //   rollupOptions: {
+  //     external: ['react-select']
+  //   }
+  // },
+  // optimizeDeps: {
+  //   include: ['react-select'],
+  // },
   server: {
     port: 3000,
     proxy: {

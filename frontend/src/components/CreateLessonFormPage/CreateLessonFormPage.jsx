@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { addNewLesson, getAllUserLessons } from "../../redux/lessons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Select from "react-select";
+import Select from 'react-select';
 import './CreateLessonForm.css'
 import { getAllClasses } from "../../redux/classes";
 
