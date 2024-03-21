@@ -3,7 +3,7 @@ import { addNewLesson, getAllUserLessons } from "../../redux/lessons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import Select from "react-select";
+import Select from 'react-select';
 import './CreateNewLesson.css'
 import { getAllClasses } from "../../redux/classes";
 // import { getAllClasses } from "../../redux/classes";
