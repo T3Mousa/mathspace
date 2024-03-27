@@ -52,6 +52,10 @@ export const router = createBrowserRouter([
         path: "/create-new-lesson",
         element: <CreateLessonFormPage />
       },
+      // {
+      //   path: "/my-assignments",
+      //   element: <AssignmentManagerPage />,
+      // },
     ],
   },
 

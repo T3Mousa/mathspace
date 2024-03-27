@@ -21,18 +21,19 @@ const AllLessonsPage = () => {
         <>
             {isLoaded &&
                 <div className='allLessonsContainer'>
-                    <h3>
+                    {/* <h3>
                         Featured Teacher Lessons
-                    </h3>
+                    </h3> */}
                     {allLessons?.map(lesson => (
                         <div className='lessonTile' key={lesson.id}>
                             <NavLink className="lessonTileLink" to={`/lessons/${lesson.id}`} key={lesson.id}>
                                 <div className='lessonTileImage'>
-                                    <img src={lesson.lessonImg ? lesson.lessonImg : "/images/placeholder.jpeg"} alt={`lesson ${lesson.id} image`} />
+                                    {/* <img src={lesson.lessonImg ? lesson.lessonImg : "/images/placeholder.jpeg"} alt={`lesson ${lesson.id} image`} /> */}
+                                    <img src="../images/lesson_image.png" alt="lesson image" />
                                 </div>
                                 <div className='lessonTileInfo'>
                                     <h4 className='lessonTitle'>{lesson.title} </h4>
-                                    <h5>By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}</h5>
+                                    <h5>Created By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}</h5>
                                     <p>{lesson.description}</p>
                                 </div>
                             </NavLink>

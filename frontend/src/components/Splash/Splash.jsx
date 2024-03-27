@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 // import { getAllLessons } from '../../redux/lessons';
 import AllLessonsPage from './AllLessonsPage';
+import AllAssignmentsPage from './AllAssignmentsPage';
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import SignupFormModal from '../SignupFormModal';
 import './Splash.css'
@@ -13,6 +14,7 @@ const Splash = () => {
   const user = useSelector((state) => state?.session?.user)
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const [activeTab, setActiveTab] = useState(1)
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -34,6 +36,21 @@ const Splash = () => {
   }, [showMenu]);
 
   const closeMenu = () => setShowMenu(false);
+
+  const handleTabClick = (tabNumber) => {
+    setActiveTab(tabNumber)
+  };
+
+  // const renderTabContent = () => {
+  //   switch (activeTab) {
+  //     case 1:
+  //       return <AllLessonsPage />;
+  //     case 2:
+  //       return <AllAssignmentsPage />;
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   // //image url to send to aws
   // const [imgUrl, setImgUrl] = useState("");
@@ -163,7 +180,18 @@ const Splash = () => {
         </div> */}
         <div className='splashPageRightSide'>
           {user &&
-            <AllLessonsPage />
+            // <AllLessonsPage />
+            <>
+              <div className='tabs'>
+                <button className={activeTab === 1 ? 'active' : ''} onClick={() => handleTabClick(1)}>Featured Teacher Lessons</button>
+                <button className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>Featured Teacher Assignments</button>
+              </div>
+              <div className='splashPageRightSide'>
+                {/* {renderTabContent()} */}
+                {activeTab === 1 && <AllLessonsPage />}
+                {activeTab === 2 && <AllAssignmentsPage />}
+              </div>
+            </>
           }
         </div>
         {/* </div> */}

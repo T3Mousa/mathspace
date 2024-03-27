@@ -1,11 +1,13 @@
-.lessonTileLink img {
+.lessonTileLink img,
+.assignmentTileLink img {
     height: 150px;
     width: 150px;
     padding-right: 15px;
     font-family: 'Roboto', sans-serif;
 }
 
-.lessonTileLink {
+.lessonTileLink,
+.assignmentTileLink {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -25,6 +27,46 @@
     padding-left: 10px;
 }
 
+.allAssignmentsContainer h3 {
+    padding-left: 10px;
+}
+
+/* .tabs button {
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: large;
+    margin-top: 10px;
+    cursor: pointer;
+} */
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+}
+
+.tabs button {
+    background-color: transparent;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    font-size: large;
+    border: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.tabs button.active {
+    border-top: 2px solid #ccc;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    border-bottom: none;
+    border-color: #9C0D63;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
 /* .lessonTile {
     border: 2px solid lightgray;
     border-radius: 5px;
@@ -41,7 +83,8 @@
     font-weight: bold;
 } */
 
-.lessonTileLink:hover {
+.lessonTileLink:hover,
+.assignmentTileLink:hover {
     border: 2px solid #9C0D63;
 }
 
@@ -59,7 +102,8 @@
 }
 
 .userClasses,
-.userLessons {
+.userLessons,
+.userAssignments {
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
     color: black;
@@ -69,7 +113,8 @@
 }
 
 .userClasses:hover,
-.userLessons:hover {
+.userLessons:hover,
+.userAssignments:hover {
     text-decoration: underline;
     font-weight: 500;
     color: #9C0D63;
