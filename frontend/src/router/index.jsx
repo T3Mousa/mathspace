@@ -10,6 +10,8 @@ import LessonDetailsPage from '../components/LessonDetailsPage/LessonDetailsPage
 import LessonManagerPage from '../components/LessonManagerPage';
 import CreateLessonFormPage from '../components/CreateLessonFormPage';
 import UpdateLessonFormPage from '../components/UpdateLessonFormPage';
+import AssignmentManagerPage from '../components/AssignmentManagerPage';
+import AssignmentDetailsPage from '../components/AssignmentDetailsPage';
 // import UpdateClassModal from '../components/UpdateClassModal';
 
 export const router = createBrowserRouter([
@@ -52,10 +54,14 @@ export const router = createBrowserRouter([
         path: "/create-new-lesson",
         element: <CreateLessonFormPage />
       },
-      // {
-      //   path: "/my-assignments",
-      //   element: <AssignmentManagerPage />,
-      // },
+      {
+        path: "/assignments/:assignmentId",
+        element: <AssignmentDetailsPage />,
+      },
+      {
+        path: "/my-assignments",
+        element: <AssignmentManagerPage />,
+      },
     ],
   },
 

@@ -85,21 +85,21 @@ const LessonDetailsPage = () => {
                             />
                         }
 
-                        <h3>Lesson Description: <p>{lesson.description}</p></h3>
+                        {/* <h3>Lesson Description: <p>{lesson.description}</p></h3> */}
 
 
                         <h3>Lesson Description: </h3>
                         <p>{lesson.description}</p>
-                    </div>
-                    <div className='lessonContent'>
-                        <p>Lesson Content: </p>
+                        <h3>Lesson Content: </h3>
                         <p>{lesson.lessonContent}</p>
                     </div>
+                    {/* <div className='lessonContent'>
+                    </div> */}
                     <div className='lessonDetailsButtons'>
                         {lesson.LessonTeacherUserId === user.id && (
                             <>
                                 <div className='editLessonButton'>
-                                    <button className="addLessonButton">
+                                    <button className="editLessonButton">
                                         <Link to={`/lessons/${lessonId}/edit`} className='editLessonLink'>Edit Lesson </Link>
                                     </button>
                                     {/* <OpenModalButton

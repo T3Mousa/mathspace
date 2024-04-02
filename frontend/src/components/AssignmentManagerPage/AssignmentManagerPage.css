@@ -1,0 +1,77 @@
+.manageAssignmentsHeader {
+    font-family: 'Roboto', sans-serif;
+    margin: 20px 35px;
+    display: flex;
+    flex-flow: row wrap;
+    place-items: center;
+    justify-content: space-between;
+}
+
+button {
+    border: none;
+}
+
+button.addAssignmentButton {
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    transition: transform 0.3 ease;
+    box-shadow: none;
+}
+
+button .createAssignmentLink {
+    text-decoration: none;
+    color: white;
+    background-color: #9C0D63;
+    border-color: #9C0D63;
+    border-radius: 3px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px;
+    transition: transform 0.3 ease;
+    font-size: 18px;
+}
+
+button.addAssignmentButton:hover {
+    transform: scale(1.02);
+    box-shadow: 2px 2px 2px gray;
+}
+
+.teacherAssignments {
+    font-family: 'Roboto', sans-serif;
+    margin: auto 25px
+}
+
+.teacherAssignmentLink img {
+    height: 100px;
+    width: 100px;
+    padding-right: 15px;
+    padding-top: 5px;
+}
+
+.teacherAssignmentLink {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin: 20px 10px;
+}
+
+.teacherAssignmentLink:hover {
+    border: 2px solid #9C0D63;
+}
+
+.fa-solid.fa-ellipsis-vertical {
+    font-size: large;
+}
+
+li {
+    list-style: none;
+    padding-bottom: 5px;
+}

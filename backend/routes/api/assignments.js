@@ -54,7 +54,7 @@ router.get('/', requireAuth, async (req, res) => {
         for (let i = 0; i < assignments.length; i++) {
             const assignment = assignments[i]
             const assignmentData = assignment.toJSON()
-            console.log(assignmentData)
+            // console.log(assignmentData)
             const teacherUserOwnsAssignment = assignmentData.ClassAssignments.find(clsAssignment => clsAssignment.Class.Teacher.userId === userId)
             if (teacherUserOwnsAssignment !== undefined) {
                 let assignmentClasses = []
@@ -102,229 +102,200 @@ router.get('/', requireAuth, async (req, res) => {
 
 });
 
-// // get all lessons that belong to the current user
-// router.get('/current-user', requireAuth, async (req, res) => {
-//     const userId = req.user.id
-//     const role = req.user.userRole
-//     const teach = await Teacher.findOne({
-//         where: { userId: userId }
-//     })
-//     const teachId = teach.dataValues.id
-//     if (userId && role === "teacher") {
-//         const userLessons = await Lesson.findAll({
-//             where: { teacherId: teachId },
-//             include: [
-//                 {
-//                     model: ClassLesson,
-//                     attributes: ['classId', 'lessonId'],
-//                     include: [
-//                         {
-//                             model: Class,
-//                             attributes: ['id', 'name', 'teacherId'],
-//                             include: [
-//                                 {
-//                                     model: Teacher,
-//                                     attributes: ['id', 'userId'],
-//                                     where: { userId: userId },
-//                                     include: [
-//                                         {
-//                                             model: User,
-//                                             attributes: ['id', 'firstName', 'lastName']
-//                                         }
-//                                     ]
-//                                 }
-//                             ]
-//                         }
-//                     ]
-//                 }
-//             ],
-//             attributes: [
-//                 "id",
-//                 "title",
-//                 "lessonImg",
-//                 "description",
-//                 "lessonContent",
-//                 "teacherId",
-//                 "createdAt",
-//                 "updatedAt"
-//             ],
-//         })
-//         const payload = []
-//         for (let i = 0; i < userLessons.length; i++) {
-//             const lessons = userLessons[i]
-//             const lessonData = lessons.toJSON()
-//             let lessonClasses = []
-//             for (let j = 0; j < lessonData.ClassLessons.length; j++) {
-//                 const cls = lessonData.ClassLessons[j].Class
-//                 lessonClasses.push({
-//                     classId: cls.id,
-//                     className: cls.name,
-//                     teacherId: cls.Teacher.id
-//                 })
-//             }
-//             lessonData.LessonClasses = lessonClasses
-//             lessonData.LessonTeacherFirstName = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.firstName)[0]
-//             lessonData.LessonTeacherLastName = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.lastName)[0]
-//             lessonData.LessonTeacherUserId = lessonData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.id)[0]
-//             payload.push(lessonData)
-//             delete lessonData.ClassLessons
-//             if (!lessonData.LessonClasses) {
-//                 const teacher = await Teacher.findOne({
-//                     where: { id: lessonData.teacherId },
-//                     include: [
-//                         {
-//                             model: User,
-//                             attributes: ['id', 'firstName', 'lastName']
-//                         }
-//                     ]
-//                 })
-//                 const teacherData = teacher.toJSON()
-//                 // console.log(teacherData)
-//                 lessonData.LessonTeacherUserId = teacherData.User.id
-//                 lessonData.LessonTeacherFirstName = teacherData.User.firstName
-//                 lessonData.LessonTeacherLastName = teacherData.User.lastName
-//             }
-//         }
-//         res.json({ "Lessons": payload })
+// get all assignments that belong to the current user
+router.get('/current-user', requireAuth, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const teach = await Teacher.findOne({
+        where: { userId: userId }
+    })
+    const teachId = teach.dataValues.id
+    if (userId && role === "teacher") {
+        const userAssignments = await Assignment.findAll({
+            where: { teacherId: teachId },
+            include: [
+                {
+                    model: ClassAssignment,
+                    attributes: ['classId', 'assignmentId'],
+                    include: [
+                        {
+                            model: Class,
+                            attributes: ['id', 'name', 'teacherId'],
+                            include: [
+                                {
+                                    model: Teacher,
+                                    attributes: ['id', 'userId'],
+                                    where: { userId: userId },
+                                    include: [
+                                        {
+                                            model: User,
+                                            attributes: ['id', 'firstName', 'lastName']
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            attributes: [
+                "id",
+                "title",
+                "description",
+                "assignmentContent",
+                "dueDate",
+                "teacherId",
+                "createdAt",
+                "updatedAt"
+            ],
+        })
+        const payload = []
+        for (let i = 0; i < userAssignments.length; i++) {
+            const assignments = userAssignments[i]
+            const assignmentData = assignments.toJSON()
+            let assignmentClasses = []
+            for (let j = 0; j < assignmentData.ClassAssignments.length; j++) {
+                const cls = assignmentData.ClassAssignments[j].Class
+                assignmentClasses.push({
+                    classId: cls.id,
+                    className: cls.name,
+                    teacherId: cls.Teacher.id
+                })
+            }
+            assignmentData.AssignmentClasses = assignmentClasses
+            assignmentData.AssignmentTeacherFirstName = assignmentData.ClassAssignments.map(clsAssignment => clsAssignment.Class.Teacher.User.firstName)[0]
+            assignmentData.AssignmentTeacherLastName = assignmentData.ClassAssignments.map(clsAssignment => clsAssignment.Class.Teacher.User.lastName)[0]
+            assignmentData.AssignmentTeacherUserId = assignmentData.ClassAssignments.map(clsAssignment => clsAssignment.Class.Teacher.User.id)[0]
+            payload.push(assignmentData)
+            delete assignmentData.ClassAssignments
+            if (!assignmentData.AssignmentClasses) {
+                const teacher = await Teacher.findOne({
+                    where: { id: assignmentData.teacherId },
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'firstName', 'lastName']
+                        }
+                    ]
+                })
+                const teacherData = teacher.toJSON()
+                // console.log(teacherData)
+                assignmentData.AssignmentTeacherUserId = teacherData.User.id
+                assignmentData.AssignmentTeacherFirstName = teacherData.User.firstName
+                assignmentData.AssignmentTeacherLastName = teacherData.User.lastName
+            }
+        }
+        res.json({ "Assignments": payload })
 
-//     }
-//     // else if (role === "student") {
-//     //     const userLessons = await Lessons.findAll({
-//     //         include: [
-//     //             {
-//     //                 model: StudentLesson,
-//     //                 where: { studentId: userId },
-//     //                 attributes: []
-//     //             }
-//     //         ],
-//     //         attributes: [
-//     //             "id",
-//     //             "title",
-//     //             "lessonImg",
-//     //             "description",
-//     // "teacherId",
-//     //             "createdAt",
-//     //             "updatedAt",
-//     //         ],
-//     //     })
-//     //     const payload = []
-//     //     for (let i = 0; i < userLessons.length; i++) {
-//     //         const lessons = userLessons[i]
-//     //         const lessonData = lessons.toJSON()
+    }
+    else {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden"
+        })
+    }
 
-//     //         // classData.numLessons = classLessonInfo[0].dataValues.numLessons
-//     //         // classData.numAssignments = classAssignmentInfo[0].dataValues.numAssignments
-//     //         payload.push(lessonData)
-//     //     }
-//     //     res.json({ "Lessons": payload })
+});
 
-//     // } else {
-//     //     res.status(403)
-//     //     return res.json({
-//     //         "message": "Forbidden"
-//     //     })
-//     // }
-// });
+//get details of an assignment from an id
+router.get('/:assignmentId', requireAuth, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { assignmentId } = req.params
+    const existingAssignment = await Assignment.findByPk(assignmentId)
+    // console.log(existingLesson)
+    if (existingAssignment) {
+        if (userId && role === "teacher") {
+            const assignmentDetails = await Assignment.findOne({
+                where: { id: assignmentId },
+                include: [
+                    {
+                        model: ClassAssignment,
+                        attributes: ['classId', 'assignmentId'],
+                        include: [
+                            {
+                                model: Class,
+                                attributes: ['id', 'name', 'teacherId'],
+                                include: [
+                                    {
+                                        model: Teacher,
+                                        attributes: ['id', 'userId'],
+                                        include: [
+                                            {
+                                                model: User,
+                                                attributes: ['id', 'firstName', 'lastName']
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                attributes: [
+                    "id",
+                    "title",
+                    "description",
+                    "assignmentContent",
+                    "dueDate",
+                    "teacherId",
+                    "createdAt",
+                    "updatedAt",
+                ]
+            })
+            // console.log(lessonDetails)
+            const assignmentDetailsData = assignmentDetails.toJSON()
+            const teacherUserOwnsAssignment = assignmentDetailsData.ClassAssignments.find(clsAssignment => clsAssignment.Class.Teacher.userId === userId)
+            if (teacherUserOwnsAssignment !== undefined) {
+                let assignmentClasses = []
+                for (let i = 0; i < assignmentDetailsData.ClassAssignments.length; i++) {
+                    const cls = assignmentDetailsData.ClassAssignments[i].Class
+                    assignmentClasses.push({
+                        classId: cls.id,
+                        className: cls.name,
+                        teacherId: cls.Teacher.id,
+                        teacherUserId: cls.Teacher.userId
+                    })
+                }
 
-// //get details of a lesson from an id
-// router.get('/:lessonId', requireAuth, async (req, res) => {
-//     const userId = req.user.id
-//     const role = req.user.userRole
-//     const { lessonId } = req.params
-//     const existingLesson = await Lesson.findByPk(lessonId)
-//     // console.log(existingLesson)
-//     if (existingLesson) {
-//         if (userId && role === "teacher") {
-//             const lessonDetails = await Lesson.findOne({
-//                 where: { id: lessonId },
-//                 include: [
-//                     {
-//                         model: ClassLesson,
-//                         attributes: ['classId', 'lessonId'],
-//                         include: [
-//                             {
-//                                 model: Class,
-//                                 attributes: ['id', 'name', 'teacherId'],
-//                                 include: [
-//                                     {
-//                                         model: Teacher,
-//                                         attributes: ['id', 'userId'],
-//                                         include: [
-//                                             {
-//                                                 model: User,
-//                                                 attributes: ['id', 'firstName', 'lastName']
-//                                             }
-//                                         ]
-//                                     }
-//                                 ]
-//                             }
-//                         ]
-//                     }
-//                 ],
-//                 attributes: [
-//                     "id",
-//                     "title",
-//                     "lessonImg",
-//                     "description",
-//                     "lessonContent",
-//                     "teacherId",
-//                     "createdAt",
-//                     "updatedAt",
-//                 ]
-//             })
-//             // console.log(lessonDetails)
-//             const lessonDetailsData = lessonDetails.toJSON()
-//             const teacherUserOwnsLesson = lessonDetailsData.ClassLessons.find(clsLesson => clsLesson.Class.Teacher.userId === userId)
-//             if (teacherUserOwnsLesson !== undefined) {
-//                 let lessonClasses = []
-//                 for (let i = 0; i < lessonDetailsData.ClassLessons.length; i++) {
-//                     const cls = lessonDetailsData.ClassLessons[i].Class
-//                     lessonClasses.push({
-//                         classId: cls.id,
-//                         className: cls.name,
-//                         teacherId: cls.Teacher.id,
-//                         teacherUserId: cls.Teacher.userId
-//                     })
-//                 }
+                assignmentDetailsData.AssignmentClasses = assignmentClasses
+            }
+            assignmentDetailsData.AssignmentTeacherFirstName = assignmentDetailsData.ClassAssignments.map(clsAssignment => clsAssignment.Class.Teacher.User.firstName)[0]
+            assignmentDetailsData.AssignmentTeacherLastName = assignmentDetailsData.ClassAssignments.map(clsAssignment => clsAssignment.Class.Teacher.User.lastName)[0]
+            assignmentDetailsData.AssignmentTeacherUserId = assignmentDetailsData.ClassAssignments.map(clsAssignment => clsAssignment.Class.Teacher.User.id)[0]
+            delete assignmentDetailsData.ClassAssignments
+            if (!assignmentDetailsData.AssignmentClasses) {
+                const teacher = await Teacher.findOne({
+                    where: { id: assignmentDetailsData.teacherId },
+                    include: [
+                        {
+                            model: User,
+                            attributes: ['id', 'firstName', 'lastName']
+                        }
+                    ]
+                })
+                const teacherData = teacher.toJSON()
+                // console.log(teacherData)
+                assignmentDetailsData.AssignmentTeacherFirstName = teacherData.User.firstName
+                assignmentDetailsData.AssignmentTeacherLastName = teacherData.User.lastName
+                assignmentDetailsData.AssignmentTeacherUserId = teacherData.User.id
+            }
+            res.json({ "Assignment": assignmentDetailsData })
+        } else {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        }
+    }
+    if (!existingAssignment) {
+        res.status(404);
+        return res.json({
+            "message": "Assignment couldn't be found",
+        })
+    }
 
-//                 lessonDetailsData.LessonClasses = lessonClasses
-//             }
-//             lessonDetailsData.LessonTeacherFirstName = lessonDetailsData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.firstName)[0]
-//             lessonDetailsData.LessonTeacherLastName = lessonDetailsData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.lastName)[0]
-//             lessonDetailsData.LessonTeacherUserId = lessonDetailsData.ClassLessons.map(clsLesson => clsLesson.Class.Teacher.User.id)[0]
-//             delete lessonDetailsData.ClassLessons
-//             if (!lessonDetailsData.LessonClasses) {
-//                 const teacher = await Teacher.findOne({
-//                     where: { id: lessonDetailsData.teacherId },
-//                     include: [
-//                         {
-//                             model: User,
-//                             attributes: ['id', 'firstName', 'lastName']
-//                         }
-//                     ]
-//                 })
-//                 const teacherData = teacher.toJSON()
-//                 // console.log(teacherData)
-//                 lessonDetailsData.LessonTeacherFirstName = teacherData.User.firstName
-//                 lessonDetailsData.LessonTeacherLastName = teacherData.User.lastName
-//                 lessonDetailsData.LessonTeacherUserId = teacherData.User.id
-//             }
-//             res.json({ "Lesson": lessonDetailsData })
-//         } else {
-//             res.status(403)
-//             return res.json({
-//                 "message": "Forbidden"
-//             })
-//         }
-//     }
-//     if (!existingLesson) {
-//         res.status(404);
-//         return res.json({
-//             "message": "Lesson couldn't be found",
-//         })
-//     }
-
-// });
+});
 
 // // create a new lesson for multiple classes that belong to the current user (teacher users only)
 // router.post('/', requireAuth, validateLessonParams, async (req, res) => {

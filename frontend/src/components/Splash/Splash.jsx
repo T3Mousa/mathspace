@@ -160,6 +160,16 @@ const Splash = () => {
               </NavLink>
             }
           </p>
+          <p>
+            {user &&
+              <NavLink
+                to="/my-assignments"
+                className="userAssignments"
+              >
+                Assignments
+              </NavLink>
+            }
+          </p>
         </div>
         {/* <div className='spalshPageRightSide'>
         <div className='allLessonsContainer'>

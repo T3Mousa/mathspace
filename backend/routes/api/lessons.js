@@ -217,12 +217,13 @@ router.get('/current-user', requireAuth, async (req, res) => {
     //     }
     //     res.json({ "Lessons": payload })
 
-    // } else {
-    //     res.status(403)
-    //     return res.json({
-    //         "message": "Forbidden"
-    //     })
     // }
+    else {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden"
+        })
+    }
 });
 
 //get details of a lesson from an id
