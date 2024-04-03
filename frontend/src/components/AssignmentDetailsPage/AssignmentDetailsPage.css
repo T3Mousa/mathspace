@@ -1,36 +1,56 @@
 .assignmentDetailsContainer {
-    padding-top: 40px;
+    margin-top: 30px;
 }
 
 .assignmentDetailsHeading img {
-    height: auto;
-    width: 8%;
+    height: 20%;
+    width: 20%;
     margin: 20px;
 }
 
-.assignmentDetailsHeading h2,
-.assignmentDetailsHeading h3,
-.assignmentDetailsHeading p,
+.assignmentDetailsHeading {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.subHeading {
+    /* margin: 10px; */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 15px
+}
+
+.assignmentDetailsHeading,
+.assignmentDetails,
+.assignmentDetailsContent,
 .assignmentClassList {
     margin: 20px;
     font-family: 'Lato', sans-serif;
 }
 
+p.assignmentDetailsLabel>span {
+    font-weight: bold;
+}
+
 .assignmentTitle {
     display: flex;
     align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: larger;
 }
 
 .assignmentDetailsButtons {
-    position: absolute;
-    top: 10%;
-    right: 5%;
+    /* position: absolute; */
+    /* top: 10%;
+    right: 5%; */
     margin: 20px;
     font-family: 'Lato', sans-serif;
     display: flex;
-    flex-flow: column;
+    flex-flow: column wrap;
 
-    gap: 12px;
+    gap: 6px;
     justify-content: center;
     align-items: flex-end;
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+// import { format } from 'date-fns';
 import { getAssignmentDetails } from '../../redux/assignments';
 import './AssignmentDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
@@ -13,7 +14,15 @@ const AssignmentDetailsPage = () => {
     const user = useSelector(state => state.session.user)
     const assignment = useSelector(state => state?.assignments?.assignmentDeets)
     // console.log(assignment)
-    const assignmentClasses = assignment?.AssignmentClasses
+    const dueDate = new Date(assignment?.dueDate);
+    // console.log(dueDate)
+    const formattedDueDate = dueDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        weekday: 'short'
+    });
+    // const assignmentClasses = assignment?.AssignmentClasses
     // console.log(assignmentClasses)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
@@ -55,74 +64,74 @@ const AssignmentDetailsPage = () => {
                             src="../images/assignment_image.png"
                             className="assignmentImg"
                         />
-                        <h2 className='assignmentTitle'>
+                        <div className='assignmentDetailsButtons'>
+                            {assignment.AssignmentTeacherUserId === user.id && (
+                                <>
+                                    <div className='editAssignmentButton'>
+                                        <button className="editAssignmentButton">
+                                            <Link to={`/assignments/${assignmentId}/edit`} className='editAssignmentLink'>Edit Assignment </Link>
+                                        </button>
+                                    </div>
+                                    <div className='deleteAssignmentButton'>
+                                        <OpenModalButton
+                                            buttonText="Delete Assignment"
+                                            onButtonClick={closeMenu}
+                                            modalComponent={<DeleteLessonModal assignment={assignment} />}
+                                        />
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                    <div className='assignmentDetails'>
+                        <div className='assignmentTitle'>
+                            <p className='assignmentDetailsLabel'>
+                                <span>Assignment Title: </span> {assignment.title}
+                            </p>
+                        </div>
+                        <div className='subHeading'>
+                            <p className='assignmentDetailsLabel'>
+                                <span>Created By:</span> {assignment.AssignmentTeacherFirstName} {assignment.AssignmentTeacherLastName}
+                            </p>
+                            {assignment.AssignmentTeacherUserId === user.id &&
+                                <p className='assignmentDetailsLabel'>
+                                    <span>Classes Assigned To:</span>
+                                    {assignment?.AssignmentClasses ?
+                                        <ul className='assignmentClassList'>
+                                            {(() => {
+                                                const assignmentClassItems = []
+                                                for (let i = 0; i < assignment?.AssignmentClasses?.length; i++) {
+                                                    const assignmentClassItem = assignment?.AssignmentClasses[i]
+                                                    assignmentClassItems.push(
+                                                        <li key={assignmentClassItem.classId}>{assignmentClassItem.className}</li>
+                                                    )
+                                                }
+                                                return assignmentClassItems
+                                            })()}
+                                        </ul> :
+                                        <ul className='assignmentClassList'>This assignment has not been assigned to any classes</ul>
+                                    }
+                                </p>
+                            }
+                            {assignment.AssignmentTeacherUserId === user.id &&
+                                <p className='assignmentDetailsLabel'>
+                                    <span>Due:</span>  {formattedDueDate}
+                                </p>
+                            }
+                        </div>
+                    </div>
 
-                            Assignment Title: {assignment.title}
-                        </h2>
-                        <p>
-                            Created By: {assignment.AssignmentTeacherFirstName} {assignment.AssignmentTeacherLastName}
-                        </p>
-                        <p>Classes Assigned To:</p>
-                        {assignment?.AssignmentClasses ?
-                            <div className='assignmentClassList'>
-                                <ul>
-                                    {(() => {
-                                        const assignmentClassItems = []
-                                        for (let i = 0; i < assignment?.AssignmentClasses?.length; i++) {
-                                            const assignmentClassItem = assignment?.AssignmentClasses[i]
-                                            assignmentClassItems.push(
-                                                <li key={assignmentClassItem.classId}>{assignmentClassItem.className}</li>
-                                            )
-                                        }
-                                        // console.log(assignmentClassItems)
-                                        return assignmentClassItems
-                                    })()}
-                                </ul>
-
-                            </div> :
-                            <div>
-                                <ul>This assignment has not been assigned to any classes</ul>
-                            </div>
-                        }
-
-
-                        {/* <h3>Assignment Description: <p>{assignment.description}</p></h3> */}
-
-
+                    <div className='assignmentDetailsContent'>
                         <h3>Assignment Description: </h3>
                         <p>{assignment.description}</p>
                         <h3>Assignment Content: </h3>
                         <p>{assignment.assignmentContent}</p>
+
                     </div>
-                    {/* <div className='assignmentContent'>
-                    </div> */}
-                    <div className='assignmentDetailsButtons'>
-                        {assignment.AssignmentTeacherUserId === user.id && (
-                            <>
-                                <div className='editAssignmentButton'>
-                                    <button className="editAssignmentButton">
-                                        <Link to={`/assignments/${assignmentId}/edit`} className='editAssignmentLink'>Edit Assignment </Link>
-                                    </button>
-                                    {/* <OpenModalButton
-                                        buttonText="Edit Lesson"
-                                        className="editLessonButton"
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<UpdateLessonModal lessonId={lesson.id} />}
-                                    /> */}
-                                </div>
-                                <div className='deleteAssignmentButton'>
-                                    <OpenModalButton
-                                        buttonText="Delete Assignment"
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<DeleteLessonModal assignment={assignment} />}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    </div>
+
                 </>
             }
-        </div>
+        </div >
     )
 }
 

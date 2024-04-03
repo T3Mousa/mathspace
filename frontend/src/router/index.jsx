@@ -12,6 +12,7 @@ import CreateLessonFormPage from '../components/CreateLessonFormPage';
 import UpdateLessonFormPage from '../components/UpdateLessonFormPage';
 import AssignmentManagerPage from '../components/AssignmentManagerPage';
 import AssignmentDetailsPage from '../components/AssignmentDetailsPage';
+import CreateAssignmentFormPage from '../components/CreateAssignmentFormPage';
 // import UpdateClassModal from '../components/UpdateClassModal';
 
 export const router = createBrowserRouter([
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-assignments",
         element: <AssignmentManagerPage />,
+      },
+      {
+        path: "/create-new-assignment",
+        element: <CreateAssignmentFormPage />
       },
     ],
   },

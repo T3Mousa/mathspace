@@ -45,10 +45,24 @@ const LessonDetailsPage = () => {
     }
 
     return (
-        <>
+        <div className='lessonDetailsContainer'>
             {isLoaded &&
                 <>
                     <div className='lessonDetailsHeading'>
+                        {lesson.lessonImg ?
+                            // <img
+                            //     src={lesson.lessonImg}
+                            //     className='lessonImg'
+                            // />
+                            <img
+                                src="../images/lesson_image.png"
+                                alt="lesson image"
+                            /> :
+                            <img
+                                src="../images/placeholder.jpeg"
+                                className="clsImg"
+                            />
+                        }
                         <h2>Lesson Title: {lesson.title}</h2>
                         <p>
                             Lesson By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
@@ -74,16 +88,7 @@ const LessonDetailsPage = () => {
                                 <ul>This lesson has not been assigned to any classes</ul>
                             </div>
                         }
-                        {lesson.lessonImg ?
-                            <img
-                                src={lesson.lessonImg}
-                                className='lessonImg'
-                            /> :
-                            <img
-                                src="../images/placeholder.jpeg"
-                                className="clsImg"
-                            />
-                        }
+
 
                         {/* <h3>Lesson Description: <p>{lesson.description}</p></h3> */}
 
@@ -121,7 +126,7 @@ const LessonDetailsPage = () => {
                     </div>
                 </>
             }
-        </>
+        </div>
     )
 }
 

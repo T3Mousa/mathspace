@@ -1,7 +1,11 @@
+.lessonDetailsContainer {
+    margin-top: 30px;
+}
+
 .lessonDetailsHeading img {
     height: auto;
-    width: 50%;
-    margin: 20px;
+    width: 15%;
+    margin-left: 20px;
 }
 
 .lessonDetailsHeading h2,
@@ -14,7 +18,7 @@
 
 .lessonDetailsButtons {
     position: absolute;
-    top: 12%;
+    top: 13%;
     right: 5%;
     margin: 20px;
     font-family: 'Lato', sans-serif;

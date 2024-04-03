@@ -1,12 +1,12 @@
 import { csrfFetch } from "./csrf";
 
-const GET_ASSIGNMENTS = "lessons/GET_ASSIGNMENTS"
-const GET_USER_ASSIGNMENTS = "lessons/GET_USER_ASSIGNMENTS"
-const GET_ASSIGNMENT_DETAILS = "lessons/GET_ASSIGNMENT_DETAILS"
-const GET_CLASS_ASSIGNMENTS = "lessons/GET_CLASS_ASSIGNMENTS"
-const CREATE_ASSIGNMENT = "lessons/CREATE_ASSIGNMENT"
-const UPDATE_ASSIGNMENT = "lessons/UPDATE_ASSIGNMENT"
-const REMOVE_ASSIGNMENT = "lessons/REMOVE_ASSIGNMENT"
+const GET_ASSIGNMENTS = "assignments/GET_ASSIGNMENTS"
+const GET_USER_ASSIGNMENTS = "assignments/GET_USER_ASSIGNMENTS"
+const GET_ASSIGNMENT_DETAILS = "assignments/GET_ASSIGNMENT_DETAILS"
+const GET_CLASS_ASSIGNMENTS = "assignments/GET_CLASS_ASSIGNMENTS"
+const CREATE_ASSIGNMENT = "assignments/CREATE_ASSIGNMENT"
+const UPDATE_ASSIGNMENT = "assignments/UPDATE_ASSIGNMENT"
+const REMOVE_ASSIGNMENT = "assignments/REMOVE_ASSIGNMENT"
 
 
 const getAssignments = (assignments) => ({
@@ -24,15 +24,15 @@ const assignmentDetails = (assignmentData) => ({
     payload: assignmentData
 })
 
-// const getClassLessons = (classLessons) => ({
-//     type: GET_CLASS_LESSONS,
-//     payload: classLessons
-// })
+const getClassAssignments = (classAssignments) => ({
+    type: GET_CLASS_ASSIGNMENTS,
+    payload: classAssignments
+})
 
-// const createLesson = (lessonInfo) => ({
-//     type: CREATE_LESSON,
-//     payload: lessonInfo
-// })
+const createAssignment = (assignmentInfo) => ({
+    type: CREATE_ASSIGNMENT,
+    payload: assignmentInfo
+})
 
 // const updateLesson = (editedLesson) => ({
 //     type: UPDATE_LESSON,
@@ -78,6 +78,7 @@ export const getAllUserAssignments = () => async (dispatch) => {
 
 export const getAssignmentDetails = (assignmentId) => async (dispatch) => {
     const response = await csrfFetch(`/api/assignments/${+assignmentId}`)
+    // console.log(response)
     if (response.ok) {
         const data = await response.json()
         // console.log(data)
@@ -93,41 +94,41 @@ export const getAssignmentDetails = (assignmentId) => async (dispatch) => {
     }
 }
 
-// export const getAllClassLessons = (classId) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/classes/${classId}/lessons`)
+export const getAllClassAssignments = (classId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/classes/${classId}/assignments`)
 
-//     if (response.ok) {
-//         const data = await response.json()
-//         const classLessonList = data.Lessons
-//         dispatch(getClassLessons(classLessonList))
-//         return classLessonList
-//     } else if (response.status < 500) {
-//         const errorMessages = await response.json();
-//         return errorMessages
-//     } else {
-//         return { server: "Something went wrong. Please try again" }
-//     }
-// }
+    if (response.ok) {
+        const data = await response.json()
+        const classAssignmentList = data.Assignments
+        dispatch(getClassAssignments(classAssignmentList))
+        return classAssignmentList
+    } else if (response.status < 500) {
+        const errorMessages = await response.json();
+        return errorMessages
+    } else {
+        return { server: "Something went wrong. Please try again" }
+    }
+}
 
-// export const addNewLesson = (lessonInfo) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/lessons`, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(lessonInfo),
-//     })
-//     if (response.ok) {
-//         const newLessonData = await response.json()
-//         dispatch(createLesson(newLessonData))
-//         return newLessonData
-//     } else if (response.status < 500) {
-//         const errorMessages = await response.json();
-//         return errorMessages
-//     } else {
-//         return { server: "Something went wrong. Please try again" }
-//     }
-// }
+export const addNewAssignment = (assignmentInfo) => async (dispatch) => {
+    const response = await csrfFetch(`/api/assignments`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(assignmentInfo),
+    })
+    if (response.ok) {
+        const newAssignmentData = await response.json()
+        dispatch(createAssignment(newAssignmentData))
+        return newAssignmentData
+    } else if (response.status < 500) {
+        const errorMessages = await response.json();
+        return errorMessages
+    } else {
+        return { server: "Something went wrong. Please try again" }
+    }
+}
 
 // export const editLesson = (lessonId, editedLessonData) => async (dispatch) => {
 //     const response = await csrfFetch(`/api/lessons/${lessonId}`, {
@@ -212,34 +213,34 @@ const assignmentsReducer = (state = initialState, action) => {
                     ...state
                 }
             }
-        // case GET_CLASS_LESSONS:
-        //     if (action.payload) {
-        //         const classLessonsById = {};
-        //         action.payload.forEach((lesson) => {
-        //             classLessonsById[lesson.id] = lesson;
-        //         });
-        //         newState = {
-        //             allClassLessons: action.payload,
-        //             allClassLessonsById: classLessonsById,
-        //         };
-        //         return newState;
-        //     } else {
-        //         newState = action.payload;
-        //         return newState;
-        //     }
-        // case CREATE_LESSON:
-        //     if (action.payload) {
-        //         if (!newState.allUserLessonsById) {
-        //             newState.allUserLessonsById = {}
-        //         }
-        //         newState.allUserLessons = [...state.allUserLessons, action.payload]
-        //         newState.allUserLessonsById[action.payload.id] = { ...action.payload }
+        case GET_CLASS_ASSIGNMENTS:
+            if (action.payload) {
+                const classAssignmentsById = {};
+                action.payload.forEach((assignment) => {
+                    classAssignmentsById[assignment.id] = assignment;
+                });
+                newState = {
+                    allClassAssignments: action.payload,
+                    allClassAssignmentsById: classAssignmentsById,
+                };
+                return newState;
+            } else {
+                newState = action.payload;
+                return newState;
+            }
+        case CREATE_ASSIGNMENT:
+            if (action.payload) {
+                if (!newState.allUserAssignmentsById) {
+                    newState.allUserAssignmentsById = {}
+                }
+                newState.allUserAssignments = [...state.allUserAssignments, action.payload]
+                newState.allUserAssignmentsById[action.payload.id] = { ...action.payload }
 
-        //         console.log(newState)
-        //         return newState
-        //     } else {
-        //         return { ...state }
-        //     }
+                // console.log(newState)
+                return newState
+            } else {
+                return { ...state }
+            }
         // case UPDATE_LESSON:
         //     newState = { ...state }
         //     if (!newState.allLessonsById) {

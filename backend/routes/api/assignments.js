@@ -243,7 +243,7 @@ router.get('/:assignmentId', requireAuth, async (req, res) => {
                     "updatedAt",
                 ]
             })
-            // console.log(lessonDetails)
+            // console.log(assignmentDetails)
             const assignmentDetailsData = assignmentDetails.toJSON()
             const teacherUserOwnsAssignment = assignmentDetailsData.ClassAssignments.find(clsAssignment => clsAssignment.Class.Teacher.userId === userId)
             if (teacherUserOwnsAssignment !== undefined) {
@@ -280,6 +280,7 @@ router.get('/:assignmentId', requireAuth, async (req, res) => {
                 assignmentDetailsData.AssignmentTeacherLastName = teacherData.User.lastName
                 assignmentDetailsData.AssignmentTeacherUserId = teacherData.User.id
             }
+            // console.log(assignmentDetailsData)
             res.json({ "Assignment": assignmentDetailsData })
         } else {
             res.status(403)
@@ -297,59 +298,59 @@ router.get('/:assignmentId', requireAuth, async (req, res) => {
 
 });
 
-// // create a new lesson for multiple classes that belong to the current user (teacher users only)
-// router.post('/', requireAuth, validateLessonParams, async (req, res) => {
-//     const userId = req.user.id
-//     const role = req.user.userRole
-//     const { title, lessonImg, description, lessonContent, selectedClasses } = req.body
-//     if (userId && role === 'teacher') {
-//         const teacher = await Teacher.findOne({
-//             where: { userId: userId },
-//             attributes: ['id', 'userId']
-//         })
-//         const teacherId = teacher.dataValues.id
-//         if (teacherId === userId) {
-//             const teacherClasses = await Class.findAll({
-//                 where: { teacherId: teacherId }
-//             })
-//             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-//             // console.log(validClassIds)
-//             const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
-//             // console.log(invalidClassIds)
-//             if (invalidClassIds.length > 0) {
-//                 res.status(403)
-//                 return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
-//             }
-//             const newLesson = new Lesson({
-//                 title,
-//                 lessonImg,
-//                 description,
-//                 lessonContent,
-//                 teacherId: teacherId
-//             })
-//             await newLesson.save()
-//             //associate lesson with specified array of classes in classIds
-//             for (const selectedClass of selectedClasses) {
-//                 await ClassLesson.create({
-//                     lessonId: newLesson.id,
-//                     classId: selectedClass.value
-//                 })
-//             }
+// create a new assignment for multiple classes that belong to the current user (teacher users only)
+router.post('/', requireAuth, validateAssignmentParams, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { title, description, assignmentContent, dueDate, selectedClasses } = req.body
+    if (userId && role === 'teacher') {
+        const teacher = await Teacher.findOne({
+            where: { userId: userId },
+            attributes: ['id', 'userId']
+        })
+        const teacherId = teacher.dataValues.id
+        if (teacherId === userId) {
+            const teacherClasses = await Class.findAll({
+                where: { teacherId: teacherId }
+            })
+            const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
+            // console.log(validClassIds)
+            const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+            // console.log(invalidClassIds)
+            if (invalidClassIds.length > 0) {
+                res.status(403)
+                return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
+            }
+            const newAssignment = new Assignment({
+                title,
+                description,
+                assignmentContent,
+                dueDate,
+                teacherId: teacherId
+            })
+            await newAssignment.save()
+            //associate assignment with specified array of classes in classIds
+            for (const selectedClass of selectedClasses) {
+                await ClassAssignment.create({
+                    assignmentId: newAssignment.id,
+                    classId: selectedClass.value
+                })
+            }
 
-//             res.status(201).json(newLesson)
-//         } else {
-//             res.status(403)
-//             return res.json({
-//                 "message": "Forbidden"
-//             })
-//         }
-//     } else if (userId && role !== 'teacher') {
-//         res.status(403)
-//         return res.json({
-//             "message": "Forbidden"
-//         })
-//     }
-// })
+            res.status(201).json(newAssignment)
+        } else {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        }
+    } else if (userId && role !== 'teacher') {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden"
+        })
+    }
+})
 
 // // edit a lesson (teacher users only)
 // router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => {
