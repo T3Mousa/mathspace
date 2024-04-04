@@ -50,10 +50,6 @@ const LessonDetailsPage = () => {
                 <>
                     <div className='lessonDetailsHeading'>
                         {lesson.lessonImg ?
-                            // <img
-                            //     src={lesson.lessonImg}
-                            //     className='lessonImg'
-                            // />
                             <img
                                 src="../images/lesson_image.png"
                                 alt="lesson image"
@@ -107,12 +103,6 @@ const LessonDetailsPage = () => {
                                     <button className="editLessonButton">
                                         <Link to={`/lessons/${lessonId}/edit`} className='editLessonLink'>Edit Lesson </Link>
                                     </button>
-                                    {/* <OpenModalButton
-                                        buttonText="Edit Lesson"
-                                        className="editLessonButton"
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<UpdateLessonModal lessonId={lesson.id} />}
-                                    /> */}
                                 </div>
                                 <div className='deleteLessonButton'>
                                     <OpenModalButton

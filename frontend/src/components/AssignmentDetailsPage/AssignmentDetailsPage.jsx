@@ -22,8 +22,6 @@ const AssignmentDetailsPage = () => {
         weekday: 'short',
         timeZone: 'UTC'
     });
-    // const assignmentClasses = assignment?.AssignmentClasses
-    // console.log(assignmentClasses)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()

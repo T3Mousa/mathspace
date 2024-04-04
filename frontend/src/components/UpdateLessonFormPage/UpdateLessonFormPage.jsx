@@ -23,10 +23,6 @@ function UpdateLessonFormPage() {
     const [errors, setErrors] = useState({})
     const [isLoaded, setIsLoaded] = useState(false)
     const teacherClasses = useSelector(state => state?.classes?.allClasses)
-    // console.log(teacherClasses)
-    // const associatedClasses = lessonToEdit?.LessonClasses
-    // console.log(selectedClasses)
-    // console.log(associatedClasses)
 
     useEffect(() => {
         if (lessonParsedId) {
@@ -72,7 +68,7 @@ function UpdateLessonFormPage() {
         } else {
 
             const updatedLesson = await dispatch(editLesson(+lessonId, lessonInfo))
-            console.log(updatedLesson)
+            // console.log(updatedLesson)
             if (updatedLesson?.id) {
                 await dispatch(getLessonDetails(updatedLesson?.id))
                 await navigate(`/lessons/${updatedLesson?.id}`)
