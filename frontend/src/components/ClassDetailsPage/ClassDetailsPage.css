@@ -8,58 +8,49 @@
     margin: 20px;
     padding-right: 20px;
     padding-top: 10px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 .classNameRoster {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
+    place-items: center;
 }
 
 .classRoster {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 .classImageDesc {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    font-size: medium;
     /* margin: auto 10px */
 }
 
-.createLessonButton button {
-    margin: 40px 20px;
-    background-color: #9C0D63;
-    border: 2px solid #9C0D63;
-    border-radius: 3px;
-    font-family: 'Roboto', sans-serif;
-    padding: 10px;
-    font-size: 18px;
-    transition: transform 0.3 ease;
-}
-
-.createLessonButton button:hover {
-    transform: scale(1.02);
-    box-shadow: 2px 2px 2px gray;
-}
-
 .lessonDropDownList,
-.selectedLesson {
+.selectedLesson,
+.assignmentDropDownList,
+.selectedAssignment {
     margin: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    font-size: medium;
 }
 
 .lessonOption,
-.lessonDropDownList label {
-    font-family: 'Roboto', sans-serif;
+.lessonDropDownList label,
+.assignmentOption,
+.assignmentDropDownList label {
+    font-family: 'Lato', sans-serif;
     font-weight: bold;
     font-size: 20px;
 }
 
 .lessonLink,
+.assignmentLink,
 .fa-solid.fa-arrow-right {
     text-decoration: none;
     color: #9c0d639a;
@@ -68,6 +59,7 @@
 }
 
 .lessonLink:hover,
+.assignmentLink:hover,
 .fa-solid.fa-arrow-right:hover {
     color: #9C0D63;
 }
@@ -76,4 +68,10 @@ select:focus {
     outline: none;
     border: 2px solid #9C0D63;
     border-radius: 2px;
+}
+
+select {
+    font-family: 'Lato', sans-serif;
+    font-size: medium;
+    margin-left: 5px;
 }

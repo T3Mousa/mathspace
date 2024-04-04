@@ -30,7 +30,7 @@ function UpdateLessonFormPage() {
 
     useEffect(() => {
         if (lessonParsedId) {
-            dispatch(getAllClasses()).then(() => getAllLessons()).then(() => dispatch(getLessonDetails(lessonParsedId))).then(() => setIsLoaded(true))
+            dispatch(getAllClasses()).then(() => dispatch(getAllLessons())).then(() => dispatch(getLessonDetails(lessonParsedId))).then(() => setIsLoaded(true))
         }
     }, [dispatch, lessonParsedId, isLoaded])
 
@@ -163,7 +163,7 @@ function UpdateLessonFormPage() {
                 </label>
 
                 <button onClick={() => navigate(`/lessons/${lessonParsedId}`)}>Cancel</button>
-                <button type="submit" disabled={submitDisabled}>Save Update</button>
+                <button type="submit" disabled={submitDisabled}>Update Lesson</button>
             </form>
         </>
     );

@@ -1,4 +1,4 @@
-import { deleteLesson } from "../../redux/lessons";
+import { deleteLesson, getAllUserLessons } from "../../redux/lessons";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
@@ -12,6 +12,7 @@ function DeleteLessonModal({ lesson }) {
     const confirmDelete = (e) => {
         e.preventDefault();
         return dispatch(deleteLesson(lesson.id))
+            .then(dispatch(getAllUserLessons()))
             .then(navigate('/my-lessons'))
             .then(closeModal)
     };

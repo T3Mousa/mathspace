@@ -4,6 +4,7 @@ import { useParams, NavLink } from 'react-router-dom';
 import { getClassDetails } from '../../redux/classes';
 import './ClassDetailsPage.css'
 import { getAllClassLessons } from '../../redux/lessons';
+import { getAllClassAssignments } from '../../redux/assignments';
 // import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
 // import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 
@@ -15,7 +16,9 @@ const ClassDetailsPage = () => {
     const cls = useSelector(state => state?.classes?.classDeets)
     const clsLessons = useSelector(state => state?.lessons?.allClassLessons)
     // console.log(clsLessons)
+    const clsAssignments = useSelector(state => state?.assignments?.allClassAssignments)
     const [selectedLesson, setSelectedLesson] = useState(null)
+    const [selectedAssignment, setSelectedAssignment] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
@@ -26,7 +29,7 @@ const ClassDetailsPage = () => {
     }
 
     useEffect(() => {
-        dispatch(getClassDetails(classId)).then(() => dispatch(getAllClassLessons(classId))).then(() => setIsLoaded(true))
+        dispatch(getClassDetails(classId)).then(() => dispatch(getAllClassLessons(classId))).then(() => dispatch(getAllClassAssignments(classId))).then(() => setIsLoaded(true))
     }, [dispatch, classId, isLoaded])
 
     useEffect(() => {
@@ -53,6 +56,14 @@ const ClassDetailsPage = () => {
         const selected = clsLessons.find((lesson) => lesson.id === lessonId)
 
         setSelectedLesson(selected)
+    }
+
+    const handleAssignmentSelection = (e) => {
+        const assignmentId = parseInt(e.target.value)
+
+        const selected = clsAssignments.find((assignment) => assignment.id === assignmentId)
+
+        setSelectedAssignment(selected)
     }
 
     return (
@@ -111,6 +122,34 @@ const ClassDetailsPage = () => {
                             <p>Description: {selectedLesson.description}</p>
                             <NavLink to={`/lessons/${selectedLesson.id}`} className="lessonLink">
                                 Go to lesson details page <i className="fa-solid fa-arrow-right"></i>
+                            </NavLink>
+                        </div>}
+
+                    <p>
+                        <div className='assignmentDropDownList'>
+                            <label>
+                                Class Assignments:
+                                <select
+                                    value={selectedAssignment ? selectedAssignment.id : ''}
+                                    onChange={handleAssignmentSelection}
+                                >
+                                    <option value="" disabled className='assignmentOption'>Select an assignment...</option>
+                                    {clsAssignments?.map((assignment) => (
+                                        <option key={assignment.id} value={assignment.id} className='assignmentOption'>
+                                            {assignment.title}
+                                        </option>
+                                    )
+                                    )}
+                                </select>
+                            </label>
+                        </div>
+                    </p>
+                    {selectedAssignment &&
+                        <div className='selectedAssignment'>
+                            <p>Title: {selectedAssignment.title}</p>
+                            <p>Description: {selectedAssignment.description}</p>
+                            <NavLink to={`/assignments/${selectedAssignment.id}`} className="assignmentLink">
+                                Go to assignment details page <i className="fa-solid fa-arrow-right"></i>
                             </NavLink>
                         </div>}
                     {/* <p>
