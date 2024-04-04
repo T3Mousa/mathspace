@@ -1,25 +1,19 @@
-.createLessonForm {
+p.errors {
+    color: red
+}
+
+.editAssignmentForm {
     display: flex;
     flex-direction: column;
-    /* height: 100%;
-    width: 100%; */
-    margin: 40px 80px 60px 80px;
-    padding: 20px 60px;
     font-family: 'Roboto', sans-serif;
+
+    margin: 20px 40px 40px 40px;
+    padding: 20px 20px;
 }
 
-.createLessonForm label {
-    margin-bottom: 5px;
-}
-
-.createLessonForm input,
-textarea {
-    margin-left: 5px;
-}
-
-.createLessonForm button {
+.editAssignmentForm button {
+    font-family: 'Roboto', sans-serif;
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
     padding: 8px;
     margin: 10px;
     background-color: #9C0D63;
@@ -30,11 +24,16 @@ textarea {
     border-radius: 3px;
 }
 
-.createLessonForm button:hover {
+.editAssignmentForm button:hover {
     transform: scale(1.01);
     box-shadow: 2px 2px 2px gray;
 }
 
-p.errors {
-    color: red
+.editAssignmentForm label {
+    margin-bottom: 5px;
+}
+
+.editAssignmentForm input,
+textarea {
+    margin-left: 5px;
 }

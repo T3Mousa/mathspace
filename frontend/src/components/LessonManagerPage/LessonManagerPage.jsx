@@ -88,11 +88,12 @@ const LessonManagerPage = () => {
                                             key={lesson.id}
                                         >
                                             <div className='lessonImage'>
-                                                <img src={lesson.lessonImg} alt={lesson.title} />
+                                                {/* <img src={lesson.lessonImg} alt={lesson.title} /> */}
+                                                <img src="../images/lesson_image.png" alt="lesson image" />
                                             </div>
                                             <div className='lessonTitleAuthor'>
                                                 <p>Title: {lesson.title}</p>
-                                                <p>By: You</p>
+                                                <p>Created By: You</p>
                                                 <p>Classes Assigned To:</p>
                                                 {lesson.LessonClasses.length ?
                                                     <ul>

@@ -26,7 +26,7 @@ module.exports = {
                 defaultValue: ""
             },
             assignmentContent: {
-                type: Sequelize.BLOB,
+                type: Sequelize.TEXT,
                 allowNull: true,
                 defaultValue: ""
             },

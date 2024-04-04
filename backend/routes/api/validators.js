@@ -26,8 +26,21 @@ const validateLessonParams = [
     handleValidationErrors
 ]
 
+const validateAssignmentParams = [
+    check('title')
+        .exists({ checkFalsy: true })
+        .withMessage('Assignment title is required'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .withMessage('Assignment description is required'),
+    check('dueDate')
+        .exists({ checkFalsy: true })
+        .withMessage('Assignment due date is required'),
+    handleValidationErrors
+]
 
 module.exports = {
     validateClassParams,
-    validateLessonParams
+    validateLessonParams,
+    validateAssignmentParams
 }

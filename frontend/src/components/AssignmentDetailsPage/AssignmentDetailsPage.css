@@ -1,46 +1,71 @@
-.lessonDetailsContainer {
+.assignmentDetailsContainer {
     margin-top: 30px;
 }
 
-.lessonDetailsHeading img {
-    height: auto;
-    width: 15%;
-    margin-left: 20px;
+.assignmentDetailsHeading img {
+    height: 20%;
+    width: 20%;
+    margin: 20px;
 }
 
-.lessonDetailsHeading h2,
-.lessonDetailsHeading h3,
-.lessonDetailsHeading p,
-.lessonClassList {
+.assignmentDetailsHeading {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.subHeading {
+    /* margin: 10px; */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 15px
+}
+
+.assignmentDetailsHeading,
+.assignmentDetails,
+.assignmentDetailsContent,
+.assignmentClassList {
     margin: 20px;
     font-family: 'Lato', sans-serif;
 }
 
-.lessonClassList {
+.assignmentClassList {
     padding-left: 5px;
     margin-top: 10px;
 }
 
-.lessonDetailsButtons {
-    position: absolute;
-    top: 13%;
-    right: 5%;
+p.assignmentDetailsLabel>span {
+    font-weight: bold;
+}
+
+.assignmentTitle {
+    display: flex;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: larger;
+}
+
+.assignmentDetailsButtons {
+    /* position: absolute; */
+    /* top: 10%;
+    right: 5%; */
     margin: 20px;
     font-family: 'Lato', sans-serif;
     display: flex;
-    flex-flow: row;
+    flex-flow: column wrap;
 
-    gap: 10px;
+    gap: 6px;
     justify-content: center;
     align-items: flex-end;
 }
 
-/* .lessonContent {
+.assignmentContent {
     margin: 20px;
     font-family: 'Lato', sans-serif;
-} */
+}
 
-.editLessonButton button {
+.editAssignmentButton button {
     border: 2px solid #9C0D63;
     background-color: #9C0D63;
     font-family: 'Lato', sans-serif;
@@ -49,24 +74,24 @@
     cursor: pointer;
     margin: 5px;
     padding: 5px;
-    width: 120px;
+    width: 160px;
     height: 40px;
 }
 
-.editLessonLink {
+.editAssignmentLink {
     text-decoration: none;
     color: white;
     font-family: 'Lato', sans-serif;
     font-size: 16px;
 }
 
-.editLessonButton button:hover {
+.editAssignmentButton button:hover {
     transform: scale(1.05);
     cursor: pointer;
     box-shadow: 2px 2px 2px gray;
 }
 
-.deleteLessonButton button {
+.deleteAssignmentButton button {
     border: 2px solid #9C0D63;
     background-color: #9C0D63;
     font-family: 'Lato', sans-serif;
@@ -75,22 +100,22 @@
     cursor: pointer;
     margin: 5px;
     padding: 5px;
-    width: 120px;
+    width: 160px;
     height: 40px;
 }
 
-.deleteLessonButton button:hover {
+.deleteAssignmentButton button:hover {
     transform: scale(1.05);
     cursor: pointer;
     box-shadow: 2px 2px 2px gray;
 }
 
-.lessonClassLink {
+.classLink {
     text-decoration: none;
     color: black;
 }
 
-.lessonClassLink:hover {
+.classLink:hover {
     color: #9C0D63;
     font-weight: 700;
 }

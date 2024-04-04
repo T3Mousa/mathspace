@@ -1,4 +1,4 @@
-.createLessonForm {
+.createAssignmentForm {
     display: flex;
     flex-direction: column;
     /* height: 100%;
@@ -8,16 +8,16 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.createLessonForm label {
+.createAssignmentForm label {
     margin-bottom: 5px;
 }
 
-.createLessonForm input,
+.createAssignmentForm input,
 textarea {
     margin-left: 5px;
 }
 
-.createLessonForm button {
+.createAssignmentForm button {
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
     padding: 8px;
@@ -30,7 +30,7 @@ textarea {
     border-radius: 3px;
 }
 
-.createLessonForm button:hover {
+.createAssignmentForm button:hover {
     transform: scale(1.01);
     box-shadow: 2px 2px 2px gray;
 }

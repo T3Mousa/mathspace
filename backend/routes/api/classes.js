@@ -430,6 +430,51 @@ router.get('/:classId/lessons', requireAuth, async (req, res) => {
     }
 })
 
+// get all assignments for a class by the class id
+router.get('/:classId/assignments', requireAuth, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { classId } = req.params
+    const existingClass = await Class.findOne({
+        where: { id: classId }
+    })
+    const teach = await Teacher.findOne({
+        where: { userId: userId }
+    })
+    const teachId = teach.dataValues.id
+    if (userId && role === "teacher") {
+        if (existingClass && existingClass.teacherId === teachId) {
+            const classAssignments = await Assignment.findAll({
+                where: { teacherId: teachId },
+                include: [
+                    {
+                        model: ClassAssignment,
+                        attributes: ['classId', 'assignmentId'],
+                        where: { classId: classId }
+                    }
+                ]
+
+            })
+            res.json({ "Assignments": classAssignments })
+        } else if (existingClass && existingClass.teacherId !== teachId) {
+            res.status(403)
+            return res.json({
+                "message": "Forbidden"
+            })
+        } else if (!existingClass) {
+            res.status(404);
+            return res.json({
+                "message": "Class couldn't be found",
+            })
+        }
+    } else if (userId && role !== 'teacher') {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden -- feature coming soon for student users"
+        })
+    }
+})
+
 // // create a new lesson for a class that belongs to the current user (teacher users only)
 // router.post('/:classId/lessons', requireAuth, validateLessonParams, async (req, res) => {
 //     const userId = req.user.id

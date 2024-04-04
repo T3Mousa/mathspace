@@ -10,6 +10,10 @@ import LessonDetailsPage from '../components/LessonDetailsPage/LessonDetailsPage
 import LessonManagerPage from '../components/LessonManagerPage';
 import CreateLessonFormPage from '../components/CreateLessonFormPage';
 import UpdateLessonFormPage from '../components/UpdateLessonFormPage';
+import AssignmentManagerPage from '../components/AssignmentManagerPage';
+import AssignmentDetailsPage from '../components/AssignmentDetailsPage';
+import CreateAssignmentFormPage from '../components/CreateAssignmentFormPage';
+import UpdateAssignmentFormPage from '../components/UpdateAssignmentFormPage';
 // import UpdateClassModal from '../components/UpdateClassModal';
 
 export const router = createBrowserRouter([
@@ -51,6 +55,22 @@ export const router = createBrowserRouter([
       {
         path: "/create-new-lesson",
         element: <CreateLessonFormPage />
+      },
+      {
+        path: "/assignments/:assignmentId/edit",
+        element: <UpdateAssignmentFormPage />
+      },
+      {
+        path: "/assignments/:assignmentId",
+        element: <AssignmentDetailsPage />,
+      },
+      {
+        path: "/my-assignments",
+        element: <AssignmentManagerPage />,
+      },
+      {
+        path: "/create-new-assignment",
+        element: <CreateAssignmentFormPage />
       },
     ],
   },

@@ -8,11 +8,13 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import classesReducer from "./classes";
 import lessonsReducer from "./lessons";
+import assignmentsReducer from "./assignments";
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     classes: classesReducer,
-    lessons: lessonsReducer
+    lessons: lessonsReducer,
+    assignments: assignmentsReducer
 });
 
 let enhancer;

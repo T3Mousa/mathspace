@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: ''
         },
         assignmentContent: {
-            type: DataTypes.BLOB,
+            type: DataTypes.TEXT,
             allowNull: true,
             defaultValue: ''
         },

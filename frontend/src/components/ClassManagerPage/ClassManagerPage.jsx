@@ -70,12 +70,67 @@ const ClassManagerPage = () => {
                         }
                     </div>
                     <div className="teacherClasses">
+                        {user && user.userRole === "teacher" && allUserClasses && (
+                            <table className="teacherClassesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Class Name</th>
+                                        <th>Class Roster</th>
+                                    </tr>
+                                    <tr className="rowBorderBottom"></tr>
+                                </thead>
+                                <tbody>
+                                    {allUserClasses?.map((cls) => (
+                                        <tr key={cls.id} className="tableRows">
+                                            <td>
+                                                <NavLink
+                                                    className="classNameTile"
+                                                    to={`/classes/${cls.id}`}
+                                                    key={cls.id}
+                                                >
+                                                    <div className="classRowPart1">
+                                                        <div className="classImage">
+                                                            {cls.classImg ?
+                                                                <img
+                                                                    src={cls.classImg}
+                                                                    className="clsImg"
+                                                                /> :
+                                                                <img
+                                                                    src="../images/placeholder.jpeg"
+                                                                    className="clsImg"
+                                                                />
+                                                            }
+                                                        </div>
+                                                        <div className="className">
+                                                            <p>{cls.name}</p>
+                                                        </div>
+                                                    </div>
+                                                </NavLink>
+                                            </td>
+                                            <td>
+                                                <div className="classRowPart2">
+                                                    <div className="studentCount">
+                                                        <p>{cls.studentCount} students</p>
+                                                    </div>
+                                                    <div className="classMenuButton">
+                                                        <ClassMenuButton cls={cls} />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+
+                    {/* <div className="teacherClasses">
                         {user && user.userRole === "teacher" && allUserClasses &&
                             < table className="teacherClassesTable">
                                 <thead>
                                     <tr>
                                         <th>Class Name</th>
-                                        {/* <th></th> */}
+
                                         <th>Class Roster</th>
                                         <th></th>
                                     </tr>
@@ -86,61 +141,49 @@ const ClassManagerPage = () => {
                                 <tbody>
                                     {allUserClasses?.map(cls => (
                                         <>
-                                            <div key={cls.id}>
+                                            <div className="tableRowItem" key={cls.id}>
                                                 <tr key={cls.id} className='tableRows'>
-                                                    {/* {cls.classImg && */}
-                                                    <td>
-                                                        <NavLink
-                                                            className="classNameTile"
-                                                            to={`/classes/${cls.id}`}
-                                                            key={cls.id}
-                                                        >
-                                                            <div className="classImage">
-                                                                {cls.classImg ?
-                                                                    <img
-                                                                        src={cls.classImg}
-                                                                        className="clsImg"
-                                                                    /> :
-                                                                    <img
-                                                                        src="../images/placeholder.jpeg"
-                                                                        className="clsImg"
-                                                                    />
-                                                                }
-                                                            </div>
-                                                            <div className="className">
-                                                                <p>{cls.name}</p>
-                                                            </div>
-                                                        </NavLink>
-                                                    </td>
-                                                    {/* } */}
-                                                    {/* <td>
-                                                <NavLink
-                                                    className="classNameTile"
-                                                    to={`/classes/${cls.id}`}
-                                                    key={cls.id}
-                                                >
-                                                    <div className="className">
-                                                        <p>{cls.name}</p>
+                                                    <div className='classRowPart1'>
+                                                        <td>
+                                                            <NavLink
+                                                                className="classNameTile"
+                                                                to={`/classes/${cls.id}`}
+                                                                key={cls.id}
+                                                            >
+                                                                <div className="classImage">
+                                                                    {cls.classImg ?
+                                                                        <img
+                                                                            src={cls.classImg}
+                                                                            className="clsImg"
+                                                                        /> :
+                                                                        <img
+                                                                            src="../images/placeholder.jpeg"
+                                                                            className="clsImg"
+                                                                        />
+                                                                    }
+                                                                </div>
+                                                                <div className="className">
+                                                                    <p>{cls.name}</p>
+                                                                </div>
+                                                            </NavLink>
+                                                        </td>
                                                     </div>
-                                                </NavLink>
-                                            </td> */}
-                                                    <td>
-                                                        <div className="studentCount">
-                                                            <p>{cls.studentCount} students</p>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        {/* <button className='verticalDots'>
-                                            <i className="fa-solid fa-ellipsis-vertical"></i>
-                                        </button> */}
-                                                        <ClassMenuButton cls={cls} />
-                                                    </td>
-                                                </tr>
+                                                    <div className='classRowPart2'>
+                                                        <td>
+                                                            <div className="studentCount">
+                                                                <p>{cls.studentCount} students</p>
+                                                                <div className='classMenuButton'>
+                                                                    <ClassMenuButton cls={cls} />
+                                                                </div>
+                                                            </div>
+                                                        </td>
 
-                                                <tr className='rowBorderBottom'>
-
+                                                    </div>
                                                 </tr>
                                             </div>
+                                            <tr className='rowBorderBottom'>
+
+                                            </tr>
                                         </>
                                     )
                                     )
@@ -148,7 +191,7 @@ const ClassManagerPage = () => {
                                 </tbody>
                             </table>
                         }
-                    </div >
+                    </div > */}
                     <div className="studentClasses">
                         <div className="studentClassTileContainer">
                             {user && user.userRole === "student" && allUserClasses && allUserClasses?.map(cls => {
@@ -161,7 +204,7 @@ const ClassManagerPage = () => {
                             }
                         </div>
                     </div>
-                </div>
+                </div >
             }
         </>
     )

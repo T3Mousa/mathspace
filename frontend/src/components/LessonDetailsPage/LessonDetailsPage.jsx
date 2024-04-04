@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, NavLink } from 'react-router-dom';
 import { getLessonDetails } from '../../redux/lessons';
 import './LessonDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
@@ -45,61 +45,66 @@ const LessonDetailsPage = () => {
     }
 
     return (
-        <>
+        <div className='lessonDetailsContainer'>
             {isLoaded &&
                 <>
                     <div className='lessonDetailsHeading'>
-                        <h2>Lesson Title: {lesson.title}</h2>
-                        <p>
-                            Lesson By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
-                        </p>
-                        <p>Classes Assigned To:</p>
-                        {lesson.LessonClasses ?
-                            <div className='lessonClassList'>
-                                <ul>
-                                    {(() => {
-                                        const lessonClassItems = []
-                                        for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
-                                            const lessonClassItem = lesson?.LessonClasses[i]
-                                            lessonClassItems.push(
-                                                <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
-                                            )
-                                        }
-                                        return lessonClassItems
-                                    })()}
-                                </ul>
-
-                            </div> :
-                            <div>
-                                <ul>This lesson has not been assigned to any classes</ul>
-                            </div>
-                        }
                         {lesson.lessonImg ?
+                            // <img
+                            //     src={lesson.lessonImg}
+                            //     className='lessonImg'
+                            // />
                             <img
-                                src={lesson.lessonImg}
-                                className='lessonImg'
+                                src="../images/lesson_image.png"
+                                alt="lesson image"
                             /> :
                             <img
                                 src="../images/placeholder.jpeg"
                                 className="clsImg"
                             />
                         }
-
-                        <h3>Lesson Description: <p>{lesson.description}</p></h3>
+                        <h2>Lesson Title: {lesson.title}</h2>
+                        <p>
+                            Created By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
+                        </p>
+                        {lesson.LessonTeacherUserId === user.id &&
+                            <p className='lessonDetailsLabel'>
+                                <span>Classes Assigned To:</span>
+                                {lesson?.LessonClasses ?
+                                    <ul className='lessonClassList'>
+                                        {(() => {
+                                            const lessonClassItems = []
+                                            for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
+                                                const lessonClassItem = lesson?.LessonClasses[i]
+                                                lessonClassItems.push(
+                                                    <li key={lessonClassItem.classId}>
+                                                        <NavLink to={`/classes/${lessonClassItem.classId}`} className="lessonClassLink">
+                                                            {lessonClassItem.className}
+                                                        </NavLink>
+                                                    </li>
+                                                )
+                                            }
+                                            return lessonClassItems
+                                        })()}
+                                    </ul> :
+                                    <ul className='lessonClassList'>This lesson has not been assigned to any classes</ul>
+                                }
+                            </p>
+                        }
 
 
                         <h3>Lesson Description: </h3>
                         <p>{lesson.description}</p>
-                    </div>
-                    <div className='lessonContent'>
-                        <p>Lesson Content: </p>
+                        <h3>Lesson Content: </h3>
                         <p>{lesson.lessonContent}</p>
                     </div>
+                    {/* <div className='lessonContent'>
+                    </div> */}
                     <div className='lessonDetailsButtons'>
                         {lesson.LessonTeacherUserId === user.id && (
                             <>
                                 <div className='editLessonButton'>
-                                    <button className="addLessonButton">
+                                    <button className="editLessonButton">
                                         <Link to={`/lessons/${lessonId}/edit`} className='editLessonLink'>Edit Lesson </Link>
                                     </button>
                                     {/* <OpenModalButton
@@ -121,7 +126,7 @@ const LessonDetailsPage = () => {
                     </div>
                 </>
             }
-        </>
+        </div>
     )
 }
 
