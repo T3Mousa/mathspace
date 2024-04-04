@@ -93,7 +93,7 @@ const LessonManagerPage = () => {
                                             </div>
                                             <div className='lessonTitleAuthor'>
                                                 <p>Title: {lesson.title}</p>
-                                                <p>By: You</p>
+                                                <p>Created By: You</p>
                                                 <p>Classes Assigned To:</p>
                                                 {lesson.LessonClasses.length ?
                                                     <ul>

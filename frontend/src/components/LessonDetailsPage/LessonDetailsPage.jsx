@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, NavLink } from 'react-router-dom';
 import { getLessonDetails } from '../../redux/lessons';
 import './LessonDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
@@ -65,32 +65,32 @@ const LessonDetailsPage = () => {
                         }
                         <h2>Lesson Title: {lesson.title}</h2>
                         <p>
-                            Lesson By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
+                            Created By: {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
                         </p>
-                        <p>Classes Assigned To:</p>
-                        {lesson.LessonClasses ?
-                            <div className='lessonClassList'>
-                                <ul>
-                                    {(() => {
-                                        const lessonClassItems = []
-                                        for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
-                                            const lessonClassItem = lesson?.LessonClasses[i]
-                                            lessonClassItems.push(
-                                                <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
-                                            )
-                                        }
-                                        return lessonClassItems
-                                    })()}
-                                </ul>
-
-                            </div> :
-                            <div>
-                                <ul>This lesson has not been assigned to any classes</ul>
-                            </div>
+                        {lesson.LessonTeacherUserId === user.id &&
+                            <p className='lessonDetailsLabel'>
+                                <span>Classes Assigned To:</span>
+                                {lesson?.LessonClasses ?
+                                    <ul className='lessonClassList'>
+                                        {(() => {
+                                            const lessonClassItems = []
+                                            for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
+                                                const lessonClassItem = lesson?.LessonClasses[i]
+                                                lessonClassItems.push(
+                                                    <li key={lessonClassItem.classId}>
+                                                        <NavLink to={`/classes/${lessonClassItem.classId}`} className="lessonClassLink">
+                                                            {lessonClassItem.className}
+                                                        </NavLink>
+                                                    </li>
+                                                )
+                                            }
+                                            return lessonClassItems
+                                        })()}
+                                    </ul> :
+                                    <ul className='lessonClassList'>This lesson has not been assigned to any classes</ul>
+                                }
+                            </p>
                         }
-
-
-                        {/* <h3>Lesson Description: <p>{lesson.description}</p></h3> */}
 
 
                         <h3>Lesson Description: </h3>

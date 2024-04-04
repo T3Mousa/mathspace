@@ -30,6 +30,11 @@
     font-family: 'Lato', sans-serif;
 }
 
+.assignmentClassList {
+    padding-left: 5px;
+    margin-top: 10px;
+}
+
 p.assignmentDetailsLabel>span {
     font-weight: bold;
 }
@@ -103,4 +108,14 @@ p.assignmentDetailsLabel>span {
     transform: scale(1.05);
     cursor: pointer;
     box-shadow: 2px 2px 2px gray;
+}
+
+.classLink {
+    text-decoration: none;
+    color: black;
+}
+
+.classLink:hover {
+    color: #9C0D63;
+    font-weight: 700;
 }

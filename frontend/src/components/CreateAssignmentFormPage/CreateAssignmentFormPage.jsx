@@ -16,6 +16,8 @@ function CreateAssignmentFormPage() {
     const [selectedClasses, setSelectedClasses] = useState([])
     const [isLoaded, setIsLoaded] = useState(false);
     const [errors, setErrors] = useState({})
+    const currentDate = new Date().toISOString().split('T')[0]
+    // console.log(currentDate)
 
     useEffect(() => {
         dispatch(getAllClasses()).then(dispatch(getAllUserAssignments())).then(() => setIsLoaded(true))
@@ -45,6 +47,7 @@ function CreateAssignmentFormPage() {
         if (!description) errorsObj.description = "Assignment description is required"
         if (description.startsWith(" ")) errorsObj.description = "Assignment description cannot begin with an empty space"
         if (assignmentContent.startsWith(" ")) errorsObj.assignmentContent = "Assignment content cannot begin with an empty space"
+        if (!dueDate) errorsObj.dueDate = "Due date for the assignment is required"
 
 
         if (Object.values(errorsObj).length) {
@@ -100,12 +103,14 @@ function CreateAssignmentFormPage() {
                     Due Date:
                     <input
                         type="date"
+                        min={currentDate}
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
                         required
                         placeholder="Select a due date"
                     />
                 </label>
+                {errors.dueDate && <p className="errors">{errors.dueDate}</p>}
                 <label>
                     Select Classes (to add the assignment to):
                     <Select

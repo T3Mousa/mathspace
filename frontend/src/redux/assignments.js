@@ -34,15 +34,15 @@ const createAssignment = (assignmentInfo) => ({
     payload: assignmentInfo
 })
 
-// const updateLesson = (editedLesson) => ({
-//     type: UPDATE_LESSON,
-//     payload: editedLesson
-// })
+const updateAssignment = (editedAssignment) => ({
+    type: UPDATE_ASSIGNMENT,
+    payload: editedAssignment
+})
 
-// const removeLesson = (lessonId) => ({
-//     type: REMOVE_LESSON,
-//     payload: lessonId
-// })
+const removeAssignment = (assignmentId) => ({
+    type: REMOVE_ASSIGNMENT,
+    payload: assignmentId
+})
 
 export const getAllAssignments = () => async (dispatch) => {
     const response = await csrfFetch('/api/assignments')
@@ -130,40 +130,40 @@ export const addNewAssignment = (assignmentInfo) => async (dispatch) => {
     }
 }
 
-// export const editLesson = (lessonId, editedLessonData) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/lessons/${lessonId}`, {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(editedLessonData)
-//     })
-//     if (response.ok) {
-//         const edited = await response.json()
-//         dispatch(updateLesson(edited))
-//         return edited
-//     } else if (response.status < 500) {
-//         const errorMessages = await response.json();
-//         return errorMessages
-//     } else {
-//         return { server: "Something went wrong. Please try again" }
-//     }
-// }
+export const editAssignment = (assignmentId, editedAssignmentData) => async (dispatch) => {
+    const response = await csrfFetch(`/api/assignments/${assignmentId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editedAssignmentData)
+    })
+    if (response.ok) {
+        const edited = await response.json()
+        dispatch(updateAssignment(edited))
+        return edited
+    } else if (response.status < 500) {
+        const errorMessages = await response.json();
+        return errorMessages
+    } else {
+        return { server: "Something went wrong. Please try again" }
+    }
+}
 
-// export const deleteLesson = (lessonId) => async (dispatch) => {
-//     const response = await csrfFetch(`/api/lessons/${lessonId}`, {
-//         method: "DELETE",
-//         headers: { "Content-Type": "application/json" }
-//     })
-//     if (response.ok) {
-//         const deletedLesson = await response.json()
-//         dispatch(removeLesson(lessonId))
-//         return deletedLesson
-//     } else if (response.status < 500) {
-//         const errorMessages = await response.json();
-//         return errorMessages
-//     } else {
-//         return { server: "Something went wrong. Please try again" }
-//     }
-// }
+export const deleteAssignment = (assignmentId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/assignments/${assignmentId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" }
+    })
+    if (response.ok) {
+        const deletedAssignment = await response.json()
+        dispatch(removeAssignment(assignmentId))
+        return deletedAssignment
+    } else if (response.status < 500) {
+        const errorMessages = await response.json();
+        return errorMessages
+    } else {
+        return { server: "Something went wrong. Please try again" }
+    }
+}
 
 
 const initialState = {};
@@ -241,22 +241,22 @@ const assignmentsReducer = (state = initialState, action) => {
             } else {
                 return { ...state }
             }
-        // case UPDATE_LESSON:
-        //     newState = { ...state }
-        //     if (!newState.allLessonsById) {
-        //         newState.allLessonsById = {}
-        //     }
-        //     newState.allLessons = newState?.allLessons?.map((lesson) => {
-        //         return lesson.id === action.payload.id ? action.payload : lesson
-        //     })
-        //     newState.editedLesson = { ...action.payload }
-        //     newState.allLessonsById[action.payload.id] = { ...action.payload }
-        //     // console.log(newState)
-        //     return newState
-        // case REMOVE_LESSON:
-        //     newState = { ...state }
-        //     delete newState[action.payload]
-        //     return newState
+        case UPDATE_ASSIGNMENT:
+            newState = { ...state }
+            if (!newState.allAssignmentsById) {
+                newState.allAssignmentsById = {}
+            }
+            newState.allAssignments = newState?.allAssignments?.map((assignment) => {
+                return assignment.id === action.payload.id ? action.payload : assignment
+            })
+            newState.editedAssignment = { ...action.payload }
+            newState.allAssignmentsById[action.payload.id] = { ...action.payload }
+            // console.log(newState)
+            return newState
+        case REMOVE_ASSIGNMENT:
+            newState = { ...state }
+            delete newState[action.payload]
+            return newState
         default:
             return state;
     }

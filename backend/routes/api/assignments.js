@@ -352,131 +352,125 @@ router.post('/', requireAuth, validateAssignmentParams, async (req, res) => {
     }
 })
 
-// // edit a lesson (teacher users only)
-// router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => {
-//     const userId = req.user.id
-//     const role = req.user.userRole
-//     const { lessonId } = req.params
-//     const { title, lessonImg, description, lessonContent, selectedClasses } = req.body
-//     const existingLesson = await Lesson.findOne({
-//         where: { id: lessonId },
-//         include: [
-//             {
-//                 model: ClassLesson,
-//                 attributes: ['lessonId', 'classId'],
-//             }
-//         ]
-//     })
-//     const existingLessonJSON = existingLesson.toJSON()
-//     if (userId && role === 'teacher') {
-//         if (existingLesson) {
-//             const teacher = await Teacher.findOne({
-//                 where: { userId: userId },
-//                 attributes: ['id', 'userId']
-//             })
-//             // console.log(teacher)
-//             const teacherId = teacher.dataValues.id
-//             if (teacherId === userId) {
-//                 const teacherClasses = await Class.findAll({
-//                     where: { teacherId: teacherId }
-//                 })
-//                 const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-//                 // console.log(validClassIds)
-//                 const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
-//                 // console.log(invalidClassIds)
-//                 if (invalidClassIds.length > 0) {
-//                     res.status(403)
-//                     return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
-//                 }
+// edit an assignment (teacher users only)
+router.put('/:assignmentId', requireAuth, validateAssignmentParams, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { assignmentId } = req.params
+    const { title, description, assignmentContent, dueDate, selectedClasses } = req.body
+    const existingAssignment = await Assignment.findOne({
+        where: { id: assignmentId },
+        include: [
+            {
+                model: ClassAssignment,
+                attributes: ['assignmentId', 'classId'],
+            }
+        ]
+    })
+    const existingAssignmentJSON = existingAssignment.toJSON()
+    if (userId && role === 'teacher') {
+        if (existingAssignment) {
+            const teacher = await Teacher.findOne({
+                where: { userId: userId },
+                attributes: ['id', 'userId']
+            })
+            // console.log(teacher)
+            const teacherId = teacher.dataValues.id
+            if (teacherId === userId) {
+                const teacherClasses = await Class.findAll({
+                    where: { teacherId: teacherId }
+                })
+                const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
+                // console.log(validClassIds)
+                const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+                // console.log(invalidClassIds)
+                if (invalidClassIds.length > 0) {
+                    res.status(403)
+                    return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
+                }
 
-//                 if (title !== undefined) existingLesson.title = title
-//                 if (lessonImg !== undefined) existingLesson.lessonImg = lessonImg
-//                 if (description !== undefined) existingLesson.description = description
-//                 if (lessonContent !== undefined) existingLesson.lessonContent = lessonContent
-//                 // if (selectedClasses !== undefined) existingLesson.ClassLessons = selectedClasses
-//                 const updatedLesson = await existingLesson.save()
-//                 // await existingLesson.save()
+                if (title !== undefined) existingAssignment.title = title
+                if (description !== undefined) existingAssignment.description = description
+                if (assignmentContent !== undefined) existingAssignment.assignmentContent = assignmentContent
+                if (dueDate !== undefined) existingAssignment.dueDate = dueDate
+                const updatedAssignment = await existingAssignment.save()
 
-//                 await ClassLesson.destroy({ where: { lessonId: lessonId } })
-//                 // const newClassAssociations = LessonClasses.map(classId => ({
-//                 //     lessonId: lessonId,
-//                 //     classId: classId
-//                 // }))
-//                 // await ClassLesson.bulkCreate(newClassAssociations)
-//                 for (const selectedClass of selectedClasses) {
-//                     await ClassLesson.create({
-//                         lessonId: lessonId,
-//                         classId: selectedClass.value
-//                     })
-//                 }
-//                 res.status(201).json(updatedLesson)
-//             } else {
-//                 res.status(403)
-//                 return res.json({
-//                     "message": "Forbidden"
-//                 })
-//             }
-//         } else if (!existingLesson) {
-//             res.status(404);
-//             return res.json({
-//                 "message": "Lesson couldn't be found",
-//             })
-//         }
-//     } else if (userId && role !== 'teacher') {
-//         res.status(403)
-//         return res.json({
-//             "message": "Forbidden"
-//         })
-//     }
-// });
+                await ClassAssignment.destroy({ where: { assignmentId: assignmentId } })
 
-// // delete a lesson from the class it is associated with (teacher users only)
-// router.delete('/:lessonId', requireAuth, async (req, res) => {
-//     const userId = req.user.id
-//     const role = req.user.userRole
-//     const { lessonId } = req.params
-//     const existingLesson = await Lesson.findOne({
-//         where: { id: lessonId },
-//         include: [
-//             {
-//                 model: ClassLesson,
-//                 attributes: ['lessonId', 'classId'],
-//             }
-//         ]
-//     })
-//     if (userId && role === 'teacher') {
-//         if (existingLesson) {
-//             const teacher = await Teacher.findOne({
-//                 where: { userId: userId },
-//                 attributes: ['id', 'userId']
-//             })
-//             // console.log(teacher)
-//             const teacherId = teacher.dataValues.id
-//             if (teacherId === userId) {
-//                 await existingLesson.destroy({ where: { id: lessonId } })
+                for (const selectedClass of selectedClasses) {
+                    await ClassAssignment.create({
+                        assignmentId: assignmentId,
+                        classId: selectedClass.value
+                    })
+                }
+                res.status(201).json(updatedAssignment)
+            } else {
+                res.status(403)
+                return res.json({
+                    "message": "Forbidden"
+                })
+            }
+        } else if (!existingAssignment) {
+            res.status(404);
+            return res.json({
+                "message": "Assignment couldn't be found",
+            })
+        }
+    } else if (userId && role !== 'teacher') {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden"
+        })
+    }
+});
 
-//                 res.json({
-//                     "message": "Successfully deleted"
-//                 })
-//             } else {
-//                 res.status(403)
-//                 return res.json({
-//                     "message": "Forbidden"
-//                 })
-//             }
-//         } else if (!existingLesson) {
-//             res.status(404);
-//             return res.json({
-//                 "message": "Lesson couldn't be found",
-//             })
-//         }
-//     } else if (userId && role !== 'teacher') {
-//         res.status(403)
-//         return res.json({
-//             "message": "Forbidden"
-//         })
-//     }
-// })
+// delete an assignment from the database (teacher users only)
+router.delete('/:assignmentId', requireAuth, async (req, res) => {
+    const userId = req.user.id
+    const role = req.user.userRole
+    const { assignmentId } = req.params
+    const existingAssignment = await Assignment.findOne({
+        where: { id: assignmentId },
+        include: [
+            {
+                model: ClassAssignment,
+                attributes: ['assignmentId', 'classId'],
+            }
+        ]
+    })
+    if (userId && role === 'teacher') {
+        if (existingAssignment) {
+            const teacher = await Teacher.findOne({
+                where: { userId: userId },
+                attributes: ['id', 'userId']
+            })
+            // console.log(teacher)
+            const teacherId = teacher.dataValues.id
+            if (teacherId === userId) {
+                await existingAssignment.destroy({ where: { id: assignmentId } })
+
+                res.json({
+                    "message": "Successfully deleted"
+                })
+            } else {
+                res.status(403)
+                return res.json({
+                    "message": "Forbidden"
+                })
+            }
+        } else if (!existingAssignment) {
+            res.status(404);
+            return res.json({
+                "message": "Assignment couldn't be found",
+            })
+        }
+    } else if (userId && role !== 'teacher') {
+        res.status(403)
+        return res.json({
+            "message": "Forbidden"
+        })
+    }
+})
 
 
 module.exports = router;

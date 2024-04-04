@@ -89,7 +89,7 @@ const AssignmentManagerPage = () => {
                                             </div>
                                             <div className='assignmentTitleAuthor'>
                                                 <p>Title: {assignment.title}</p>
-                                                <p>By: You</p>
+                                                <p>Created By: You</p>
                                                 <p>Classes Assigned To:</p>
                                                 {assignment.AssignmentClasses.length ?
                                                     <ul>
@@ -106,6 +106,23 @@ const AssignmentManagerPage = () => {
                                                     </ul> :
                                                     <ul>This assignment has not been assigned to any classes</ul>
                                                 }
+                                                <p className='assignmentDueDate'>Due Date:
+                                                    {assignment.dueDate ?
+                                                        <span>
+                                                            {(() => {
+                                                                const assignmentDueDate = new Date(assignment.dueDate);
+                                                                const formattedDueDate = assignmentDueDate.toLocaleDateString('en-US', {
+                                                                    year: 'numeric',
+                                                                    month: '2-digit',
+                                                                    day: '2-digit',
+                                                                    timeZone: 'UTC'
+                                                                })
+                                                                // console.log(formattedDueDate)
+                                                                return formattedDueDate
+                                                            })()}
+                                                        </span> :
+                                                        <span>{null}</span>
+                                                    }</p>
                                             </div>
                                         </NavLink>
                                     </div>

@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, NavLink } from 'react-router-dom';
 // import { format } from 'date-fns';
 import { getAssignmentDetails } from '../../redux/assignments';
 import './AssignmentDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
-// import UpdateLessonModal from '../UpdateLessonModal';
-import DeleteLessonModal from '../DeleteLessonModal';
+import DeleteAssignmentModal from '../DeleteAssignmentModal';
 
 const AssignmentDetailsPage = () => {
     const { assignmentId } = useParams()
@@ -20,7 +19,8 @@ const AssignmentDetailsPage = () => {
         year: 'numeric',
         month: 'short',
         day: '2-digit',
-        weekday: 'short'
+        weekday: 'short',
+        timeZone: 'UTC'
     });
     // const assignmentClasses = assignment?.AssignmentClasses
     // console.log(assignmentClasses)
@@ -76,7 +76,7 @@ const AssignmentDetailsPage = () => {
                                         <OpenModalButton
                                             buttonText="Delete Assignment"
                                             onButtonClick={closeMenu}
-                                            modalComponent={<DeleteLessonModal assignment={assignment} />}
+                                            modalComponent={<DeleteAssignmentModal assignment={assignment} />}
                                         />
                                     </div>
                                 </>
@@ -103,7 +103,9 @@ const AssignmentDetailsPage = () => {
                                                 for (let i = 0; i < assignment?.AssignmentClasses?.length; i++) {
                                                     const assignmentClassItem = assignment?.AssignmentClasses[i]
                                                     assignmentClassItems.push(
-                                                        <li key={assignmentClassItem.classId}>{assignmentClassItem.className}</li>
+                                                        <li key={assignmentClassItem.classId}>
+                                                            <NavLink to={`/classes/${assignmentClassItem.classId}`} className="classLink">{assignmentClassItem.className}</NavLink>
+                                                        </li>
                                                     )
                                                 }
                                                 return assignmentClassItems
