@@ -154,7 +154,7 @@ export const deleteLesson = (lessonId) => async (dispatch) => {
     })
     if (response.ok) {
         const deletedLesson = await response.json()
-        console.log(deletedLesson)
+        // console.log(deletedLesson)
         dispatch(removeLesson(lessonId))
         dispatch(getAllUserLessons())
         return deletedLesson
@@ -237,7 +237,7 @@ const lessonsReducer = (state = initialState, action) => {
                 newState.allUserLessons = [...state.allUserLessons, action.payload]
                 newState.allUserLessonsById[action.payload.id] = { ...action.payload }
 
-                console.log(newState)
+                // console.log(newState)
                 return newState
             } else {
                 return { ...state }

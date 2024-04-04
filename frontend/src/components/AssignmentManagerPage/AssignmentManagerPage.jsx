@@ -2,15 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Link } from "react-router-dom";
 import { getAllUserAssignments } from '../../redux/assignments';
-// import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import './AssignmentManagerPage.css'
-// import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
 import { getAllClasses } from '../../redux/classes';
 
 const AssignmentManagerPage = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
-    // console.log(user)
     const allUserAssignments = useSelector(state => state?.assignments?.allUserAssignments)
 
     const [isLoaded, setIsLoaded] = useState(false)
@@ -54,14 +51,7 @@ const AssignmentManagerPage = () => {
                         {user && user.userRole === "teacher" &&
                             <>
                                 <h1>Manage Your Assignments</h1>
-                                {/* <div className="addLessonButton">
-                                    <OpenModalButton
-                                        buttonText='Create a New Lesson'
-                                        className="addClassButtonModal"
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<CreateNewLessonModal teacherClasses={allTeacherClasses} />}
-                                    />
-                                </div> */}
+
                                 <button className="addAssignmentButton">
                                     <Link to='/create-new-assignment' className='createAssignmentLink'>Create a New Assignment </Link>
                                 </button>

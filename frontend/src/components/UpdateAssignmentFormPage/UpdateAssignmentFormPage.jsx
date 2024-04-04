@@ -68,7 +68,7 @@ function UpdateAssignmentFormPage() {
         } else {
 
             const updatedAssignment = await dispatch(editAssignment(+assignmentId, assignmentInfo))
-            console.log(updatedAssignment)
+            // console.log(updatedAssignment)
             if (updatedAssignment?.id) {
                 await dispatch(getAssignmentDetails(updatedAssignment?.id))
                 await navigate(`/assignments/${updatedAssignment?.id}`)

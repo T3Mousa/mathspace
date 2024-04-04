@@ -5,8 +5,6 @@ import { getClassDetails } from '../../redux/classes';
 import './ClassDetailsPage.css'
 import { getAllClassLessons } from '../../redux/lessons';
 import { getAllClassAssignments } from '../../redux/assignments';
-// import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
-// import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 
 
 const ClassDetailsPage = () => {
@@ -152,19 +150,7 @@ const ClassDetailsPage = () => {
                                 Go to assignment details page <i className="fa-solid fa-arrow-right"></i>
                             </NavLink>
                         </div>}
-                    {/* <p>
-                        {user.userRole === "teacher" &&
-                            <>
-                                <div className="createLessonButton">
-                                    <OpenModalButton
-                                        buttonText='Create a New Lesson'
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<CreateNewLessonModal classId={cls.id} />}
-                                    />
-                                </div>
-                            </>
-                        }
-                    </p> */}
+
                 </>
             }
         </>

@@ -169,8 +169,6 @@ const classesReducer = (state = initialState, action) => {
                 }
                 newState.allClasses = [...state.allClasses, action.payload]
                 newState.allClassesById[action.payload.id] = { ...action.payload }
-
-                console.log(newState)
                 return newState
             } else {
                 return { ...state }

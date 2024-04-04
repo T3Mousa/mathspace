@@ -2,9 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Link } from "react-router-dom";
 import { getAllUserLessons } from '../../redux/lessons';
-// import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import './LessonManagerPage.css'
-// import CreateNewLessonModal from '../CreateNewLessonModal/CreateNewLessonModal';
 import { getAllClasses } from '../../redux/classes';
 
 const LessonManagerPage = () => {
@@ -13,9 +11,6 @@ const LessonManagerPage = () => {
     // console.log(user)
     const allUserLessons = useSelector(state => state?.lessons?.allUserLessons)
     // console.log(allUserLessons)
-    // const allTeacherClasses = useSelector(state => state?.classes?.allClasses)
-    // const allUserLessonClasses = allUserLessons?.map(lesson => lesson?.LessonClasses)
-    // console.log(allTeacherClasses)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
@@ -57,14 +52,6 @@ const LessonManagerPage = () => {
                         {user && user.userRole === "teacher" &&
                             <>
                                 <h1>Manage Your Lessons</h1>
-                                {/* <div className="addLessonButton">
-                                    <OpenModalButton
-                                        buttonText='Create a New Lesson'
-                                        className="addClassButtonModal"
-                                        onButtonClick={closeMenu}
-                                        modalComponent={<CreateNewLessonModal teacherClasses={allTeacherClasses} />}
-                                    />
-                                </div> */}
                                 <button className="addLessonButton">
                                     <Link to='/create-new-lesson' className='createLessonLink'>Create a New Lesson </Link>
                                 </button>
