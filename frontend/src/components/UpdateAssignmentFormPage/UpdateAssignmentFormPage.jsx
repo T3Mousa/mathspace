@@ -23,6 +23,7 @@ function UpdateAssignmentFormPage() {
     const [errors, setErrors] = useState({})
     const [isLoaded, setIsLoaded] = useState(false)
     const teacherClasses = useSelector(state => state?.classes?.allClasses)
+    const currentDate = new Date().toISOString().split('T')[0]
 
     useEffect(() => {
         if (assignmentParsedId) {
@@ -140,6 +141,7 @@ function UpdateAssignmentFormPage() {
                     Due Date:
                     <input
                         type="date"
+                        min={currentDate}
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
                         required

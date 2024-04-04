@@ -156,6 +156,7 @@ export const deleteAssignment = (assignmentId) => async (dispatch) => {
     if (response.ok) {
         const deletedAssignment = await response.json()
         dispatch(removeAssignment(assignmentId))
+        dispatch(getAllUserAssignments())
         return deletedAssignment
     } else if (response.status < 500) {
         const errorMessages = await response.json();
