@@ -124,9 +124,13 @@ router.get('/:classId', requireAuth, async (req, res) => {
                                     {
                                         model: User,
                                         attributes: ['id', 'firstName', 'lastName', 'email']
+                                    },
+                                    {
+                                        model: Grade, // Include Grade model for each student
+                                        attributes: ['assignmentId', 'grade'] // Only include grade attribute
                                     }
                                 ]
-                            }
+                            },
                         ]
                     },
                     {
@@ -179,7 +183,20 @@ router.get('/:classId', requireAuth, async (req, res) => {
                 Students.push(student)
             }
             classData.Students = Students
-            delete classData.ClassEnrollments
+            // delete classData.ClassEnrollments
+            // Calculate average grade for each student
+            // Calculate average grade for each student
+            classData.ClassEnrollments.forEach(enrollment => {
+                const grades = enrollment.Student.Grades.map(grade => parseFloat(grade.grade)).filter(grade => !isNaN(grade) && grade !== null)
+                console.log(grades)
+                if (grades.length > 0) {
+                    const averageGrade = grades.reduce((total, grade) => total + grade, 0) / grades.length
+                    console.log(averageGrade)
+                    enrollment.Student.averageGrade = parseFloat(averageGrade.toFixed(1))
+                } else {
+                    enrollment.Student.averageGrade = null // Set averageGrade to null if no grades assigned yet
+                }
+            })
             // console.log({ "Class": classData })
             res.json({ "Class": classData })
 
