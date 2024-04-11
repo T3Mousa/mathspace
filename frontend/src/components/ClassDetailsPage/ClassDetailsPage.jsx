@@ -17,9 +17,11 @@ const ClassDetailsPage = () => {
     const clsAssignments = useSelector(state => state?.assignments?.allClassAssignments)
     const [selectedLesson, setSelectedLesson] = useState(null)
     const [selectedAssignment, setSelectedAssignment] = useState(null)
+    const [selectedStudent, setSelectedStudent] = useState(null)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
+    // console.log(selectedStudent)
 
     const openMenu = () => {
         if (showMenu) return;
@@ -64,6 +66,47 @@ const ClassDetailsPage = () => {
         setSelectedAssignment(selected)
     }
 
+    const handleStudentSelection = (e) => {
+        const studentId = parseInt(e.target.value)
+
+        const selected = cls.Students.find((student) => student.studentId === studentId)
+
+        setSelectedStudent(selected)
+    }
+
+    const getAssignmentStatusForStudent = (grades, studentId) => {
+        const studentGrades = grades?.filter(grade => grade.studentId === studentId);
+        if (studentGrades.length === 0) {
+            return 'Not Assigned';
+        }
+        const isCompleted = studentGrades.every(grade => grade.isCompleted);
+        return isCompleted ? 'Turned In' : 'Pending';
+    };
+
+    const getAssignmentGradeForStudent = (grades, studentId) => {
+        // console.log(grades)
+        // console.log(studentId)
+        const studentGrades = grades?.filter(grade => grade.studentId === studentId);
+        if (studentGrades.length > 0) {
+            const totalGrade = studentGrades.reduce((acc, curr) => acc + parseFloat(curr.grade), 0);
+            return totalGrade / studentGrades.length;
+        }
+        return null;
+    }
+
+    const getAverageGradeForStudent = (grades) => {
+        // console.log(grades)
+        const validGrades = grades?.filter(grade => grade?.grade !== null && grade?.grade !== undefined);
+        // console.log(validGrades)
+        const parseIntGrades = validGrades.map(grade => parseFloat(grade?.grade).toFixed(2))
+        // console.log(parseIntGrades)
+        if (validGrades.length > 0) {
+            const sumGrades = parseIntGrades.reduce((total, grade) => total + parseFloat(grade), 0);
+            return (sumGrades / validGrades.length).toFixed(1);
+        }
+        return null;
+    };
+
     return (
         <>
             {isLoaded && cls?.id &&
@@ -72,9 +115,9 @@ const ClassDetailsPage = () => {
                         <div className='classNameRoster'>
                             <h2>{cls.name}</h2>
                             {user.userRole === "teacher" &&
-                                <h3 className='classRoster'>
-                                    Class Roster: {cls.Students.length} students
-                                </h3>
+                                <p className='classEnrollment'>
+                                    Number of Students Enrolled: <span> {cls.Students.length}</span>
+                                </p>
                             }
                         </div>
                         <div className="classImageDesc">
@@ -95,8 +138,8 @@ const ClassDetailsPage = () => {
                         </div>
                     </div>
 
-                    <p>
-                        <div className='lessonDropDownList'>
+                    <div className='lessonDropDownList'>
+                        <p className='lessonDropDownList'>
                             <label>
                                 Class Lessons:
                                 <select
@@ -112,19 +155,19 @@ const ClassDetailsPage = () => {
                                     )}
                                 </select>
                             </label>
-                        </div>
-                    </p>
+                        </p>
+                    </div>
                     {selectedLesson &&
                         <div className='selectedLesson'>
-                            <p>Title: {selectedLesson.title}</p>
-                            <p>Description: {selectedLesson.description}</p>
+                            <p className='selectedLessonPar'>Title: {selectedLesson.title}</p>
+                            <p className='selectedLessonPar'>Description: {selectedLesson.description}</p>
                             <NavLink to={`/lessons/${selectedLesson.id}`} className="lessonLink">
                                 Go to lesson details page <i className="fa-solid fa-arrow-right"></i>
                             </NavLink>
                         </div>}
 
-                    <p>
-                        <div className='assignmentDropDownList'>
+                    <div className='assignmentDropDownList'>
+                        <p className='assignmentDropDownList'>
                             <label>
                                 Class Assignments:
                                 <select
@@ -140,15 +183,69 @@ const ClassDetailsPage = () => {
                                     )}
                                 </select>
                             </label>
-                        </div>
-                    </p>
+                        </p>
+                    </div>
                     {selectedAssignment &&
                         <div className='selectedAssignment'>
-                            <p>Title: {selectedAssignment.title}</p>
-                            <p>Description: {selectedAssignment.description}</p>
+                            <p className='selectedAssignmentPar'>Title: {selectedAssignment.title}</p>
+                            <p className='selectedAssignmentPar'>Description: {selectedAssignment.description}</p>
                             <NavLink to={`/assignments/${selectedAssignment.id}`} className="assignmentLink">
                                 Go to assignment details page <i className="fa-solid fa-arrow-right"></i>
                             </NavLink>
+                        </div>}
+
+                    <div className='studentDropDownList'>
+                        <p className='studentDropDownList'>
+                            <label>
+                                Class Student Roster:
+                                <select
+                                    value={selectedStudent ? selectedStudent.studentId : ''}
+                                    onChange={handleStudentSelection}
+                                >
+                                    <option value="" disabled className='studentOption'>Select a student...</option>
+                                    {cls?.Students?.flatMap((student) => (
+                                        <option key={student.studentId} value={student.studentId} className='studentOption'>
+                                            {student.firstName} {student.lastName}
+                                        </option>
+                                    )
+                                    )}
+                                </select>
+                            </label>
+                        </p>
+                    </div>
+
+                    {selectedStudent &&
+                        <div className='selectedStudent'>
+                            {/* <h4>Assignments</h4> */}
+                            <table className='studentAssignmentTable'>
+                                <thead>
+                                    <tr>
+                                        <th className='studentAssignmentTitle'>Assignment Title</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {cls?.ClassAssignments?.map((assignment) => (
+                                        <tr className='studentAssignment' key={assignment.assignmentId}>
+                                            <td className='studentAssignmentTitle'>
+                                                <NavLink to={`/assignments/${assignment.assignmentId}`} className="studentAssignmentTitle">
+                                                    {assignment.Assignment.title}
+                                                </NavLink></td>
+                                            <td>{assignment.Assignment.dueDate}</td>
+                                            <td>{getAssignmentStatusForStudent(assignment?.Assignment?.Grades, selectedStudent.studentId)}</td>
+                                            <td>{getAssignmentGradeForStudent(assignment?.Assignment?.Grades, selectedStudent.studentId) || 'Not Graded'}</td>
+                                        </tr>
+                                    ))}
+
+                                    <tr className='averageGrade'>
+                                        <td className='averageGrade' colSpan="4">
+                                            Average Assignment Grade: <span>{getAverageGradeForStudent(cls?.ClassAssignments?.map(assignment => assignment.Assignment?.Grades?.find(grade => grade.studentId === selectedStudent.studentId)))}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>}
 
                 </>

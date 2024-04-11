@@ -92,8 +92,10 @@ const AssignmentDetailsPage = () => {
                                 <span>Created By:</span> {assignment.AssignmentTeacherFirstName} {assignment.AssignmentTeacherLastName}
                             </p>
                             {assignment.AssignmentTeacherUserId === user.id &&
-                                <p className='assignmentDetailsLabel'>
-                                    <span>Classes Assigned To:</span>
+                                <div className='assignmentDetailsLabel'>
+                                    <p className='assignmentDetailsLabel'>
+                                        <span>Classes Assigned To:</span>
+                                    </p>
                                     {assignment?.AssignmentClasses ?
                                         <ul className='assignmentClassList'>
                                             {(() => {
@@ -111,7 +113,7 @@ const AssignmentDetailsPage = () => {
                                         </ul> :
                                         <ul className='assignmentClassList'>This assignment has not been assigned to any classes</ul>
                                     }
-                                </p>
+                                </div>
                             }
                             {assignment.AssignmentTeacherUserId === user.id &&
                                 <p className='assignmentDetailsLabel'>
