@@ -2,6 +2,7 @@
     width: 300px;
     height: 200px;
     padding-right: 15px;
+    margin-top: 20px;
 }
 
 .classDetailsHeading {
@@ -11,16 +12,24 @@
     font-family: 'Lato', sans-serif;
 }
 
-.classNameRoster {
+/* .classNameRoster {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-family: 'Lato', sans-serif;
     place-items: center;
+} */
+
+.classEnrollment {
+    font-family: 'Lato', sans-serif;
 }
 
-.classRoster {
-    font-family: 'Lato', sans-serif;
+.classNameRoster>p {
+    font-weight: bold;
+}
+
+.classNameRoster>p>span {
+    font-weight: normal
 }
 
 .classImageDesc {
@@ -34,8 +43,10 @@
 .lessonDropDownList,
 .selectedLesson,
 .assignmentDropDownList,
-.selectedAssignment {
-    margin: 20px;
+.selectedAssignment,
+.studentDropDownList,
+.selectedStudent {
+    margin: 10px;
     font-family: 'Lato', sans-serif;
     font-size: medium;
 }
@@ -43,10 +54,13 @@
 .lessonOption,
 .lessonDropDownList label,
 .assignmentOption,
-.assignmentDropDownList label {
+.assignmentDropDownList label,
+.studentOption,
+.studentDropDownList label {
     font-family: 'Lato', sans-serif;
     font-weight: bold;
     font-size: 20px;
+    margin: 15px
 }
 
 .lessonLink,
@@ -56,7 +70,9 @@
     color: #9c0d639a;
     cursor: pointer;
     font-size: 18px;
+    margin: 10px 10px 40px 40px
 }
+
 
 .lessonLink:hover,
 .assignmentLink:hover,
@@ -74,4 +90,70 @@ select {
     font-family: 'Lato', sans-serif;
     font-size: medium;
     margin-left: 5px;
+}
+
+/* CSS for table */
+.selectedStudent {
+    margin-top: 20px;
+}
+
+.studentAssignmentTable {
+    width: 75%;
+    border-collapse: collapse;
+    margin: 40px;
+}
+
+.studentAssignmentTable th,
+.studentAssignmentTable td {
+    padding: 8px;
+    text-align: center;
+    /* border: 1px solid #ddd; */
+}
+
+.studentAssignmentTable th {
+    background-color: #f2f2f2;
+}
+
+.studentAssignmentTable tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.studentAssignmentTable tbody tr:hover {
+    background-color: #ddd;
+}
+
+td.studentAssignmentTitle,
+th.studentAssignmentTitle {
+    text-align: left
+}
+
+td.averageGrade {
+    font-weight: bold;
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+td.averageGrade span {
+    margin-left: 40px;
+}
+
+/* td>span {
+    margin-left: 40px;
+    margin-right: 40px;
+} */
+
+.selectedAssignmentPar,
+.selectedLessonPar {
+    margin-left: 40px;
+}
+
+.studentAssignmentTitle {
+    text-decoration: none;
+    color: black;
+}
+
+.studentAssignmentTitle:hover {
+    cursor: pointer;
+    color: #9C0D63;
+
 }
