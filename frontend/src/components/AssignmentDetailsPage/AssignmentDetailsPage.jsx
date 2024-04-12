@@ -62,7 +62,7 @@ const AssignmentDetailsPage = () => {
                     <div className='assignmentDetailsHeading'>
                         <img
                             src="../images/assignment_image.png"
-                            className="assignmentImg"
+                            className="assignment image"
                         />
                         <div className='assignmentDetailsButtons'>
                             {assignment?.AssignmentTeacherUserId === user.id && (

@@ -21,9 +21,6 @@ const AllAssignmentsPage = () => {
         <>
             {isLoaded &&
                 <div className='allAssignmentsContainer'>
-                    {/* <h3>
-                        Featured Teacher Assignments
-                    </h3> */}
                     {allAssignments?.map(assignment => (
                         <div className='assignmentsTile' key={assignment.id}>
                             <NavLink className="assignmentTileLink" to={`/assignments/${assignment.id}`} key={assignment.id}>

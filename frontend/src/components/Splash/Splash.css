@@ -21,14 +21,13 @@
     margin: 20px 5px;
     /* font-weight: bold; */
     box-shadow: 2px 2px 2px gray;
+    height: 250px;
+    overflow-y: auto;
 }
 
-.allLessonsContainer h3 {
-    padding-left: 10px;
-}
-
-.allAssignmentsContainer h3 {
-    padding-left: 10px;
+h4.lessonTitle,
+h4.assignmentTitle {
+    margin-left: 0px;
 }
 
 .tabs {
@@ -86,7 +85,10 @@
     margin-top: 60px;
 }
 
-
+.yourStuff {
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+}
 
 .splashPageRightSide {
     position: relative;
@@ -95,7 +97,7 @@
 .userClasses,
 .userLessons,
 .userAssignments {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     text-decoration: none;
     color: black;
     font-weight: 400;
@@ -113,7 +115,7 @@
 
 .splashPageContainer {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 18% 80%;
     margin-right: 20px;
     margin-left: 20px;
 }
@@ -121,7 +123,7 @@
 .noUserDiv {
     margin: 50px 20px;
     display: flex;
-    flex-direction: row;
+    flex-flow: row;
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
     font-size: 40px;
@@ -162,5 +164,77 @@
 .noUserButton button:hover {
     cursor: pointer;
     transform: scale(1.1);
+
+}
+
+@media only screen and (max-width: 650px) {
+
+    .yourStuff,
+    .userClasses,
+    .userLessons,
+    .userAssignments {
+        font-size: small;
+    }
+
+    .tabs button {
+        font-size: small;
+        padding: 5px;
+    }
+
+    .lessonTileLink img,
+    .assignmentTileLink img {
+        height: 50px;
+        width: 50px;
+    }
+
+    .lessonTileLink,
+    .assignmentTileLink {
+        font-size: small;
+    }
+
+    .splashPageContainer {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .lessonTileInfo {
+        height: 200px;
+    }
+
+    .noUserDiv {
+        flex-flow: row wrap;
+    }
+
+    .noUserButton button {
+        font-size: large;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .noUserDiv img {
+        height: 500px;
+        width: 500px;
+    }
+
+    .noUserDiv h2 {
+        font-size: 40px
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .noUserDiv img {
+        height: 200px;
+        width: 200px;
+    }
+
+    .noUserDiv h2 {
+        font-size: large;
+    }
+
+    .noUserButton button {
+        font-size: small;
+    }
 
 }
