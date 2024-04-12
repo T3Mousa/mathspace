@@ -11,6 +11,7 @@ const AssignmentDetailsPage = () => {
     const { assignmentId } = useParams()
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
+    // console.log(user)
     const assignment = useSelector(state => state?.assignments?.assignmentDeets)
     // console.log(assignment)
     const dueDate = new Date(assignment?.dueDate);
@@ -22,6 +23,7 @@ const AssignmentDetailsPage = () => {
         weekday: 'short',
         timeZone: 'UTC'
     });
+    // console.log(formattedDueDate)
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
@@ -63,7 +65,7 @@ const AssignmentDetailsPage = () => {
                             className="assignmentImg"
                         />
                         <div className='assignmentDetailsButtons'>
-                            {assignment.AssignmentTeacherUserId === user.id && (
+                            {assignment?.AssignmentTeacherUserId === user.id && (
                                 <>
                                     <div className='editAssignmentButton'>
                                         <button className="editAssignmentButton">
@@ -91,26 +93,36 @@ const AssignmentDetailsPage = () => {
                             <p className='assignmentDetailsLabel'>
                                 <span>Created By:</span> {assignment.AssignmentTeacherFirstName} {assignment.AssignmentTeacherLastName}
                             </p>
-                            {assignment.AssignmentTeacherUserId === user.id &&
+                            {assignment?.AssignmentTeacherUserId === user.id &&
                                 <div className='assignmentDetailsLabel'>
                                     <p className='assignmentDetailsLabel'>
                                         <span>Classes Assigned To:</span>
                                     </p>
                                     {assignment?.AssignmentClasses ?
                                         <ul className='assignmentClassList'>
-                                            {(() => {
-                                                const assignmentClassItems = []
-                                                for (let i = 0; i < assignment?.AssignmentClasses?.length; i++) {
-                                                    const assignmentClassItem = assignment?.AssignmentClasses[i]
-                                                    assignmentClassItems.push(
-                                                        <li key={assignmentClassItem.classId}>
-                                                            <NavLink to={`/classes/${assignmentClassItem.classId}`} className="classLink">{assignmentClassItem.className}</NavLink>
-                                                        </li>
-                                                    )
-                                                }
-                                                return assignmentClassItems
-                                            })()}
-                                        </ul> :
+                                            {assignment.AssignmentClasses.map(assignmentClassItem => (
+                                                <li key={assignmentClassItem.classId}>
+                                                    <NavLink to={`/classes/${assignmentClassItem.classId}`} className="classLink">{assignmentClassItem.className}</NavLink>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                        //     <ul className='assignmentClassList'>
+                                        //         {(() => {
+                                        //             const assignmentClassItems = []
+                                        //             for (let i = 0; i < assignment?.AssignmentClasses?.length; i++) {
+                                        //                 const assignmentClassItem = assignment?.AssignmentClasses[i]
+                                        //                 console.log(assignmentClassItem)
+                                        //                 assignmentClassItems.push(
+                                        //                     <li key={assignmentClassItem.classId}>
+                                        //                         <NavLink to={`/classes/${assignmentClassItem.classId}`} className="classLink">{assignmentClassItem.className}</NavLink>
+                                        //                     </li>
+                                        //                 )
+                                        //             }
+                                        //             console.log(assignmentClassItems)
+                                        //             return assignmentClassItems
+                                        //         })()}
+                                        // </ul>
+                                        :
                                         <ul className='assignmentClassList'>This assignment has not been assigned to any classes</ul>
                                     }
                                 </div>
