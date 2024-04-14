@@ -28,6 +28,10 @@
     font-weight: bold;
 }
 
+.classNameRoster {
+    margin-left: 25px;
+}
+
 .classNameRoster>p>span {
     font-weight: normal
 }
@@ -46,10 +50,16 @@
 .selectedAssignment,
 .studentDropDownList,
 .selectedStudent {
-    margin: 10px;
+    margin: 40px 20px 20px 10px;
     font-family: 'Lato', sans-serif;
     font-size: medium;
 }
+
+/* p.lessonDropDownList,
+p.assignmentDropDownList,
+p.studentDropDownList {
+    margin-bottom: 25px;
+} */
 
 .lessonOption,
 .lessonDropDownList label,
@@ -70,7 +80,7 @@
     color: #9c0d639a;
     cursor: pointer;
     font-size: 18px;
-    margin: 10px 10px 40px 40px
+    margin: 10px 10px 20px 20px
 }
 
 
@@ -90,11 +100,13 @@ select {
     font-family: 'Lato', sans-serif;
     font-size: medium;
     margin-left: 5px;
+    padding: 5px;
 }
 
 /* CSS for table */
 .selectedStudent {
     margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .studentAssignmentTable {
@@ -119,7 +131,7 @@ select {
 }
 
 .studentAssignmentTable tbody tr:hover {
-    background-color: #ddd;
+    background-color: #e295c39a;
 }
 
 td.studentAssignmentTitle,
