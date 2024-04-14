@@ -138,7 +138,7 @@ const Splash = () => {
       <div className='splashPageContainer'>
         <div className='splashPageLeftSide'>
           {user &&
-            <p>YOUR STUFF</p>
+            <p className='yourStuff'>YOUR STUFF</p>
           }
           <p>
             {user &&

@@ -3,30 +3,43 @@
     flex-direction: column;
     /* height: 100%;
     width: 100%; */
-    margin: 40px 80px 60px 80px;
+    margin: 40px;
     padding: 20px 60px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
+}
+
+.createClassForm h1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
 }
 
 .createClassForm button {
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 8px;
     margin: 10px
 }
 
 .createClassForm label {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    place-items: center;
+    height: fit-content;
+    width: max-content
 }
 
 .createClassForm input,
 textarea {
     margin-left: 5px;
+    padding: 5px;
+    place-items: center;
+    height: fit-content;
+    width: max-content
 }
 
 .createClassForm button {
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 8px;
     margin: 10px;
     background-color: #9C0D63;
