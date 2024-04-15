@@ -17,8 +17,7 @@
 .lessonSubheading {
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
-    gap: 250px;
+    justify-content: space-around;
     margin: 30px
 }
 
