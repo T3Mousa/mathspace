@@ -21,7 +21,7 @@ module.exports = {
                 // unique: true
             },
             description: {
-                type: Sequelize.STRING,
+                type: Sequelize.TEXT,
                 allowNull: false,
                 defaultValue: ""
             },

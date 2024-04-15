@@ -2,6 +2,7 @@ const express = require('express');
 const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, StudentLesson, ClassLesson, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateLessonParams } = require('./validators');
+const { multipleMulterUpload, multiplePublicFileUpload } = require('../../awsS3');
 
 const { Op } = require("sequelize");
 const e = require('express');
