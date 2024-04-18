@@ -86,8 +86,10 @@ function CreateNewClassModal() {
                 </label>
                 {errors.description && <p className="errors">{errors.description}</p>}
                 {description.startsWith(" ") && <p className="errors">Class description cannot begin with an empty space</p>}
-                <button onClick={closeModal}>Cancel</button>
-                <button type="submit" disabled={submitDisabled}>Add Class</button>
+                <div className="createClassModalButtons">
+                    <button type="submit" disabled={submitDisabled}>Add Class</button>
+                    <button onClick={closeModal}>Cancel</button>
+                </div>
             </form>
         </>
     );

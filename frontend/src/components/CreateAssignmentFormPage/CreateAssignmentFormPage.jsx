@@ -125,8 +125,8 @@ function CreateAssignmentFormPage() {
                     />
                 </label>
 
-                <button onClick={() => navigate('/my-assignments')}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Add Assignment</button>
+                <button onClick={() => navigate('/my-assignments')}>Cancel</button>
             </form>
         </>
     )

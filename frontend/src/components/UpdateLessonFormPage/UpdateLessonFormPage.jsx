@@ -158,8 +158,8 @@ function UpdateLessonFormPage() {
                     />
                 </label>
 
-                <button onClick={() => navigate(`/lessons/${lessonParsedId}`)}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Update Lesson</button>
+                <button onClick={() => navigate(`/lessons/${lessonParsedId}`)}>Cancel</button>
             </form>
         </>
     );

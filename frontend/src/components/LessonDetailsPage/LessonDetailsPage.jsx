@@ -17,6 +17,12 @@ const LessonDetailsPage = () => {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
 
+    // console.log(lesson?.lessonContent)
+    // const lessonContentURL = lesson?.lessonContent
+    // console.log(lessonContentURL)
+
+
+
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
@@ -43,6 +49,13 @@ const LessonDetailsPage = () => {
     const closeMenu = () => {
         setShowMenu(false)
     }
+
+    // Function to check if a string is a valid image URL
+    const isLessonContentImage = (url) => {
+        // Regular expression to match common image file extensions
+        const imageExtensions = /\.(jpeg|jpg|gif|png|bmp)$/i;
+        return imageExtensions.test(url);
+    };
 
     return (
         <div className='lessonDetailsContainer'>
@@ -114,7 +127,24 @@ const LessonDetailsPage = () => {
                         <h3>Lesson Description: </h3>
                         <p>{lesson.description}</p>
                         <h3>Lesson Content: </h3>
-                        <p>{lesson.lessonContent}</p>
+                        {/* <p>{lesson.lessonContent}</p> */}
+                        {/* {lessonContentURL.endsWith('.png' || '.jpg' || '.jpeg') ?
+                            <img
+                                src={lessonContentURL}
+                                alt={lesson.title}
+                            /> :
+                            <p>{lesson.lessonContent}</p>
+                        } */}
+                        {isLessonContentImage(lesson?.lessonContent) ?
+                            <>
+                                <img
+                                    src={lesson.lessonContent}
+                                    alt={lesson.title}
+                                />
+                                <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
+                            </> :
+                            <p>{lesson.lessonContent}</p>
+                        }
                     </div>
 
                 </>
