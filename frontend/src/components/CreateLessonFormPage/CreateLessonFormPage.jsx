@@ -12,7 +12,6 @@ function CreateLessonFormPage() {
     const [title, setTitle] = useState("")
     const [lessonImg, setLessonImg] = useState("")
     const [description, setDescription] = useState("")
-    // const [lessonContent, setLessonContent] = useState(null)
     const [selectedClasses, setSelectedClasses] = useState([])
     const [isLoaded, setIsLoaded] = useState(false);
     const [errors, setErrors] = useState({})
@@ -73,13 +72,15 @@ function CreateLessonFormPage() {
 
         const lesson_content = lessonContent
         const form = { lesson_content }
+        const lessCont = lesson_content.name
+        console.log(lessCont)
 
         let errorsObj = {}
         if (!title) errorsObj.title = "Lesson title is required"
         if (title.startsWith(" ")) errorsObj.name = "Lesson title cannot begin with an empty space"
         if (!description) errorsObj.description = "Lesson description is required"
         if (description.startsWith(" ")) errorsObj.description = "Lesson description cannot begin with an empty space"
-        if (lessonImg && !lessonImg.endsWith('.png') && !lessonImg.endsWith('.jpg') && !lessonImg.endsWith('.jpeg')) errorsObj.lessonImg = "Lesson image URL must end in .png, .jpg, .jpeg"
+        if (lessCont && !lessCont.endsWith('.pdf') && !lessCont.endsWith('.png') && !lessCont.endsWith('.jpg') && !lessCont.endsWith('.jpeg')) errorsObj.lessonContent = "Lesson content URL must end in .pdf, .png, .jpg, .jpeg"
         // if (lessonContent.startsWith(" ")) errorsObj.lessonContent = "Lesson content cannot begin with an empty space"
 
 
@@ -156,7 +157,7 @@ function CreateLessonFormPage() {
                         <button>Change File</button>
                     </div>
                 )} */}
-                {/* {errors.lessonContent && <p className="errors">{errors.lessonContent}</p>} */}
+                {errors.lessonContent && <p className="errors">{errors.lessonContent}</p>}
                 {/* {lessonContent.startsWith(" ") && <p className="errors">Lesson content cannot begin with an empty space</p>} */}
                 <label>
                     Select Classes (to add the lesson to)

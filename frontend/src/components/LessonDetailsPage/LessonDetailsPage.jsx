@@ -6,6 +6,10 @@ import './LessonDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 // import UpdateLessonModal from '../UpdateLessonModal';
 import DeleteLessonModal from '../DeleteLessonModal';
+import LessonPDFViewer from './LessonPDFViewer';
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+
 
 const LessonDetailsPage = () => {
     const { lessonId } = useParams()
@@ -55,6 +59,12 @@ const LessonDetailsPage = () => {
         // Regular expression to match common image file extensions
         const imageExtensions = /\.(jpeg|jpg|gif|png|bmp)$/i;
         return imageExtensions.test(url);
+    };
+
+    const isLessonContentFile = (url) => {
+        // Regular expression to match common image file extensions
+        const fileExtensions = /\.(pdf)$/i;
+        return fileExtensions.test(url);
     };
 
     return (
@@ -135,14 +145,23 @@ const LessonDetailsPage = () => {
                             /> :
                             <p>{lesson.lessonContent}</p>
                         } */}
-                        {isLessonContentImage(lesson?.lessonContent) ?
-                            <>
+                        {isLessonContentImage(lesson?.lessonContent) &&
+                            <div className='imageViewere'>
+                                <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
                                 <img
                                     src={lesson.lessonContent}
-                                    alt={lesson.title}
+                                    alt="Lesson content is not available"
                                 />
+                            </div>
+                        }
+
+                        {isLessonContentFile(lesson?.lessonContent) &&
+                            <div className='pdfViewer'>
                                 <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
-                            </> :
+                                <LessonPDFViewer url={lesson?.lessonContent} />
+                            </div>
+                        }
+                        {!isLessonContentImage(lesson?.lessonContent) && !isLessonContentFile(lesson?.lessonContent) &&
                             <p>{lesson.lessonContent}</p>
                         }
                     </div>

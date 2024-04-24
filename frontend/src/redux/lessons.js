@@ -110,10 +110,10 @@ export const getAllClassLessons = (classId) => async (dispatch) => {
 }
 
 export const addNewLesson = (lessonInfo, form) => async (dispatch) => {
-    console.log(lessonInfo)
-    console.log(form)
+    // console.log(lessonInfo)
+    // console.log(form)
     const { lesson_content } = form
-    console.log(lesson_content)
+    // console.log(lesson_content)
     // lessonInfo.lessonContent = lesson_content
 
     const { title, lessonImg, description, selectedClasses } = lessonInfo
@@ -124,12 +124,6 @@ export const addNewLesson = (lessonInfo, form) => async (dispatch) => {
     formData.append('lessonContent', lesson_content);
     formData.append('selectedClasses', JSON.stringify(selectedClasses))
 
-    // console.log(formData)
-    // const option = {
-    //     method: "POST",
-    //     headers: { 'Content-Type': 'multipart/form-data' },
-    //     body: formData
-    // }
 
     const response = await csrfFetch(`/api/lessons`,
         {
@@ -142,8 +136,8 @@ export const addNewLesson = (lessonInfo, form) => async (dispatch) => {
             body: formData,
         }
     )
-    console.log(response)
-    console.log(formData)
+    // console.log(response)
+    // console.log(formData)
     if (response.ok) {
         const newLessonData = await response.json()
         dispatch(createLesson(newLessonData))
@@ -156,11 +150,20 @@ export const addNewLesson = (lessonInfo, form) => async (dispatch) => {
     }
 }
 
-export const editLesson = (lessonId, editedLessonData) => async (dispatch) => {
+export const editLesson = (lessonId, editedLessonData, form) => async (dispatch) => {
+    const { lesson_content } = form
+    const { title, lessonImg, description, selectedClasses } = editedLessonData
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('lessonImg', lessonImg);
+    formData.append('description', description);
+    formData.append('lessonContent', lesson_content);
+    formData.append('selectedClasses', JSON.stringify(selectedClasses))
+
     const response = await csrfFetch(`/api/lessons/${lessonId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editedLessonData)
+        headers: { "Content-Type": "multipart/form-data" },
+        body: formData
     })
     if (response.ok) {
         const edited = await response.json()
