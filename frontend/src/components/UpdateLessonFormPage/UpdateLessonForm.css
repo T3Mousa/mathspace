@@ -1,20 +1,49 @@
-p.errors {
-    color: red
-}
-
 .editLessonForm {
     display: flex;
     flex-direction: column;
-    font-family: 'Roboto', sans-serif;
+    /* height: 100%;
+    width: 100%; */
+    margin: 40px 80px 60px 80px;
+    padding: 20px 60px;
+    font-family: 'Lato', sans-serif;
+}
 
-    margin: 20px 40px 40px 40px;
-    padding: 20px 20px;
+.editLessonForm label {
+    margin-bottom: 10px;
+    /* gap: 10px; */
+    font-family: 'Lato', sans-serif;
+    padding: 10px;
+}
+
+.editLessonForm input,
+.editLessonForm textarea {
+    margin-left: 5px;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.selection {
+    margin-left: 5px;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    width: 75%
+}
+
+.editLessonFormButtons {
+    display: flex;
+    /* justify-content: center; */
+    flex-flow: column;
+    align-items: center;
 }
 
 .editLessonForm button {
-    font-family: 'Roboto', sans-serif;
     cursor: pointer;
-    padding: 8px;
+    font-family: 'Lato', sans-serif;
+    padding: 10px;
     margin: 10px;
     background-color: #9C0D63;
     border-color: #9C0D63;
@@ -22,6 +51,7 @@ p.errors {
     font-size: medium;
     transition: transform 0.3 ease;
     border-radius: 3px;
+    width: 25%
 }
 
 .editLessonForm button:hover {
@@ -29,11 +59,9 @@ p.errors {
     box-shadow: 2px 2px 2px gray;
 }
 
-.editLessonForm label {
-    margin-bottom: 5px;
-}
-
-.editLessonForm input,
-textarea {
-    margin-left: 5px;
+p.errors {
+    color: red;
+    font-family: 'Lato', sans-serif;
+    margin-top: 0px;
+    margin-left: 20px;
 }

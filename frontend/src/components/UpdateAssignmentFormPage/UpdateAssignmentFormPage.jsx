@@ -31,7 +31,7 @@ function UpdateAssignmentFormPage() {
         }
     }, [dispatch, assignmentParsedId, isLoaded])
 
-    const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || assignmentContent.startsWith(" "))
+    const submitDisabled = (title.startsWith(" ") || description.startsWith(" "))
 
     useEffect(() => {
         if (assignmentToEdit) {
@@ -43,6 +43,27 @@ function UpdateAssignmentFormPage() {
         }
     }, [assignmentToEdit])
 
+    //telling us if we should show the image
+    const [showUpload, setShowUpload] = useState(true);
+    //img url we will load in react
+    const [previewUrl, setPreviewUrl] = useState("");
+
+
+
+    //function to get image from local
+
+    const uploadAssignmentContentFile = async (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            setPreviewUrl(reader.result);
+        }
+        setAssignmentContent(file);
+        // setShowUpload(false);
+    };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
@@ -50,24 +71,29 @@ function UpdateAssignmentFormPage() {
         const assignmentInfo = {
             title,
             description,
-            assignmentContent,
+            // assignmentContent,
             dueDate,
             selectedClasses
         }
+
+        const assignment_content = assignmentContent
+        const form = { assignment_content }
+        const assignCont = assignment_content.name
+        // console.log(assignCont)
 
         const errorsObject = {}
         if (!title) errorsObject.title = "Assignment title is required"
         if (title.startsWith(" ")) errorsObject.title = "Assignment title cannot begin with an empty space"
         if (!description) errorsObject.description = "Assignment description is required"
         if (description.startsWith(" ")) errorsObject.description = "Assignment description cannot begin with an empty space"
-        if (assignmentContent.startsWith(" ")) errorsObject.assignmentContent = "Assignment content cannot begin with an empty space"
         if (!dueDate) errorsObject.dueDate = "Due date for assignment is required"
+        if (assignCont && !assignCont.endsWith('.pdf') && !assignCont.endsWith('.png') && !assignCont.endsWith('.jpg') && !assignCont.endsWith('.jpeg')) errorsObject.assignmentContent = "Assignment content URL must end in .pdf, .png, .jpg, .jpeg"
 
         if (Object.values(errorsObject).length) {
             setErrors(errorsObject)
         } else {
 
-            const updatedAssignment = await dispatch(editAssignment(+assignmentId, assignmentInfo))
+            const updatedAssignment = await dispatch(editAssignment(+assignmentId, assignmentInfo, form))
             // console.log(updatedAssignment)
             if (updatedAssignment?.id) {
                 await dispatch(getAssignmentDetails(updatedAssignment?.id))
@@ -127,16 +153,18 @@ function UpdateAssignmentFormPage() {
                 </label>
                 {errors.description && <p className='errors'>{errors.description}</p>}
                 {description.startsWith(" ") && <p className='errors'>Assignment description cannot begin with an empty space</p>}
-                <label>
-                    Assignment Content (optional):
-                    <textarea
-                        type="text"
-                        value={assignmentContent}
-                        onChange={(e) => setAssignmentContent(e.target.value)}
-                    />
-                </label>
-                {errors.assignmentContent && <p className='errors'>{errors.assignmentContent}</p>}
-                {assignmentContent.startsWith(" ") && <p className='errors'>Assignment content cannot begin with an empty space</p>}
+                {showUpload && (
+                    <label htmlFor='file-upload'>
+                        Assignment Content
+                        <input
+                            type="file"
+                            id='file-upload'
+                            required
+                            onChange={uploadAssignmentContentFile}
+                        />
+                    </label>
+                )}
+                {errors.assignmentContent && <p className="errors">{errors.assignmentContent}</p>}
                 <label>
                     Due Date:
                     <input
@@ -159,8 +187,8 @@ function UpdateAssignmentFormPage() {
                     />
                 </label>
 
-                <button onClick={() => navigate(`/assignments/${assignmentParsedId}`)}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Update Assignment</button>
+                <button onClick={() => navigate(`/assignments/${assignmentParsedId}`)}>Cancel</button>
             </form>
         </>
     );

@@ -110,14 +110,25 @@ export const getAllClassAssignments = (classId) => async (dispatch) => {
     }
 }
 
-export const addNewAssignment = (assignmentInfo) => async (dispatch) => {
+export const addNewAssignment = (assignmentInfo, form) => async (dispatch) => {
+    const { assignment_content } = form
+
+    const { title, description, dueDate, selectedClasses } = assignmentInfo
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('dueDate', dueDate);
+    formData.append('assignmentContent', assignment_content);
+    formData.append('selectedClasses', JSON.stringify(selectedClasses))
+
     const response = await csrfFetch(`/api/assignments`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(assignmentInfo),
+        body: formData,
     })
+
     if (response.ok) {
         const newAssignmentData = await response.json()
         dispatch(createAssignment(newAssignmentData))
@@ -130,11 +141,21 @@ export const addNewAssignment = (assignmentInfo) => async (dispatch) => {
     }
 }
 
-export const editAssignment = (assignmentId, editedAssignmentData) => async (dispatch) => {
+export const editAssignment = (assignmentId, editedAssignmentData, form) => async (dispatch) => {
+    const { assignment_content } = form
+
+    const { title, description, dueDate, selectedClasses } = editedAssignmentData
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('dueDate', dueDate);
+    formData.append('assignmentContent', assignment_content);
+    formData.append('selectedClasses', JSON.stringify(selectedClasses))
+
     const response = await csrfFetch(`/api/assignments/${assignmentId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editedAssignmentData)
+        headers: { "Content-Type": "multipart/form-data" },
+        body: formData
     })
     if (response.ok) {
         const edited = await response.json()
