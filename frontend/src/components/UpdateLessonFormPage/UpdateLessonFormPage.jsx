@@ -77,7 +77,7 @@ function UpdateLessonFormPage() {
         const lesson_content = lessonContent
         const form = { lesson_content }
         const lessCont = lesson_content.name
-        console.log(lessCont)
+        // console.log(lessCont)
 
         const errorsObject = {}
         if (!title) errorsObject.title = "Lesson title is required"

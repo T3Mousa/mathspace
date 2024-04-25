@@ -73,7 +73,7 @@ function CreateLessonFormPage() {
         const lesson_content = lessonContent
         const form = { lesson_content }
         const lessCont = lesson_content.name
-        console.log(lessCont)
+        // console.log(lessCont)
 
         let errorsObj = {}
         if (!title) errorsObj.title = "Lesson title is required"
@@ -88,7 +88,7 @@ function CreateLessonFormPage() {
             setErrors(errorsObj)
         } else {
             const newLesson = await dispatch(addNewLesson(newLessonInfo, form))
-            console.log(newLesson)
+            // console.log(newLesson)
             await dispatch(getAllClasses())
             await dispatch(getAllUserLessons())
             if (newLesson?.id) navigate('/my-lessons')

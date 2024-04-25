@@ -56,13 +56,13 @@ const LessonDetailsPage = () => {
 
     // Function to check if a string is a valid image URL
     const isLessonContentImage = (url) => {
-        // Regular expression to match common image file extensions
+        // Regex to match common image file extensions
         const imageExtensions = /\.(jpeg|jpg|gif|png|bmp)$/i;
         return imageExtensions.test(url);
     };
 
     const isLessonContentFile = (url) => {
-        // Regular expression to match common image file extensions
+        // Regex to match common image file extensions
         const fileExtensions = /\.(pdf)$/i;
         return fileExtensions.test(url);
     };
@@ -109,26 +109,26 @@ const LessonDetailsPage = () => {
                                 <div className='lessonDetailsLabel'>
                                     <p className='lessonDetailsLabel'>
                                         <span>Classes Assigned To:</span>
-                                        {lesson?.LessonClasses ?
-                                            <ul className='lessonClassList'>
-                                                {(() => {
-                                                    const lessonClassItems = []
-                                                    for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
-                                                        const lessonClassItem = lesson?.LessonClasses[i]
-                                                        lessonClassItems.push(
-                                                            <li key={lessonClassItem.classId}>
-                                                                <NavLink to={`/classes/${lessonClassItem.classId}`} className="lessonClassLink">
-                                                                    {lessonClassItem.className}
-                                                                </NavLink>
-                                                            </li>
-                                                        )
-                                                    }
-                                                    return lessonClassItems
-                                                })()}
-                                            </ul> :
-                                            <ul className='lessonClassList'>This lesson has not been assigned to any classes</ul>
-                                        }
                                     </p>
+                                    {lesson?.LessonClasses ?
+                                        <ul className='lessonClassList'>
+                                            {(() => {
+                                                const lessonClassItems = []
+                                                for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
+                                                    const lessonClassItem = lesson?.LessonClasses[i]
+                                                    lessonClassItems.push(
+                                                        <li key={lessonClassItem.classId}>
+                                                            <NavLink to={`/classes/${lessonClassItem.classId}`} className="lessonClassLink">
+                                                                {lessonClassItem.className}
+                                                            </NavLink>
+                                                        </li>
+                                                    )
+                                                }
+                                                return lessonClassItems
+                                            })()}
+                                        </ul> :
+                                        <ul className='lessonClassList'>This lesson has not been assigned to any classes</ul>
+                                    }
                                 </div>
                             }
                         </div>
@@ -146,7 +146,7 @@ const LessonDetailsPage = () => {
                             <p>{lesson.lessonContent}</p>
                         } */}
                         {isLessonContentImage(lesson?.lessonContent) &&
-                            <div className='imageViewere'>
+                            <div className='imageViewer'>
                                 <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
                                 <img
                                     src={lesson.lessonContent}

@@ -2,6 +2,7 @@ const express = require('express');
 const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, StudentLesson, ClassLesson, ClassAssignment, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateAssignmentParams } = require('./validators');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const { Op } = require("sequelize");
 const e = require('express');
@@ -299,10 +300,13 @@ router.get('/:assignmentId', requireAuth, async (req, res) => {
 });
 
 // create a new assignment for multiple classes that belong to the current user (teacher users only)
-router.post('/', requireAuth, validateAssignmentParams, async (req, res) => {
+router.post('/', requireAuth, singleMulterUpload("assignmentContent"), async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
-    const { title, description, assignmentContent, dueDate, selectedClasses } = req.body
+    const { title, description, dueDate, selectedClasses } = req.body
+    const selectedClassesArray = JSON.parse(selectedClasses)
+    const fileURL = await singlePublicFileUpload(req.file)
+
     if (userId && role === 'teacher') {
         const teacher = await Teacher.findOne({
             where: { userId: userId },
@@ -315,7 +319,7 @@ router.post('/', requireAuth, validateAssignmentParams, async (req, res) => {
             })
             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
             // console.log(validClassIds)
-            const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+            const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
             // console.log(invalidClassIds)
             if (invalidClassIds.length > 0) {
                 res.status(403)
@@ -324,13 +328,15 @@ router.post('/', requireAuth, validateAssignmentParams, async (req, res) => {
             const newAssignment = new Assignment({
                 title,
                 description,
-                assignmentContent,
                 dueDate,
+                assignmentContent: fileURL,
                 teacherId: teacherId
             })
+
+
             await newAssignment.save()
             //associate assignment with specified array of classes in classIds
-            for (const selectedClass of selectedClasses) {
+            for (const selectedClass of selectedClassesArray) {
                 await ClassAssignment.create({
                     assignmentId: newAssignment.id,
                     classId: selectedClass.value
@@ -353,11 +359,13 @@ router.post('/', requireAuth, validateAssignmentParams, async (req, res) => {
 })
 
 // edit an assignment (teacher users only)
-router.put('/:assignmentId', requireAuth, validateAssignmentParams, async (req, res) => {
+router.put('/:assignmentId', requireAuth, singleMulterUpload("assignmentContent"), async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
     const { assignmentId } = req.params
-    const { title, description, assignmentContent, dueDate, selectedClasses } = req.body
+    const { title, description, dueDate, selectedClasses } = req.body
+    const selectedClassesArray = JSON.parse(selectedClasses)
+    let assignmentContentUrl;
     const existingAssignment = await Assignment.findOne({
         where: { id: assignmentId },
         include: [
@@ -382,22 +390,27 @@ router.put('/:assignmentId', requireAuth, validateAssignmentParams, async (req, 
                 })
                 const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
                 // console.log(validClassIds)
-                const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+                const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
                 // console.log(invalidClassIds)
                 if (invalidClassIds.length > 0) {
                     res.status(403)
                     return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
                 }
+                if (req.file) {
+                    assignmentContentUrl = await singlePublicFileUpload(req.file);
+                    if (assignmentContentUrl && assignmentContentUrl !== undefined) {
+                        existingAssignment.assignmentContent = assignmentContentUrl
+                    }
+                }
 
                 if (title !== undefined) existingAssignment.title = title
                 if (description !== undefined) existingAssignment.description = description
-                if (assignmentContent !== undefined) existingAssignment.assignmentContent = assignmentContent
                 if (dueDate !== undefined) existingAssignment.dueDate = dueDate
                 const updatedAssignment = await existingAssignment.save()
 
                 await ClassAssignment.destroy({ where: { assignmentId: assignmentId } })
 
-                for (const selectedClass of selectedClasses) {
+                for (const selectedClass of selectedClassesArray) {
                     await ClassAssignment.create({
                         assignmentId: assignmentId,
                         classId: selectedClass.value

@@ -124,6 +124,7 @@ export const addNewLesson = (lessonInfo, form) => async (dispatch) => {
     formData.append('lessonContent', lesson_content);
     formData.append('selectedClasses', JSON.stringify(selectedClasses))
 
+    // console.log(formData)
 
     const response = await csrfFetch(`/api/lessons`,
         {

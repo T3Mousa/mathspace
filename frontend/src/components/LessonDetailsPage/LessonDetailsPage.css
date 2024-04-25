@@ -148,3 +148,8 @@ a.lessonContentLink:hover {
     width: 100%;
     height: 600px
 }
+
+.imageViewer img {
+    width: 100%;
+    height: auto
+}

@@ -1,4 +1,4 @@
-.lessonPDFViewerContainer {
+.assignmentPDFViewerContainer {
     width: 100%;
     height: auto;
     font-family: 'Lato', sans-serif;
@@ -41,12 +41,12 @@
 }
 
 /* Hide any underlying text content */
-.lessonPDFViewerContainer * {
+.assignmentPDFViewerContainer * {
     visibility: hidden;
 
 }
 
 /* Ensure the canvas rendering is visible */
-.lessonPDFViewerContainer canvas {
+.assignmentPDFViewerContainer canvas {
     visibility: visible;
 }

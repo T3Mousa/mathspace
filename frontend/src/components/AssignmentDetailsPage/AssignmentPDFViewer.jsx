@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import './LessonPDFViewer.css'; // Import CSS file for styling
+import './AssignmentPDFViewer.css';
 
-function LessonPDFViewer({ url }) {
+function AssignmentPDFViewer({ url }) {
     pdfjs.GlobalWorkerOptions.workerSrc =
         `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
     const [numPages, setNumPages] = useState(null);
@@ -32,7 +32,7 @@ function LessonPDFViewer({ url }) {
 
     return (
         <>
-            <div className="lessonPDFViewerContainer">
+            <div className="assignmentPDFViewerContainer">
                 <Document
                     file={url}
                     onLoadSuccess={onDocumentLoadSuccess}
@@ -71,4 +71,4 @@ function LessonPDFViewer({ url }) {
     );
 }
 
-export default LessonPDFViewer;
+export default AssignmentPDFViewer;

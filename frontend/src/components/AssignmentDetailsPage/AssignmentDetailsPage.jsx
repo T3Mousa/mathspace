@@ -6,6 +6,9 @@ import { getAssignmentDetails } from '../../redux/assignments';
 import './AssignmentDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 import DeleteAssignmentModal from '../DeleteAssignmentModal';
+import AssignmentPDFViewer from './AssignmentPDFViewer';
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
 
 const AssignmentDetailsPage = () => {
     const { assignmentId } = useParams()
@@ -54,6 +57,19 @@ const AssignmentDetailsPage = () => {
     const closeMenu = () => {
         setShowMenu(false)
     }
+
+    // Function to check if a string is a valid image URL
+    const isAssignmentContentImage = (url) => {
+        // Regex to match common image file extensions
+        const imageExtensions = /\.(jpeg|jpg|gif|png|bmp)$/i;
+        return imageExtensions.test(url);
+    };
+
+    const isAssignmentContentFile = (url) => {
+        // Regex to match common image file extensions
+        const fileExtensions = /\.(pdf)$/i;
+        return fileExtensions.test(url);
+    };
 
     return (
         <div className='assignmentDetailsContainer'>
@@ -139,8 +155,26 @@ const AssignmentDetailsPage = () => {
                         <h3>Assignment Description: </h3>
                         <p>{assignment.description}</p>
                         <h3>Assignment Content: </h3>
-                        <p>{assignment.assignmentContent}</p>
+                        {/* <p>{assignment.assignmentContent}</p> */}
+                        {isAssignmentContentImage(assignment.assignmentContent) &&
+                            <div className='imageViewer'>
+                                <a className="assignmentContentLink" href={assignment.assignmentContent}>Download Assignment Content</a>
+                                <img
+                                    src={assignment.assignmentContent}
+                                    alt="Assignment content is not available"
+                                />
+                            </div>
+                        }
 
+                        {isAssignmentContentFile(assignment.assignmentContent) &&
+                            <div className='pdfViewer'>
+                                <a className="assignmentContentLink" href={assignment.assignmentContent}>Download Assignment Content</a>
+                                <AssignmentPDFViewer url={assignment.assignmentContent} />
+                            </div>
+                        }
+                        {!isAssignmentContentImage(assignment.assignmentContent) && !isAssignmentContentFile(assignment.assignmentContent) &&
+                            <p>{assignment.assignmentContent}</p>
+                        }
                     </div>
 
                 </>

@@ -351,7 +351,7 @@ router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, r
             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
             // console.log(validClassIds)
             const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
-            console.log(invalidClassIds)
+            // console.log(invalidClassIds)
             if (invalidClassIds.length > 0) {
                 res.status(403)
                 return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -363,7 +363,7 @@ router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, r
                 lessonContent: fileURL,
                 teacherId: teacherId
             })
-            console.log(newLesson)
+            // console.log(newLesson)
             await newLesson.save()
             //associate lesson with specified array of classes in classIds
             for (const selectedClass of selectedClassesArray) {
@@ -373,7 +373,7 @@ router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, r
                 })
             }
 
-            console.log(newLesson)
+            // console.log(newLesson)
 
 
             res.status(201).json(newLesson)
