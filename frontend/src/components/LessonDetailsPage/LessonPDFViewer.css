@@ -1,0 +1,52 @@
+.lessonPDFViewerContainer {
+    width: 100%;
+    height: auto;
+    font-family: 'Lato', sans-serif;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.pdfDocument {
+    width: 100%
+}
+
+.pdfPage {
+    width: 100%;
+}
+
+.pageNavigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-flow: column;
+    margin-top: 10px;
+    font-family: 'Lato', sans-serif;
+    /* place-items: center; */
+}
+
+.buttonContainer button {
+    margin-right: 10px;
+    font-size: 16px;
+    font-family: 'Lato', sans-serif;
+
+}
+
+.buttonContainer button:last-child {
+    margin-right: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Hide any underlying text content */
+.lessonPDFViewerContainer * {
+    visibility: hidden;
+
+}
+
+/* Ensure the canvas rendering is visible */
+.lessonPDFViewerContainer canvas {
+    visibility: visible;
+}

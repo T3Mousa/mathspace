@@ -14,25 +14,31 @@ function CreateNewLessonModal({ teacherClasses }) {
     const [title, setTitle] = useState("")
     const [lessonImg, setLessonImg] = useState("")
     const [description, setDescription] = useState("")
-    const [lessonContent, setLessonContent] = useState("")
+    const [lessonContent, setLessonContent] = useState(null)
     const [selectedClasses, setSelectedClasses] = useState([])
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
     // console.log(teacherClasses)
 
-    const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" ") || lessonContent.startsWith(" "))
+    const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" "))
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
 
-        const newLessonInfo = {
-            title,
-            lessonImg,
-            description,
-            lessonContent,
-            selectedClasses
-        }
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('lessonImg', lessonImg);
+        formData.append('description', description);
+        formData.append('lessonContent', lessonContent);
+        formData.append('selectedClasses', selectedClasses)
+        // const newLessonInfo = {
+        //     title,
+        //     lessonImg,
+        //     description,
+        //     lessonContent,
+        //     selectedClasses
+        // }
 
         let errorsObj = {}
         if (!title) errorsObj.title = "Lesson title is required"
@@ -46,7 +52,7 @@ function CreateNewLessonModal({ teacherClasses }) {
         if (Object.values(errorsObj).length) {
             setErrors(errorsObj)
         } else {
-            const newLesson = await dispatch(addNewLesson(newLessonInfo))
+            const newLesson = await dispatch(addNewLesson(formData))
             await dispatch(getAllClasses())
             await dispatch(getAllUserLessons())
             if (newLesson?.id) await navigate(`/my-lessons`)
@@ -96,10 +102,10 @@ function CreateNewLessonModal({ teacherClasses }) {
                 {description.startsWith(" ") && <p className="errors">Lesson description cannot begin with an empty space</p>}
                 <label>
                     Lesson Content (optional)
-                    <textarea
-                        type="text"
-                        value={lessonContent ? lessonContent : ""}
-                        onChange={(e) => setLessonContent(e.target.value)}
+                    <input
+                        type="file"
+                        // value={lessonContent ? lessonContent : ""}
+                        onChange={(e) => setLessonContent(e.target.files[0])}
                         placeholder="Lesson content"
                     />
                 </label>

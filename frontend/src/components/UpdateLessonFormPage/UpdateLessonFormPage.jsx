@@ -30,7 +30,7 @@ function UpdateLessonFormPage() {
         }
     }, [dispatch, lessonParsedId, isLoaded])
 
-    const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" ") || lessonContent.startsWith(" "))
+    const submitDisabled = (title.startsWith(" ") || description.startsWith(" ") || lessonImg.startsWith(" "))
 
     useEffect(() => {
         if (lessonToEdit) {
@@ -42,6 +42,26 @@ function UpdateLessonFormPage() {
         }
     }, [lessonToEdit])
 
+    //telling us if we should show the image
+    const [showUpload, setShowUpload] = useState(true);
+    //img url we will load in react
+    const [previewUrl, setPreviewUrl] = useState("");
+
+
+
+    //function to get image from local
+
+    const uploadLessonContentFile = async (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            setPreviewUrl(reader.result);
+        }
+        setLessonContent(file);
+        // setShowUpload(false);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
@@ -50,9 +70,14 @@ function UpdateLessonFormPage() {
             title,
             lessonImg,
             description,
-            lessonContent,
+            // lessonContent,
             selectedClasses
         }
+
+        const lesson_content = lessonContent
+        const form = { lesson_content }
+        const lessCont = lesson_content.name
+        // console.log(lessCont)
 
         const errorsObject = {}
         if (!title) errorsObject.title = "Lesson title is required"
@@ -60,14 +85,15 @@ function UpdateLessonFormPage() {
         if (!description) errorsObject.description = "Lesson description is required"
         if (description.startsWith(" ")) errorsObject.description = "Lesson description cannot begin with an empty space"
         // if (lessonImg && (!lessonImg.endsWith('.png') && !lessonImg.endsWith('.jpg') && !lessonImg.endsWith('.jpeg'))) errorsObject.lessonImg = "Lesson image URL must end in .png, .jpg, or .jpeg"
-        if (lessonImg.startsWith(" ")) errorsObject.lessonImg = "Lesson image URL cannot begin with an empty space"
-        if (lessonContent.startsWith(" ")) errorsObject.lessonContent = "Lesson content cannot begin with an empty space"
+        // if (lessonImg.startsWith(" ")) errorsObject.lessonImg = "Lesson image URL cannot begin with an empty space"
+        // if (lessonContent.startsWith(" ")) errorsObject.lessonContent = "Lesson content cannot begin with an empty space"
+        if (lessCont && !lessCont.endsWith('.pdf') && !lessCont.endsWith('.png') && !lessCont.endsWith('.jpg') && !lessCont.endsWith('.jpeg')) errorsObj.lessonContent = "Lesson content URL must end in .pdf, .png, .jpg, .jpeg"
 
         if (Object.values(errorsObject).length) {
             setErrors(errorsObject)
         } else {
 
-            const updatedLesson = await dispatch(editLesson(+lessonId, lessonInfo))
+            const updatedLesson = await dispatch(editLesson(+lessonId, lessonInfo, form))
             // console.log(updatedLesson)
             if (updatedLesson?.id) {
                 await dispatch(getLessonDetails(updatedLesson?.id))
@@ -116,16 +142,16 @@ function UpdateLessonFormPage() {
                 </label>
                 {errors.title && <p className='errors'>{errors.title}</p>}
                 {title.startsWith(" ") && <p className='errors'>Lesson title cannot begin with an empty space</p>}
-                <label>
+                {/* <label>
                     Lesson Image (optional)
                     <input
                         type="text"
                         value={lessonImg}
                         onChange={(e) => setLessonImg(e.target.value)}
                     />
-                </label>
+                </label> */}
                 {/* {errors.lessonImg && <p className='errors'>{errors.lessonImg}</p>} */}
-                {lessonImg.startsWith(" ") && <p className='errors'>Lesson image URL cannot begin with an empty space</p>}
+                {/* {lessonImg.startsWith(" ") && <p className='errors'>Lesson image URL cannot begin with an empty space</p>} */}
                 <label>
                     Lesson Description
                     <textarea
@@ -137,16 +163,18 @@ function UpdateLessonFormPage() {
                 </label>
                 {errors.description && <p className='errors'>{errors.description}</p>}
                 {description.startsWith(" ") && <p className='errors'>Lesson description cannot begin with an empty space</p>}
-                <label>
-                    Lesson Content (optional)
-                    <textarea
-                        type="text"
-                        value={lessonContent}
-                        onChange={(e) => setLessonContent(e.target.value)}
-                    />
-                </label>
-                {errors.lessonContent && <p className='errors'>{errors.lessonContent}</p>}
-                {lessonContent.startsWith(" ") && <p className='errors'>Lesson content cannot begin with an empty space</p>}
+                {showUpload && (
+                    <label htmlFor='file-upload'>
+                        Lesson Content
+                        <input
+                            type="file"
+                            id='file-upload'
+                            required
+                            onChange={uploadLessonContentFile}
+                        />
+                    </label>
+                )}
+                {errors.lessonContent && <p className="errors">{errors.lessonContent}</p>}
                 <label>
                     Select Classes (to add the lesson to or to remove the lesson from):
                     <Select
@@ -158,8 +186,8 @@ function UpdateLessonFormPage() {
                     />
                 </label>
 
-                <button onClick={() => navigate(`/lessons/${lessonParsedId}`)}>Cancel</button>
                 <button type="submit" disabled={submitDisabled}>Update Lesson</button>
+                <button onClick={() => navigate(`/lessons/${lessonParsedId}`)}>Cancel</button>
             </form>
         </>
     );

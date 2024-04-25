@@ -6,6 +6,10 @@ import './LessonDetailsPage.css'
 import OpenModalButton from '../OpenModalButton/OpenModalButtton';
 // import UpdateLessonModal from '../UpdateLessonModal';
 import DeleteLessonModal from '../DeleteLessonModal';
+import LessonPDFViewer from './LessonPDFViewer';
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+
 
 const LessonDetailsPage = () => {
     const { lessonId } = useParams()
@@ -16,6 +20,12 @@ const LessonDetailsPage = () => {
     const [isLoaded, setIsLoaded] = useState(false)
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
+
+    // console.log(lesson?.lessonContent)
+    // const lessonContentURL = lesson?.lessonContent
+    // console.log(lessonContentURL)
+
+
 
     const openMenu = () => {
         if (showMenu) return;
@@ -43,6 +53,19 @@ const LessonDetailsPage = () => {
     const closeMenu = () => {
         setShowMenu(false)
     }
+
+    // Function to check if a string is a valid image URL
+    const isLessonContentImage = (url) => {
+        // Regex to match common image file extensions
+        const imageExtensions = /\.(jpeg|jpg|gif|png|bmp)$/i;
+        return imageExtensions.test(url);
+    };
+
+    const isLessonContentFile = (url) => {
+        // Regex to match common image file extensions
+        const fileExtensions = /\.(pdf)$/i;
+        return fileExtensions.test(url);
+    };
 
     return (
         <div className='lessonDetailsContainer'>
@@ -86,26 +109,26 @@ const LessonDetailsPage = () => {
                                 <div className='lessonDetailsLabel'>
                                     <p className='lessonDetailsLabel'>
                                         <span>Classes Assigned To:</span>
-                                        {lesson?.LessonClasses ?
-                                            <ul className='lessonClassList'>
-                                                {(() => {
-                                                    const lessonClassItems = []
-                                                    for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
-                                                        const lessonClassItem = lesson?.LessonClasses[i]
-                                                        lessonClassItems.push(
-                                                            <li key={lessonClassItem.classId}>
-                                                                <NavLink to={`/classes/${lessonClassItem.classId}`} className="lessonClassLink">
-                                                                    {lessonClassItem.className}
-                                                                </NavLink>
-                                                            </li>
-                                                        )
-                                                    }
-                                                    return lessonClassItems
-                                                })()}
-                                            </ul> :
-                                            <ul className='lessonClassList'>This lesson has not been assigned to any classes</ul>
-                                        }
                                     </p>
+                                    {lesson?.LessonClasses ?
+                                        <ul className='lessonClassList'>
+                                            {(() => {
+                                                const lessonClassItems = []
+                                                for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
+                                                    const lessonClassItem = lesson?.LessonClasses[i]
+                                                    lessonClassItems.push(
+                                                        <li key={lessonClassItem.classId}>
+                                                            <NavLink to={`/classes/${lessonClassItem.classId}`} className="lessonClassLink">
+                                                                {lessonClassItem.className}
+                                                            </NavLink>
+                                                        </li>
+                                                    )
+                                                }
+                                                return lessonClassItems
+                                            })()}
+                                        </ul> :
+                                        <ul className='lessonClassList'>This lesson has not been assigned to any classes</ul>
+                                    }
                                 </div>
                             }
                         </div>
@@ -114,7 +137,33 @@ const LessonDetailsPage = () => {
                         <h3>Lesson Description: </h3>
                         <p>{lesson.description}</p>
                         <h3>Lesson Content: </h3>
-                        <p>{lesson.lessonContent}</p>
+                        {/* <p>{lesson.lessonContent}</p> */}
+                        {/* {lessonContentURL.endsWith('.png' || '.jpg' || '.jpeg') ?
+                            <img
+                                src={lessonContentURL}
+                                alt={lesson.title}
+                            /> :
+                            <p>{lesson.lessonContent}</p>
+                        } */}
+                        {isLessonContentImage(lesson?.lessonContent) &&
+                            <div className='imageViewer'>
+                                <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
+                                <img
+                                    src={lesson.lessonContent}
+                                    alt="Lesson content is not available"
+                                />
+                            </div>
+                        }
+
+                        {isLessonContentFile(lesson?.lessonContent) &&
+                            <div className='pdfViewer'>
+                                <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
+                                <LessonPDFViewer url={lesson?.lessonContent} />
+                            </div>
+                        }
+                        {!isLessonContentImage(lesson?.lessonContent) && !isLessonContentFile(lesson?.lessonContent) &&
+                            <p>{lesson.lessonContent}</p>
+                        }
                     </div>
 
                 </>

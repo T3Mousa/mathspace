@@ -2,7 +2,7 @@ const express = require('express');
 const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, StudentLesson, ClassLesson, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateLessonParams } = require('./validators');
-const { multipleMulterUpload, multiplePublicFileUpload } = require('../../awsS3');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const { Op } = require("sequelize");
 const e = require('express');
@@ -328,10 +328,16 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
 });
 
 // create a new lesson for multiple classes that belong to the current user (teacher users only)
-router.post('/', requireAuth, validateLessonParams, async (req, res) => {
+router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, res) => {
+    // console.log(req.body)
+    // console.log(req.file)
     const userId = req.user.id
     const role = req.user.userRole
-    const { title, lessonImg, description, lessonContent, selectedClasses } = req.body
+    const { title, lessonImg, description, selectedClasses } = req.body
+    const selectedClassesArray = JSON.parse(selectedClasses)
+    const fileURL = await singlePublicFileUpload(req.file)
+    // console.log(fileURL)
+
     if (userId && role === 'teacher') {
         const teacher = await Teacher.findOne({
             where: { userId: userId },
@@ -344,7 +350,7 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
             })
             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
             // console.log(validClassIds)
-            const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+            const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
             // console.log(invalidClassIds)
             if (invalidClassIds.length > 0) {
                 res.status(403)
@@ -354,17 +360,21 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
                 title,
                 lessonImg,
                 description,
-                lessonContent,
+                lessonContent: fileURL,
                 teacherId: teacherId
             })
+            // console.log(newLesson)
             await newLesson.save()
             //associate lesson with specified array of classes in classIds
-            for (const selectedClass of selectedClasses) {
+            for (const selectedClass of selectedClassesArray) {
                 await ClassLesson.create({
                     lessonId: newLesson.id,
                     classId: selectedClass.value
                 })
             }
+
+            // console.log(newLesson)
+
 
             res.status(201).json(newLesson)
         } else {
@@ -382,11 +392,13 @@ router.post('/', requireAuth, validateLessonParams, async (req, res) => {
 })
 
 // edit a lesson (teacher users only)
-router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => {
+router.put('/:lessonId', requireAuth, singleMulterUpload("lessonContent"), async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
     const { lessonId } = req.params
-    const { title, lessonImg, description, lessonContent, selectedClasses } = req.body
+    const { title, lessonImg, description, selectedClasses } = req.body
+    const selectedClassesArray = JSON.parse(selectedClasses)
+    let lessonContentUrl;
     const existingLesson = await Lesson.findOne({
         where: { id: lessonId },
         include: [
@@ -411,28 +423,30 @@ router.put('/:lessonId', requireAuth, validateLessonParams, async (req, res) => 
                 })
                 const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
                 // console.log(validClassIds)
-                const invalidClassIds = selectedClasses.filter(cls => !validClassIds.includes(cls.value))
+                const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
                 // console.log(invalidClassIds)
                 if (invalidClassIds.length > 0) {
                     res.status(403)
                     return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
                 }
+                if (req.file) {
+                    lessonContentUrl = await singlePublicFileUpload(req.file);
+                    if (lessonContentUrl && lessonContentUrl !== undefined) {
+                        existingLesson.lessonContent = lessonContentUrl;
+                    }
+                }
 
                 if (title !== undefined) existingLesson.title = title
                 if (lessonImg !== undefined) existingLesson.lessonImg = lessonImg
                 if (description !== undefined) existingLesson.description = description
-                if (lessonContent !== undefined) existingLesson.lessonContent = lessonContent
+                // if (lessonContent !== undefined) existingLesson.lessonContent = lessonContent
                 // if (selectedClasses !== undefined) existingLesson.ClassLessons = selectedClasses
                 const updatedLesson = await existingLesson.save()
                 // await existingLesson.save()
 
                 await ClassLesson.destroy({ where: { lessonId: lessonId } })
-                // const newClassAssociations = LessonClasses.map(classId => ({
-                //     lessonId: lessonId,
-                //     classId: classId
-                // }))
-                // await ClassLesson.bulkCreate(newClassAssociations)
-                for (const selectedClass of selectedClasses) {
+
+                for (const selectedClass of selectedClassesArray) {
                     await ClassLesson.create({
                         lessonId: lessonId,
                         classId: selectedClass.value
