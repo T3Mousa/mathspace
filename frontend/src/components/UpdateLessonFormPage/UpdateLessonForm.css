@@ -3,9 +3,17 @@
     flex-direction: column;
     /* height: 100%;
     width: 100%; */
-    margin: 40px 80px 60px 80px;
+    margin: 20px 80px 60px 80px;
     padding: 20px 60px;
     font-family: 'Lato', sans-serif;
+    color: #9C0D63;
+}
+
+.editLessonForm h1 {
+    font-family: 'Lato', sans-serif;
+    color: #9C0D63;
+    display: flex;
+    justify-content: center;
 }
 
 .editLessonForm label {
@@ -23,15 +31,20 @@
     font-size: 16px;
     display: flex;
     justify-content: center;
+    width: 100%
 }
 
-.selection {
+.editLessonForm textarea {
+    height: 10vh
+}
+
+/* .selection {
     margin-left: 5px;
     padding: 5px;
     font-family: 'Lato', sans-serif;
     font-size: 16px;
-    width: 75%
-}
+    width: 100%;
+} */
 
 .editLessonFormButtons {
     display: flex;
@@ -51,7 +64,9 @@
     font-size: medium;
     transition: transform 0.3 ease;
     border-radius: 3px;
-    width: 25%
+    width: 25%;
+    display: flex;
+    justify-content: center;
 }
 
 .editLessonForm button:hover {
@@ -64,4 +79,41 @@ p.errors {
     font-family: 'Lato', sans-serif;
     margin-top: 0px;
     margin-left: 20px;
+}
+
+.existingLessonContent {
+    font-family: 'Lato', sans-serif;
+    margin-left: 50px;
+    margin-right: 10px;
+    color: black;
+}
+
+.existingLessonContent h4 {
+    color: #9C0D63;
+}
+
+.existingLessonContent button {
+    background-color: transparent;
+    color: black;
+    width: fit-content;
+    margin-top: 0px;
+}
+
+.existingLessonContent img {
+    width: 100%;
+    height: 100%;
+}
+
+/* input,
+textarea {
+    width: 100%;
+} */
+
+.selectedOptions {
+    font-size: 18px;
+    margin-left: 5px;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    width: 100%;
 }

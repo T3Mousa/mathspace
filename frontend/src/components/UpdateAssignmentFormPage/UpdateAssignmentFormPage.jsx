@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { editAssignment, getAllAssignments, getAssignmentDetails } from "../../redux/assignments";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import './UpdateAssignmentForm.css'
 import { getAllClasses } from "../../redux/classes";
+import AssignmentPDFViewer from "../AssignmentDetailsPage/AssignmentPDFViewer";
 
 
 function UpdateAssignmentFormPage() {
@@ -18,6 +19,7 @@ function UpdateAssignmentFormPage() {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [assignmentContent, setAssignmentContent] = useState("")
+    const [newAssignmentContent, setNewAssignmentContent] = useState(null)
     const [dueDate, setDueDate] = useState("")
     const [selectedClasses, setSelectedClasses] = useState(assignmentToEdit?.AssignmentClasses)
     const [errors, setErrors] = useState({})
@@ -27,7 +29,7 @@ function UpdateAssignmentFormPage() {
 
     useEffect(() => {
         if (assignmentParsedId) {
-            dispatch(getAllClasses()).then(() => getAllAssignments()).then(() => dispatch(getAssignmentDetails(assignmentParsedId))).then(() => setIsLoaded(true))
+            dispatch(getAllClasses()).then(() => dispatch(getAllAssignments())).then(() => dispatch(getAssignmentDetails(assignmentParsedId))).then(() => setIsLoaded(true))
         }
     }, [dispatch, assignmentParsedId, isLoaded])
 
@@ -46,22 +48,22 @@ function UpdateAssignmentFormPage() {
     //telling us if we should show the image
     const [showUpload, setShowUpload] = useState(true);
     //img url we will load in react
-    const [previewUrl, setPreviewUrl] = useState("");
+    // const [previewUrl, setPreviewUrl] = useState("");
 
 
 
     //function to get image from local
 
-    const uploadAssignmentContentFile = async (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-            setPreviewUrl(reader.result);
-        }
-        setAssignmentContent(file);
-        // setShowUpload(false);
-    };
+    // const uploadAssignmentContentFile = async (e) => {
+    //     const file = e.target.files[0];
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = (e) => {
+    //         setPreviewUrl(reader.result);
+    //     }
+    //     setAssignmentContent(file);
+    //     // setShowUpload(false);
+    // };
 
 
     const handleSubmit = async (e) => {
@@ -76,7 +78,12 @@ function UpdateAssignmentFormPage() {
             selectedClasses
         }
 
-        const assignment_content = assignmentContent
+        let assignment_content;
+        if (newAssignmentContent) {
+            assignment_content = newAssignmentContent
+        } else {
+            assignment_content = assignmentContent
+        }
         const form = { assignment_content }
         const assignCont = assignment_content.name
         // console.log(assignCont)
@@ -127,6 +134,11 @@ function UpdateAssignmentFormPage() {
         }
     }
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setNewAssignmentContent(file);
+    };
+
     return (
         <>
             <form className="editAssignmentForm" onSubmit={handleSubmit}>
@@ -153,14 +165,44 @@ function UpdateAssignmentFormPage() {
                 </label>
                 {errors.description && <p className='errors'>{errors.description}</p>}
                 {description.startsWith(" ") && <p className='errors'>Assignment description cannot begin with an empty space</p>}
+                {assignmentContent && assignmentContent.endsWith('.pdf') && (
+                    <div className="existingAssignmentContent">
+                        <h4>Existing Assignment Content:</h4>
+                        <AssignmentPDFViewer url={assignmentContent} />
+                    </div>
+                )}
+                {assignmentContent && assignmentContent.endsWith('.png') && (
+                    <div className="existingAssignmentContent">
+                        <h4>Existing Assignment Content:</h4>
+                        <img src={assignmentContent} alt="Assignment Content file not available" />
+                    </div>
+                )}
+                {assignmentContent && assignmentContent.endsWith('.jpg') && (
+                    <div className="existingAssignmentContent">
+                        <h4>Existing Assignment Content:</h4>
+                        <img src={assignmentContent} alt="Assignment Content file not available" />
+                    </div>
+                )}
+                {assignmentContent && assignmentContent.endsWith('.jpeg') && (
+                    <div className="existingAssignmentContent">
+                        <h4>Existing Assignment Content:</h4>
+                        <img src={assignmentContent} alt="Assignment Content file not available" />
+                    </div>
+                )}
+                {assignmentContent && !assignmentContent.endsWith('.pdf') && !assignmentContent.endsWith('.png') && !assignmentContent.endsWith('.jpg') && !assignmentContent.endsWith('.jpeg') && (
+                    <div className="existingAssignmentContent">
+                        <h4>Existing Assignment Content:</h4>
+                        <p>{assignmentContent}</p>
+                    </div>
+                )}
                 {showUpload && (
                     <label htmlFor='file-upload'>
-                        Assignment Content
+                        Assignment Content (choose a new file or skip to keep the exisitng assignment content):
                         <input
                             type="file"
                             id='file-upload'
-                            required
-                            onChange={uploadAssignmentContentFile}
+                            accept=".pdf, .jpg, .png, .jpeg"
+                            onChange={handleFileChange}
                         />
                     </label>
                 )}
@@ -173,6 +215,7 @@ function UpdateAssignmentFormPage() {
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
                         required
+                        className="dueDateInput"
                     />
                 </label>
                 {errors.dueDate && <p className="errors">{errors.dueDate}</p>}
@@ -184,11 +227,13 @@ function UpdateAssignmentFormPage() {
                         isMulti
                         isClearable={true}
                         onChange={handleClassSelectChange}
+                        className="selectedOptions"
                     />
                 </label>
-
-                <button type="submit" disabled={submitDisabled}>Update Assignment</button>
-                <button onClick={() => navigate(`/assignments/${assignmentParsedId}`)}>Cancel</button>
+                <div className="editAssignmentFormButtons">
+                    <button type="submit" disabled={submitDisabled}>Update Assignment</button>
+                    <button onClick={() => navigate(`/assignments/${assignmentParsedId}`)}>Cancel</button>
+                </div>
             </form>
         </>
     );

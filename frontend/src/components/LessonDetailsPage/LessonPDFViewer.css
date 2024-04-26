@@ -1,12 +1,13 @@
 .lessonPDFViewerContainer {
     width: 100%;
-    height: auto;
+    height: 100%;
     font-family: 'Lato', sans-serif;
     margin-top: 8px;
+    margin-bottom: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .pdfDocument {
@@ -49,4 +50,8 @@
 /* Ensure the canvas rendering is visible */
 .lessonPDFViewerContainer canvas {
     visibility: visible;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 5px auto;
+    padding: 5px auto;
 }
