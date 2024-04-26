@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { addNewLesson, getAllUserLessons } from "../../redux/lessons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -100,7 +100,7 @@ function CreateLessonFormPage() {
             <form className="createLessonForm" onSubmit={handleSubmit}>
                 <h1>Create a New Lesson</h1>
                 <label>
-                    Lesson Title
+                    Lesson Title:
                     <input
                         type="text"
                         value={title}
@@ -123,7 +123,7 @@ function CreateLessonFormPage() {
                 {errors.lessonImg && <p className="errors">{errors.lessonImg}</p>}
                 {lessonImg.startsWith(" ") && <p className="errors">Lesson image URL cannot begin with an empty space</p>} */}
                 <label>
-                    Lesson Description
+                    Lesson Description:
                     <textarea
                         type="text"
                         value={description}
@@ -136,7 +136,7 @@ function CreateLessonFormPage() {
                 {description.startsWith(" ") && <p className="errors">Lesson description cannot begin with an empty space</p>}
                 {showUpload && (
                     <label htmlFor='file-upload'>
-                        Lesson Content
+                        Lesson Content:
                         <input
                             type="file"
                             id='file-upload'
@@ -160,9 +160,9 @@ function CreateLessonFormPage() {
                 {errors.lessonContent && <p className="errors">{errors.lessonContent}</p>}
                 {/* {lessonContent.startsWith(" ") && <p className="errors">Lesson content cannot begin with an empty space</p>} */}
                 <label>
-                    Select Classes (to add the lesson to)
+                    Select Classes (to add the lesson to):
                     <Select
-                        className="selection"
+                        className="selectedOptions"
                         value={selectedClasses}
                         options={teacherClasses?.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
                         isMulti

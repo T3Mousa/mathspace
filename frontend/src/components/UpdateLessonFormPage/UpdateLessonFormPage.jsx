@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { editLesson, getAllLessons, getLessonDetails } from "../../redux/lessons";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import './UpdateLessonForm.css'
 import { getAllClasses } from "../../redux/classes";
+import LessonPDFViewer from "../LessonDetailsPage/LessonPDFViewer";
 
 
 function UpdateLessonFormPage() {
@@ -20,6 +21,7 @@ function UpdateLessonFormPage() {
     const [description, setDescription] = useState("")
     const [selectedClasses, setSelectedClasses] = useState(lessonToEdit?.LessonClasses)
     const [lessonContent, setLessonContent] = useState("")
+    const [newLessonContent, setNewLessonContent] = useState(null)
     const [errors, setErrors] = useState({})
     const [isLoaded, setIsLoaded] = useState(false)
     const teacherClasses = useSelector(state => state?.classes?.allClasses)
@@ -45,22 +47,22 @@ function UpdateLessonFormPage() {
     //telling us if we should show the image
     const [showUpload, setShowUpload] = useState(true);
     //img url we will load in react
-    const [previewUrl, setPreviewUrl] = useState("");
+    // const [previewUrl, setPreviewUrl] = useState("");
 
 
 
     //function to get image from local
 
-    const uploadLessonContentFile = async (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e) => {
-            setPreviewUrl(reader.result);
-        }
-        setLessonContent(file);
-        // setShowUpload(false);
-    };
+    // const uploadLessonContentFile = async (e) => {
+    //     const file = e.target.files[0];
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = (e) => {
+    //         setPreviewUrl(reader.result);
+    //     }
+    //     setLessonContent(file);
+    //     // setShowUpload(false);
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -74,7 +76,12 @@ function UpdateLessonFormPage() {
             selectedClasses
         }
 
-        const lesson_content = lessonContent
+        let lesson_content;
+        if (newLessonContent) {
+            lesson_content = newLessonContent
+        } else {
+            lesson_content = lessonContent
+        }
         const form = { lesson_content }
         const lessCont = lesson_content.name
         // console.log(lessCont)
@@ -87,7 +94,7 @@ function UpdateLessonFormPage() {
         // if (lessonImg && (!lessonImg.endsWith('.png') && !lessonImg.endsWith('.jpg') && !lessonImg.endsWith('.jpeg'))) errorsObject.lessonImg = "Lesson image URL must end in .png, .jpg, or .jpeg"
         // if (lessonImg.startsWith(" ")) errorsObject.lessonImg = "Lesson image URL cannot begin with an empty space"
         // if (lessonContent.startsWith(" ")) errorsObject.lessonContent = "Lesson content cannot begin with an empty space"
-        if (lessCont && !lessCont.endsWith('.pdf') && !lessCont.endsWith('.png') && !lessCont.endsWith('.jpg') && !lessCont.endsWith('.jpeg')) errorsObj.lessonContent = "Lesson content URL must end in .pdf, .png, .jpg, .jpeg"
+        if (lessCont && !lessCont.endsWith('.pdf') && !lessCont.endsWith('.png') && !lessCont.endsWith('.jpg') && !lessCont.endsWith('.jpeg')) errorsObject.lessonContent = "Lesson content URL must end in .pdf, .png, .jpg, .jpeg"
 
         if (Object.values(errorsObject).length) {
             setErrors(errorsObject)
@@ -127,12 +134,17 @@ function UpdateLessonFormPage() {
         }
     }
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setNewLessonContent(file);
+    };
+
     return (
         <>
             <form className="editLessonForm" onSubmit={handleSubmit}>
                 <h1>Edit Lesson</h1>
                 <label>
-                    Lesson Title
+                    Lesson Title:
                     <input
                         type="text"
                         value={title}
@@ -153,7 +165,7 @@ function UpdateLessonFormPage() {
                 {/* {errors.lessonImg && <p className='errors'>{errors.lessonImg}</p>} */}
                 {/* {lessonImg.startsWith(" ") && <p className='errors'>Lesson image URL cannot begin with an empty space</p>} */}
                 <label>
-                    Lesson Description
+                    Lesson Description:
                     <textarea
                         type="text"
                         value={description}
@@ -163,14 +175,44 @@ function UpdateLessonFormPage() {
                 </label>
                 {errors.description && <p className='errors'>{errors.description}</p>}
                 {description.startsWith(" ") && <p className='errors'>Lesson description cannot begin with an empty space</p>}
+                {lessonContent && lessonContent.endsWith('.pdf') && (
+                    <div className="existingLessonContent">
+                        <h4>Existing Lesson Content:</h4>
+                        <LessonPDFViewer url={lessonContent} />
+                    </div>
+                )}
+                {lessonContent && lessonContent.endsWith('.png') && (
+                    <div className="existingLessonContent">
+                        <h4>Existing Lesson Content:</h4>
+                        <img src={lessonContent} alt="Lesson Content file not available" />
+                    </div>
+                )}
+                {lessonContent && lessonContent.endsWith('.jpg') && (
+                    <div className="existingLessonContent">
+                        <h4>Existing Lesson Content:</h4>
+                        <img src={lessonContent} alt="Lesson Content file not available" />
+                    </div>
+                )}
+                {lessonContent && lessonContent.endsWith('.jpeg') && (
+                    <div className="existingLessonContent">
+                        <h4>Existing Lesson Content:</h4>
+                        <img src={lessonContent} alt="Lesson Content file not available" />
+                    </div>
+                )}
+                {lessonContent && !lessonContent.endsWith('.pdf') && !lessonContent.endsWith('.png') && !lessonContent.endsWith('.jpg') && !lessonContent.endsWith('.jpeg') && (
+                    <div className="existingLessonContent">
+                        <h4>Existing Lesson Content:</h4>
+                        <p>{lessonContent}</p>
+                    </div>
+                )}
                 {showUpload && (
                     <label htmlFor='file-upload'>
-                        Lesson Content
+                        Lesson Content (choose a new file or skip to keep the exisitng lesson content):
                         <input
                             type="file"
                             id='file-upload'
-                            required
-                            onChange={uploadLessonContentFile}
+                            accept=".pdf, .jpg, .png, .jpeg"
+                            onChange={handleFileChange}
                         />
                     </label>
                 )}
@@ -183,11 +225,13 @@ function UpdateLessonFormPage() {
                         isMulti
                         isClearable={true}
                         onChange={handleClassSelectChange}
+                        className="selectedOptions"
                     />
                 </label>
-
-                <button type="submit" disabled={submitDisabled}>Update Lesson</button>
-                <button onClick={() => navigate(`/lessons/${lessonParsedId}`)}>Cancel</button>
+                <div className="editLessonFormButtons">
+                    <button type="submit" disabled={submitDisabled}>Update Lesson</button>
+                    <button onClick={() => navigate(`/lessons/${lessonParsedId}`)}>Cancel</button>
+                </div>
             </form>
         </>
     );

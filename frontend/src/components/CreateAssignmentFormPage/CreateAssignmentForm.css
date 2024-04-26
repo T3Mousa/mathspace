@@ -6,6 +6,15 @@
     margin: 40px 80px 60px 80px;
     padding: 20px 60px;
     font-family: 'Lato', sans-serif;
+    color: #9C0D63;
+    font-size: 18px;
+}
+
+.createAssignmentForm h1 {
+    font-family: 'Lato', sans-serif;
+    color: #9C0D63;
+    display: flex;
+    justify-content: center;
 }
 
 .createAssignmentForm label {
@@ -22,14 +31,19 @@
     font-size: 16px;
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
-.selection {
+.createAssignmentForm textarea {
+    height: 10vh;
+}
+
+.selectedOptions {
     margin-left: 5px;
     padding: 5px;
     font-family: 'Lato', sans-serif;
-    font-size: 16px;
-    width: 75%
+    font-size: 18px;
+    width: 100%
 }
 
 .createLessonFormButtons {
@@ -37,11 +51,14 @@
     /* justify-content: center; */
     flex-flow: column;
     align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
 }
 
 .createAssignmentForm button {
     cursor: pointer;
     font-family: 'Lato', sans-serif;
+    font-size: 18px;
     padding: 10px;
     margin: 10px;
     background-color: #9C0D63;
@@ -50,7 +67,9 @@
     font-size: medium;
     transition: transform 0.3 ease;
     border-radius: 3px;
-    width: 25%
+    width: 25%;
+    display: flex;
+    justify-content: center;
 }
 
 .createAssignmentForm button:hover {
@@ -63,4 +82,8 @@ p.errors {
     font-family: 'Lato', sans-serif;
     margin-top: 0px;
     margin-left: 20px;
+}
+
+input.dueDate {
+    width: fit-content
 }

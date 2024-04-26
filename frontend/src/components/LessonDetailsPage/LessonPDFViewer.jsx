@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import './LessonPDFViewer.css'; // Import CSS file for styling
 
@@ -33,18 +33,20 @@ function LessonPDFViewer({ url }) {
     return (
         <>
             <div className="lessonPDFViewerContainer">
-                <Document
-                    file={url}
-                    onLoadSuccess={onDocumentLoadSuccess}
-                    className="pdfDocument"
-                >
-                    <Page
-                        pageNumber={pageNumber}
-                        onLoadSuccess={onPageLoadSuccess}
-                        inputRef={pageRef}
-                        className="pdfPage"
-                    />
-                </Document>
+                <div className="lessonPDFCanvas">
+                    <Document
+                        file={url}
+                        onLoadSuccess={onDocumentLoadSuccess}
+                        className="pdfDocument"
+                    >
+                        <Page
+                            pageNumber={pageNumber}
+                            onLoadSuccess={onPageLoadSuccess}
+                            inputRef={pageRef}
+                            className="pdfPage"
+                        />
+                    </Document>
+                </div>
             </div>
             <div className="pageNavigation">
                 <span>
