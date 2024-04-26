@@ -102,12 +102,12 @@ const AssignmentDetailsPage = () => {
                     <div className='assignmentDetails'>
                         <div className='assignmentTitle'>
                             <p className='assignmentDetailsLabel'>
-                                <span>Assignment Title: </span> {assignment.title}
+                                <span>Assignment Title: </span> {assignment?.title}
                             </p>
                         </div>
                         <div className='subHeading'>
                             <p className='assignmentDetailsLabel'>
-                                <span>Created By:</span> {assignment.AssignmentTeacherFirstName} {assignment.AssignmentTeacherLastName}
+                                <span>Created By:</span> {assignment?.AssignmentTeacherFirstName} {assignment.AssignmentTeacherLastName}
                             </p>
                             {assignment?.AssignmentTeacherUserId === user.id &&
                                 <div className='assignmentDetailsLabel'>
@@ -116,7 +116,7 @@ const AssignmentDetailsPage = () => {
                                     </p>
                                     {assignment?.AssignmentClasses ?
                                         <ul className='assignmentClassList'>
-                                            {assignment.AssignmentClasses.map(assignmentClassItem => (
+                                            {assignment?.AssignmentClasses.map(assignmentClassItem => (
                                                 <li key={assignmentClassItem.classId}>
                                                     <NavLink to={`/classes/${assignmentClassItem.classId}`} className="classLink">{assignmentClassItem.className}</NavLink>
                                                 </li>
@@ -143,7 +143,7 @@ const AssignmentDetailsPage = () => {
                                     }
                                 </div>
                             }
-                            {assignment.AssignmentTeacherUserId === user.id &&
+                            {assignment?.AssignmentTeacherUserId === user.id &&
                                 <p className='assignmentDetailsLabel'>
                                     <span>Due:</span>  {formattedDueDate}
                                 </p>
@@ -153,27 +153,27 @@ const AssignmentDetailsPage = () => {
 
                     <div className='assignmentDetailsContent'>
                         <h3>Assignment Description: </h3>
-                        <p>{assignment.description}</p>
+                        <p>{assignment?.description}</p>
                         <h3>Assignment Content: </h3>
                         {/* <p>{assignment.assignmentContent}</p> */}
-                        {isAssignmentContentImage(assignment.assignmentContent) &&
+                        {isAssignmentContentImage(assignment?.assignmentContent) &&
                             <div className='imageViewer'>
-                                <a className="assignmentContentLink" href={assignment.assignmentContent}>Download Assignment Content</a>
+                                <a className="assignmentContentLink" href={assignment?.assignmentContent}>Download Assignment Content</a>
                                 <img
-                                    src={assignment.assignmentContent}
+                                    src={assignment?.assignmentContent}
                                     alt="Assignment content is not available"
                                 />
                             </div>
                         }
 
-                        {isAssignmentContentFile(assignment.assignmentContent) &&
+                        {isAssignmentContentFile(assignment?.assignmentContent) &&
                             <div className='pdfViewer'>
-                                <a className="assignmentContentLink" href={assignment.assignmentContent}>Download Assignment Content</a>
-                                <AssignmentPDFViewer url={assignment.assignmentContent} />
+                                <a className="assignmentContentLink" href={assignment?.assignmentContent}>Download Assignment Content</a>
+                                <AssignmentPDFViewer url={assignment?.assignmentContent} />
                             </div>
                         }
-                        {!isAssignmentContentImage(assignment.assignmentContent) && !isAssignmentContentFile(assignment.assignmentContent) &&
-                            <p>{assignment.assignmentContent}</p>
+                        {!isAssignmentContentImage(assignment?.assignmentContent) && !isAssignmentContentFile(assignment?.assignmentContent) &&
+                            <p>{assignment?.assignmentContent}</p>
                         }
                     </div>
 

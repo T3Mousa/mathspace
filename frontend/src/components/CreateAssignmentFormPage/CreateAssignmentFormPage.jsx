@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { addNewAssignment, getAllUserAssignments } from "../../redux/assignments";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -115,7 +115,7 @@ function CreateAssignmentFormPage() {
                 {description.startsWith(" ") && <p className="errors">Assignment description cannot begin with an empty space</p>}
                 {showUpload && (
                     <label htmlFor='file-upload'>
-                        Assignment Content
+                        Assignment Content:
                         <input
                             type="file"
                             id='file-upload'
@@ -137,6 +137,7 @@ function CreateAssignmentFormPage() {
                 <label>
                     Due Date:
                     <input
+                        className="dueDate"
                         type="date"
                         min={currentDate}
                         value={dueDate}
@@ -149,6 +150,7 @@ function CreateAssignmentFormPage() {
                 <label>
                     Select Classes (to add the assignment to):
                     <Select
+                        className="selectedOptions"
                         value={selectedClasses}
                         options={teacherClasses?.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
                         isMulti
@@ -159,9 +161,10 @@ function CreateAssignmentFormPage() {
                         }
                     />
                 </label>
-
-                <button type="submit" disabled={submitDisabled}>Add Assignment</button>
-                <button onClick={() => navigate('/my-assignments')}>Cancel</button>
+                <div className="createAssignmentFormButtons">
+                    <button type="submit" disabled={submitDisabled}>Add Assignment</button>
+                    <button onClick={() => navigate('/my-assignments')}>Cancel</button>
+                </div>
             </form>
         </>
     )
