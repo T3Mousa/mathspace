@@ -6,6 +6,8 @@
     margin: 50px;
     padding: 20px 60px;
     font-family: 'Lato', sans-serif;
+    color: #9C0D63;
+    font-size: 16px;
 }
 
 .createClassForm h1 {
@@ -13,43 +15,49 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
-}
-
-.createClassForm button {
-    cursor: pointer;
     font-family: 'Lato', sans-serif;
-    padding: 8px;
-    margin: 10px
+    color: #9C0D63;
 }
 
 .createClassForm label {
-    margin-bottom: 15px;
-    place-items: center;
-    height: fit-content;
-    width: 100%
+    margin-bottom: 10px;
+    /* gap: 10px; */
+    font-family: 'Lato', sans-serif;
+    padding: 6px;
 }
+
+/* .createClassForm button {
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    padding: 5px;
+    margin: 15px
+} */
 
 .createClassForm input,
 .createClassForm textarea {
     margin-left: 5px;
     padding: 5px;
-    place-items: center;
-    height: fit-content;
+    /* place-items: center;
+    height: fit-content; */
     width: 100%;
     font-family: 'Lato', sans-serif;
     font-size: 16px;
     display: flex;
-    /* align-items: center; */
-    /* justify-content: center; */
+    justify-content: center;
+}
+
+.createClassForm textarea {
+    height: 8vh;
 }
 
 .createClassModalButtons {
-    /* display: flex; */
-    /* justify-content: center;
-    flex-flow: column; */
-    /* align-items: center; */
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
     /* place-items: center; */
-    width: 100%
+    /* width: 75% */
 }
 
 .createClassForm button {
@@ -63,7 +71,9 @@
     font-size: medium;
     transition: transform 0.3 ease;
     border-radius: 3px;
-    width: 100%
+    width: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .createClassForm button:hover {
@@ -74,5 +84,11 @@
 p.errors {
     color: red;
     margin-top: 0px;
+    margin-left: 20px;
     font-family: 'Lato', sans-serif;
+}
+
+.createClassForm img {
+    width: 100%;
+    height: 10vh;
 }

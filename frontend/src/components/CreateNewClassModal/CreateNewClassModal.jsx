@@ -9,12 +9,32 @@ function CreateNewClassModal() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [name, setName] = useState("")
-    const [classImg, setClassImg] = useState("")
     const [description, setDescription] = useState("")
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
 
-    const submitDisabled = (name.startsWith(" ") || description.startsWith(" ") || classImg.startsWith(" "))
+    const submitDisabled = (name.startsWith(" ") || description.startsWith(" "))
+
+    //file url to send to aws
+    const [classImg, setClassImg] = useState("")
+    //telling us if we should show the image
+    const [showUpload, setShowUpload] = useState(true);
+    //img url we will load in react
+    const [previewUrl, setPreviewUrl] = useState("");
+
+
+
+    //function to get image from local
+    const uploadClassImageFile = async (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+            setPreviewUrl(reader.result);
+        }
+        setClassImg(file);
+        // setShowUpload(false);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,22 +42,26 @@ function CreateNewClassModal() {
 
         const newClassInfo = {
             name,
-            classImg,
+            // classImg,
             description
         }
+
+        const class_image = classImg
+        const form = { class_image }
+        const clsImg = class_image.name
 
         let errorsObj = {}
         if (!name) errorsObj.name = "Class name is required"
         if (name.startsWith(" ")) errorsObj.name = "Class name cannot begin with an empty space"
         if (!description) errorsObj.description = "Class description is required"
         if (description.startsWith(" ")) errorsObj.description = "Class description cannot begin with an empty space"
-        if (classImg && !classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg')) errorsObj.classImg = "Class image URL must end in .png, .jpg, .jpeg"
+        if (clsImg && !clsImg.endsWith('.png') && !clsImg.endsWith('.jpg') && !clsImg.endsWith('.jpeg')) errorsObj.classImg = "Class image URL must end in .png, .jpg, .jpeg"
 
 
         if (Object.values(errorsObj).length) {
             setErrors(errorsObj)
         } else {
-            let newClass = await dispatch(addNewClass(newClassInfo))
+            let newClass = await dispatch(addNewClass(newClassInfo, form))
             if (newClass?.id) {
                 await dispatch(getAllClasses())
                 navigate('/my-classes')
@@ -63,7 +87,7 @@ function CreateNewClassModal() {
                 </label>
                 {errors.name && <p className="errors">{errors.name}</p>}
                 {name.startsWith(" ") && <p className="errors">Class name cannot begin with an empty space</p>}
-                <label>
+                {/* <label>
                     Class Image (optional)
                     <input
                         type="text"
@@ -71,9 +95,27 @@ function CreateNewClassModal() {
                         onChange={(e) => setClassImg(e.target.value)}
                         placeholder="Class image url"
                     />
-                </label>
+                </label> */}
+                {showUpload && (
+                    <label htmlFor='file-upload'>
+                        Class Image (optional):
+                        <input
+                            type="file"
+                            id='file-upload'
+                            onChange={uploadClassImageFile}
+                        />
+                    </label>
+                )}
+                {/* {!showUpload && (
+                    <div>
+                        <img
+                            src={previewUrl}
+                            alt="preview"
+                        />
+                        <button>Change File</button>
+                    </div>
+                )} */}
                 {errors.classImg && <p className="errors">{errors.classImg}</p>}
-                {classImg.startsWith(" ") && <p className="errors">Class image URL cannot begin with an empty space</p>}
                 <label>
                     Class Description
                     <textarea

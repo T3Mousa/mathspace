@@ -67,14 +67,23 @@ export const getClassDetails = (classId) => async (dispatch) => {
     }
 };
 
-export const addNewClass = (classInfo) => async (dispatch) => {
+export const addNewClass = (classInfo, form) => async (dispatch) => {
+
+    const { class_image } = form
+    const { name, description } = classInfo
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('classImg', class_image);
+    formData.append('description', description);
+
     const response = await csrfFetch('/api/classes', {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(classInfo)
+        body: formData
     })
+
     if (response.ok) {
         const newClass = await response.json()
         // console.log(newClass)
@@ -88,12 +97,19 @@ export const addNewClass = (classInfo) => async (dispatch) => {
     }
 }
 
-export const editClass = (classId, editedClassData) => async (dispatch) => {
+export const editClass = (classId, editedClassData, form) => async (dispatch) => {
     // console.log(editedClassData.id)
+    const { class_image } = form
+    const { name, description } = editedClassData
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('classImg', class_image);
+    formData.append('description', description);
+
     const response = await csrfFetch(`/api/classes/${+classId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editedClassData)
+        headers: { "Content-Type": "multipart/form-data" },
+        body: formData
     })
     // console.log(response)
     if (response.ok) {
