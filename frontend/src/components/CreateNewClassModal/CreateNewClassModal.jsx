@@ -87,15 +87,6 @@ function CreateNewClassModal() {
                 </label>
                 {errors.name && <p className="errors">{errors.name}</p>}
                 {name.startsWith(" ") && <p className="errors">Class name cannot begin with an empty space</p>}
-                {/* <label>
-                    Class Image (optional)
-                    <input
-                        type="text"
-                        value={classImg}
-                        onChange={(e) => setClassImg(e.target.value)}
-                        placeholder="Class image url"
-                    />
-                </label> */}
                 {showUpload && (
                     <label htmlFor='file-upload'>
                         Class Image (optional):
@@ -106,15 +97,6 @@ function CreateNewClassModal() {
                         />
                     </label>
                 )}
-                {/* {!showUpload && (
-                    <div>
-                        <img
-                            src={previewUrl}
-                            alt="preview"
-                        />
-                        <button>Change File</button>
-                    </div>
-                )} */}
                 {errors.classImg && <p className="errors">{errors.classImg}</p>}
                 <label>
                     Class Description

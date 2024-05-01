@@ -122,22 +122,6 @@ const AssignmentDetailsPage = () => {
                                                 </li>
                                             ))}
                                         </ul>
-                                        //     <ul className='assignmentClassList'>
-                                        //         {(() => {
-                                        //             const assignmentClassItems = []
-                                        //             for (let i = 0; i < assignment?.AssignmentClasses?.length; i++) {
-                                        //                 const assignmentClassItem = assignment?.AssignmentClasses[i]
-                                        //                 console.log(assignmentClassItem)
-                                        //                 assignmentClassItems.push(
-                                        //                     <li key={assignmentClassItem.classId}>
-                                        //                         <NavLink to={`/classes/${assignmentClassItem.classId}`} className="classLink">{assignmentClassItem.className}</NavLink>
-                                        //                     </li>
-                                        //                 )
-                                        //             }
-                                        //             console.log(assignmentClassItems)
-                                        //             return assignmentClassItems
-                                        //         })()}
-                                        // </ul>
                                         :
                                         <ul className='assignmentClassList'>This assignment has not been assigned to any classes</ul>
                                     }

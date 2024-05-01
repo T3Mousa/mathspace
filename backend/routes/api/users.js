@@ -50,7 +50,7 @@ router.post('/', validateSignup, async (req, res) => {
 
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({ email, firstName, lastName, userRole, username, hashedPassword });
-    console.log(user)
+
     if (user.userRole === "teacher") {
         await Teacher.create({
             userId: user.id

@@ -1,5 +1,5 @@
 .manageAssignmentsHeader {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 20px 35px;
     display: flex;
     flex-flow: row wrap;
@@ -15,7 +15,7 @@ button.addAssignmentButton {
     background-color: #9C0D63;
     border-color: #9C0D63;
     border-radius: 3px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 10px;
     transition: transform 0.3 ease;
     box-shadow: none;
@@ -27,7 +27,7 @@ button .createAssignmentLink {
     background-color: #9C0D63;
     border-color: #9C0D63;
     border-radius: 3px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 10px;
     transition: transform 0.3 ease;
     font-size: 18px;
@@ -39,7 +39,7 @@ button.addAssignmentButton:hover {
 }
 
 .teacherAssignments {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: auto 25px
 }
 
@@ -79,4 +79,24 @@ li {
 
 p.assignmentDueDate span {
     margin-left: 5px;
+}
+
+@media only screen and (max-width: 350px) {
+
+    p.classesAssignedTo,
+    p.assignmentDueDate {
+        visibility: hidden;
+    }
+
+    a.teacherAssignmentLink {
+        display: flex;
+        flex-flow: row wrap;
+        height: 30vh;
+    }
+
+    a.createAssignmentLink {
+        font-size: 14px;
+        padding: 0px;
+    }
+
 }

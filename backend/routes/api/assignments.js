@@ -50,12 +50,10 @@ router.get('/', requireAuth, async (req, res) => {
                 "updatedAt"
             ]
         })
-        // console.log(assignments[0].ClassAssignments[0].toJSON())
         const payload = []
         for (let i = 0; i < assignments.length; i++) {
             const assignment = assignments[i]
             const assignmentData = assignment.toJSON()
-            // console.log(assignmentData)
             const teacherUserOwnsAssignment = assignmentData.ClassAssignments.find(clsAssignment => clsAssignment.Class.Teacher.userId === userId)
             if (teacherUserOwnsAssignment !== undefined) {
                 let assignmentClasses = []
@@ -67,7 +65,6 @@ router.get('/', requireAuth, async (req, res) => {
                         teacherId: cls.Teacher.id,
                     })
                 }
-                // console.log(assignmentClasses)
 
                 assignmentData.AssignmentClasses = assignmentClasses
             }
@@ -87,7 +84,6 @@ router.get('/', requireAuth, async (req, res) => {
                     ]
                 })
                 const teacherData = teacher.toJSON()
-                // console.log(teacherData)
                 assignmentData.AssignmentTeacherFirstName = teacherData.User.firstName
                 assignmentData.AssignmentTeacherLastName = teacherData.User.lastName
             }
@@ -180,7 +176,6 @@ router.get('/current-user', requireAuth, async (req, res) => {
                     ]
                 })
                 const teacherData = teacher.toJSON()
-                // console.log(teacherData)
                 assignmentData.AssignmentTeacherUserId = teacherData.User.id
                 assignmentData.AssignmentTeacherFirstName = teacherData.User.firstName
                 assignmentData.AssignmentTeacherLastName = teacherData.User.lastName
@@ -204,7 +199,6 @@ router.get('/:assignmentId', requireAuth, async (req, res) => {
     const role = req.user.userRole
     const { assignmentId } = req.params
     const existingAssignment = await Assignment.findByPk(assignmentId)
-    // console.log(existingLesson)
     if (existingAssignment) {
         if (userId && role === "teacher") {
             const assignmentDetails = await Assignment.findOne({
@@ -244,7 +238,6 @@ router.get('/:assignmentId', requireAuth, async (req, res) => {
                     "updatedAt",
                 ]
             })
-            // console.log(assignmentDetails)
             const assignmentDetailsData = assignmentDetails.toJSON()
             const teacherUserOwnsAssignment = assignmentDetailsData.ClassAssignments.find(clsAssignment => clsAssignment.Class.Teacher.userId === userId)
             if (teacherUserOwnsAssignment !== undefined) {
@@ -276,12 +269,10 @@ router.get('/:assignmentId', requireAuth, async (req, res) => {
                     ]
                 })
                 const teacherData = teacher.toJSON()
-                // console.log(teacherData)
                 assignmentDetailsData.AssignmentTeacherFirstName = teacherData.User.firstName
                 assignmentDetailsData.AssignmentTeacherLastName = teacherData.User.lastName
                 assignmentDetailsData.AssignmentTeacherUserId = teacherData.User.id
             }
-            // console.log(assignmentDetailsData)
             res.json({ "Assignment": assignmentDetailsData })
         } else {
             res.status(403)
@@ -318,9 +309,9 @@ router.post('/', requireAuth, singleMulterUpload("assignmentContent"), async (re
                 where: { teacherId: teacherId }
             })
             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-            // console.log(validClassIds)
+
             const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
-            // console.log(invalidClassIds)
+
             if (invalidClassIds.length > 0) {
                 res.status(403)
                 return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -382,16 +373,13 @@ router.put('/:assignmentId', requireAuth, singleMulterUpload("assignmentContent"
                 where: { userId: userId },
                 attributes: ['id', 'userId']
             })
-            // console.log(teacher)
             const teacherId = teacher.dataValues.id
             if (teacherId === userId) {
                 const teacherClasses = await Class.findAll({
                     where: { teacherId: teacherId }
                 })
                 const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-                // console.log(validClassIds)
                 const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
-                // console.log(invalidClassIds)
                 if (invalidClassIds.length > 0) {
                     res.status(403)
                     return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -457,7 +445,6 @@ router.delete('/:assignmentId', requireAuth, async (req, res) => {
                 where: { userId: userId },
                 attributes: ['id', 'userId']
             })
-            // console.log(teacher)
             const teacherId = teacher.dataValues.id
             if (teacherId === userId) {
                 await existingAssignment.destroy({ where: { id: assignmentId } })

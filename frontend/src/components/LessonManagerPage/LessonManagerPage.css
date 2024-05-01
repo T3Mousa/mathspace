@@ -1,5 +1,5 @@
 .manageLessonsHeader {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 20px 35px;
     display: flex;
     flex-flow: row wrap;
@@ -15,7 +15,7 @@ button.addLessonButton {
     background-color: #9C0D63;
     border-color: #9C0D63;
     border-radius: 3px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 10px;
     transition: transform 0.3 ease;
     box-shadow: none;
@@ -27,7 +27,7 @@ button .createLessonLink {
     background-color: #9C0D63;
     border-color: #9C0D63;
     border-radius: 3px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 10px;
     transition: transform 0.3 ease;
     font-size: 18px;
@@ -39,7 +39,7 @@ button.addLessonButton:hover {
 }
 
 .teacherLessons {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: auto 25px
 }
 
@@ -86,4 +86,27 @@ button.addLessonButton:hover {
 li {
     list-style: none;
     padding-bottom: 5px;
+}
+
+
+@media only screen and (max-width: 350px) {
+    .classesAssignedTo {
+        visibility: hidden;
+    }
+
+    ul {
+        visibility: collapse;
+        margin-bottom: 0;
+    }
+
+    a.teacherLessonLink {
+        display: flex;
+        flex-flow: row wrap;
+        height: 30vh;
+    }
+
+    a.createLessonLink {
+        font-size: 14px;
+        padding: 0px;
+    }
 }

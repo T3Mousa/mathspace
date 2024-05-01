@@ -41,16 +41,6 @@ const Splash = () => {
     setActiveTab(tabNumber)
   };
 
-  // const renderTabContent = () => {
-  //   switch (activeTab) {
-  //     case 1:
-  //       return <AllLessonsPage />;
-  //     case 2:
-  //       return <AllAssignmentsPage />;
-  //     default:
-  //       return null;
-  //   }
-  // };
 
   // //image url to send to aws
   // const [imgUrl, setImgUrl] = useState("");

@@ -80,7 +80,7 @@ const AssignmentManagerPage = () => {
                                             <div className='assignmentTitleAuthor'>
                                                 <p>Title: {assignment.title}</p>
                                                 <p>Created By: You</p>
-                                                <p>Classes Assigned To:</p>
+                                                <p className='classesAssignedTo'>Classes Assigned To:</p>
                                                 {assignment.AssignmentClasses.length ?
                                                     <ul>
                                                         {(() => {
@@ -88,7 +88,7 @@ const AssignmentManagerPage = () => {
                                                             for (let i = 0; i < assignment?.AssignmentClasses?.length; i++) {
                                                                 const assignmentClassItem = assignment?.AssignmentClasses[i]
                                                                 assignmentClassItems.push(
-                                                                    <li key={assignmentClassItem.classId}>{assignmentClassItem.className}</li>
+                                                                    <li key={assignmentClassItem.classId} className='classesAssignedTo'>{assignmentClassItem.className}</li>
                                                                 )
                                                             }
                                                             return assignmentClassItems

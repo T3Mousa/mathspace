@@ -36,6 +36,10 @@
     /* width: 75% */
 }
 
+.editClassForm h1 {
+    font-family: 'Quicksand', sans-serif;
+}
+
 .editClassForm button {
     cursor: pointer;
     font-family: 'Lato', sans-serif;
@@ -95,4 +99,11 @@ p.errors {
 
 .existingClassImage h4 {
     color: #9C0D63;
+}
+
+@media only screen and (max-width: 350px) {
+    .editClassForm button {
+        font-size: 14px;
+        width: fit-content;
+    }
 }

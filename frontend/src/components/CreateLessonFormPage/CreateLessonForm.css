@@ -3,7 +3,7 @@
     flex-direction: column;
     /* height: 100%;
     width: 100%; */
-    margin: 40px 80px 60px 80px;
+    margin: 20px 40px 60px 40px;
     padding: 20px 60px;
     font-family: 'Lato', sans-serif;
     color: #9C0D63;
@@ -11,28 +11,60 @@
 }
 
 .createLessonForm h1 {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     color: #9C0D63;
     display: flex;
     justify-content: center;
+}
+
+.createLessonForm .fileUpload {
+    display: flex;
+    place-items: center;
+    /* flex-flow: column wrap; */
+    justify-content: center;
+    align-items: center;
+    /* font-size: 16px; */
+}
+
+div.selectedOptions {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.createLessonForm input#file-upload {
+    display: flex;
+    flex-flow: column wrap;
+    /* place-items: center; */
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 95%;
+}
+
+.createLessonForm input#file-upload-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    font-size: 12px;
 }
 
 .createLessonForm label {
     margin-bottom: 10px;
     /* gap: 10px; */
     font-family: 'Lato', sans-serif;
-    padding: 10px;
+    padding: 5px;
 }
 
 .createLessonForm input,
 .createLessonForm textarea {
-    margin-left: 5px;
+    margin-left: 0px;
     padding: 5px;
     font-family: 'Lato', sans-serif;
     font-size: 16px;
     display: flex;
     justify-content: center;
-    width: 100%
+    width: 95%
 }
 
 .createLessonForm textarea {
@@ -40,11 +72,11 @@
 }
 
 .selectedOptions {
-    margin-left: 5px;
+    margin-left: 0px;
     padding: 5px;
     font-family: 'Lato', sans-serif;
     font-size: 18px;
-    width: 100%
+    width: 95%
 }
 
 .createLessonFormButtons {
@@ -83,4 +115,34 @@ p.errors {
     font-family: 'Lato', sans-serif;
     margin-top: 0px;
     margin-left: 20px;
+}
+
+@media only screen and (max-width: 450px) {
+
+    .createLessonForm {
+        margin: auto;
+        padding: 5px;
+        place-items: center;
+    }
+
+    .createLessonForm h1 {
+        font-size: 18px;
+    }
+
+    label.selectedOptions {
+        font-size: 12px;
+        width: fit-content;
+    }
+
+    .createLessonForm label,
+    .createLessonForm input,
+    .createLessonForm textarea,
+    .createLessonForm button {
+        font-size: 16px;
+        width: fit-content;
+    }
+
+    .fileUpload {
+        flex-flow: column wrap;
+    }
 }

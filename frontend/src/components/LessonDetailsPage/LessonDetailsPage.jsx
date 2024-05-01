@@ -131,14 +131,6 @@ const LessonDetailsPage = () => {
                         <h3>Lesson Description: </h3>
                         <p>{lesson?.description}</p>
                         <h3>Lesson Content: </h3>
-                        {/* <p>{lesson.lessonContent}</p> */}
-                        {/* {lessonContentURL.endsWith('.png' || '.jpg' || '.jpeg') ?
-                            <img
-                                src={lessonContentURL}
-                                alt={lesson.title}
-                            /> :
-                            <p>{lesson.lessonContent}</p>
-                        } */}
                         {isLessonContentImage(lesson?.lessonContent) &&
                             <div className='imageViewer'>
                                 <a className="lessonContentLink" href={lesson?.lessonContent}>Download Lesson Content</a>
