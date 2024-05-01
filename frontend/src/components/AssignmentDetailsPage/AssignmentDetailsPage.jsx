@@ -107,7 +107,7 @@ const AssignmentDetailsPage = () => {
                         </div>
                         <div className='subHeading'>
                             <p className='assignmentDetailsLabel'>
-                                <span>Created By:</span> {assignment?.AssignmentTeacherFirstName} {assignment.AssignmentTeacherLastName}
+                                <span>Created By:</span> {assignment?.AssignmentTeacherFirstName} {assignment?.AssignmentTeacherLastName}
                             </p>
                             {assignment?.AssignmentTeacherUserId === user.id &&
                                 <div className='assignmentDetailsLabel'>

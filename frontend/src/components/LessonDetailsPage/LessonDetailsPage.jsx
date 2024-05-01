@@ -21,12 +21,6 @@ const LessonDetailsPage = () => {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef()
 
-    // console.log(lesson?.lessonContent)
-    // const lessonContentURL = lesson?.lessonContent
-    // console.log(lessonContentURL)
-
-
-
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
@@ -54,7 +48,7 @@ const LessonDetailsPage = () => {
         setShowMenu(false)
     }
 
-    // Function to check if a string is a valid image URL
+
     const isLessonContentImage = (url) => {
         // Regex to match common image file extensions
         const imageExtensions = /\.(jpeg|jpg|gif|png|bmp)$/i;
@@ -98,12 +92,12 @@ const LessonDetailsPage = () => {
                     <div className='lessonDetails'>
                         <div className='lessonTitle'>
                             <p className='lessonDetailsLabel'>
-                                <span>Lesson Title: </span> {lesson.title}
+                                <span>Lesson Title: </span> {lesson?.title}
                             </p>
                         </div>
                         <div className='lessonSubheading'>
                             <p className='lessonDetailsLabel'>
-                                <span>Created By: </span> {lesson.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
+                                <span>Created By: </span> {lesson?.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
                             </p>
                             {lesson?.LessonTeacherUserId === user.id &&
                                 <div className='lessonDetailsLabel'>
@@ -135,7 +129,7 @@ const LessonDetailsPage = () => {
                     </div>
                     <div className='lessonDetailsContent'>
                         <h3>Lesson Description: </h3>
-                        <p>{lesson.description}</p>
+                        <p>{lesson?.description}</p>
                         <h3>Lesson Content: </h3>
                         {/* <p>{lesson.lessonContent}</p> */}
                         {/* {lessonContentURL.endsWith('.png' || '.jpg' || '.jpeg') ?
@@ -147,9 +141,9 @@ const LessonDetailsPage = () => {
                         } */}
                         {isLessonContentImage(lesson?.lessonContent) &&
                             <div className='imageViewer'>
-                                <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
+                                <a className="lessonContentLink" href={lesson?.lessonContent}>Download Lesson Content</a>
                                 <img
-                                    src={lesson.lessonContent}
+                                    src={lesson?.lessonContent}
                                     alt="Lesson content is not available"
                                 />
                             </div>
@@ -157,12 +151,12 @@ const LessonDetailsPage = () => {
 
                         {isLessonContentFile(lesson?.lessonContent) &&
                             <div className='pdfViewer'>
-                                <a className="lessonContentLink" href={lesson.lessonContent}>Download Lesson Content</a>
+                                <a className="lessonContentLink" href={lesson?.lessonContent}>Download Lesson Content</a>
                                 <LessonPDFViewer url={lesson?.lessonContent} />
                             </div>
                         }
                         {!isLessonContentImage(lesson?.lessonContent) && !isLessonContentFile(lesson?.lessonContent) &&
-                            <p>{lesson.lessonContent}</p>
+                            <p>{lesson?.lessonContent}</p>
                         }
                     </div>
 
