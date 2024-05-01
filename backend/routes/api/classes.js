@@ -2,6 +2,7 @@ const express = require('express');
 const { User, Teacher, Student, Class, Lesson, ClassEnrollment, Assignment, Grade, ClassLesson, ClassAssignment, sequelize, Sequelize } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { validateClassParams, validateLessonParams } = require('./validators')
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 const { Op } = require("sequelize");
 
 const router = express.Router();
@@ -279,7 +280,7 @@ router.get('/:classId', requireAuth, async (req, res) => {
 });
 
 // create a new class (teacher users only)
-router.post('/', requireAuth, validateClassParams, async (req, res) => {
+router.post('/', requireAuth, singleMulterUpload("classImg"), async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
     const teach = await Teacher.findOne({
@@ -289,10 +290,11 @@ router.post('/', requireAuth, validateClassParams, async (req, res) => {
     // console.log(teachId)
     if (userId && role === 'teacher') {
         const { name, classImg, description } = req.body
+        const imageURL = await singlePublicFileUpload(req.file)
         const newClass = Class.build({
             teacherId: teachId,
             name,
-            classImg,
+            classImg: imageURL,
             description
         })
         await newClass.save()
@@ -308,12 +310,13 @@ router.post('/', requireAuth, validateClassParams, async (req, res) => {
 
 
 // edit a class (teacher users only)
-router.put('/:classId', requireAuth, validateClassParams, async (req, res) => {
+router.put('/:classId', requireAuth, singleMulterUpload("classImg"), async (req, res) => {
     const userId = req.user.id
     const role = req.user.userRole
     const { classId } = req.params
-    console.log(classId)
-    const { name, classImg, description } = req.body
+    // console.log(classId)
+    const { name, description } = req.body
+    let classImageUrl;
     const existingClass = await Class.findOne({
         where: { id: classId },
         attributes: [
@@ -334,8 +337,14 @@ router.put('/:classId', requireAuth, validateClassParams, async (req, res) => {
         if (userId && role === "teacher") {
             if (userId === existingClass.Teacher.userId) {
                 if (name !== undefined) existingClass.name = name
-                if (classImg !== undefined) existingClass.classImg = classImg
+                // if (classImg !== undefined) existingClass.classImg = classImg
                 if (description !== undefined) existingClass.description = description
+                if (req.file) {
+                    classImageUrl = await singlePublicFileUpload(req.file);
+                    if (classImageUrl && classImageUrl !== undefined) {
+                        existingClass.classImg = classImageUrl;
+                    }
+                }
 
                 await existingClass.save()
                 // console.log(existingClass)
