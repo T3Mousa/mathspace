@@ -52,7 +52,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /current-session
+  * URL: /users
   * Body: none
 
 * Successful Response when there is a logged in user
@@ -94,7 +94,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /current-session
+  * URL: /session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -119,7 +119,7 @@ information.
         "firstName": "John",
         "lastName": "Smith",
         "email": "john.smith@gmail.com",
-        "profileImg": "profile image",
+        "profileImg": "profile_image.png",
         "userRole": "teacher",
       }
     }
@@ -190,7 +190,7 @@ user's information.
         "firstName": "John",
         "lastName": "Smith",
         "userRole": "teacher",
-        "profileImg": "",
+        "profileImg": "new_user_profile_image.png",
       }
     }
     ```
@@ -320,95 +320,320 @@ Returns the details of a class specified by its id.
 #### If the current user is a teacher:
 
     ```json
-    {
-      "id": 1,
-      "name": "Algebra 1",
-      "classImg": "class image url",
-      "description": "Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.",
-      "teacherId": 1,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36",
-      "Students": [
-        {
-          "studentId": 1,
-          "userId": 5,
-          "firstName": "First",
-          "lastName": "Student",
-          "email": "firststudent@user.io"
-        },
-        {
-          "studentId": 2,
-          "userId": 6,
-          "firstName": "Second",
-          "lastName": "Student",
-          "email": "secondstudent@user.io"
-        }
-      ],
-      "Lessons": [
-        {
-          "id": 1,
-          "title": ,
-          "lessonImg": ,
-          "description": ,
-          "lessonContent": ,
-        },
-        {
-          "id": 2,
-          "title": ,
-          "lessonImg": ,
-          "description": ,
-          "lessonContent": ,
-        }
-      ],
-      "Assignments": [
-        {
-          "id": 1,
-          "title": ,
-          "description": ,
-          "assignmentContent": ,
-          "dueDate": ,
-          "Grades": [
+{
+    "Class": {
+        "id": 1,
+        "name": "Algebra - Period 1",
+        "classImg": "https://loremflickr.com/640/480/nature?lock=7039012478910464",
+        "description": "Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.",
+        "teacherId": 1,
+        "createdAt": "2024-04-18T02:44:31.686Z",
+        "updatedAt": "2024-04-18T02:44:31.686Z",
+        "ClassEnrollments": [
             {
-              "id": 1,
-              "assignmentId": 1,
-              "studentId": 1,
-              "isCompleted": true,
-              "grade": 99
+                "studentId": 1,
+                "Student": {
+                    "userId": 4,
+                    "User": {
+                        "id": 4,
+                        "firstName": "Demo",
+                        "lastName": "Student",
+                        "email": "demo_student@user.io"
+                    },
+                    "Grades": [
+                        {
+                            "assignmentId": 1,
+                            "grade": "97.50"
+                        },
+                        {
+                            "assignmentId": 2,
+                            "grade": null
+                        },
+                        {
+                            "assignmentId": 16,
+                            "grade": "91.50"
+                        },
+                        {
+                            "assignmentId": 17,
+                            "grade": "89.00"
+                        },
+                        {
+                            "assignmentId": 18,
+                            "grade": null
+                        }
+                    ],
+                    "averageGrade": 92.7
+                }
             },
             {
-              "id": 2,
-              "assignmentId": 1,
-              "studentId": 2,
-              "isCompleted": false,
-              "grade": null
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "title": ,
-          "description": ,
-          "assignmentContent": ,
-          "dueDate": ,
-          "Grades": [
-            {
-              "id": 3,
-              "assignmentId": 2,
-              "studentId": 1,
-              "isCompleted": true,
-              "grade": 99
+                "studentId": 2,
+                "Student": {
+                    "userId": 5,
+                    "User": {
+                        "id": 5,
+                        "firstName": "First",
+                        "lastName": "Student",
+                        "email": "student1@user.io"
+                    },
+                    "Grades": [
+                        {
+                            "assignmentId": 1,
+                            "grade": "90.50"
+                        },
+                        {
+                            "assignmentId": 2,
+                            "grade": null
+                        },
+                        {
+                            "assignmentId": 16,
+                            "grade": "95.50"
+                        },
+                        {
+                            "assignmentId": 17,
+                            "grade": "92.00"
+                        },
+                        {
+                            "assignmentId": 18,
+                            "grade": null
+                        }
+                    ],
+                    "averageGrade": 92.7
+                }
             },
             {
-              "id": 4,
-              "assignmentId": 2,
-              "studentId": 2,
-              "isCompleted": false,
-              "grade": null
+                "studentId": 3,
+                "Student": {
+                    "userId": 6,
+                    "User": {
+                        "id": 6,
+                        "firstName": "Second",
+                        "lastName": "Student",
+                        "email": "student2@user.io"
+                    },
+                    "Grades": [
+                        {
+                            "assignmentId": 1,
+                            "grade": "86.50"
+                        },
+                        {
+                            "assignmentId": 2,
+                            "grade": null
+                        },
+                        {
+                            "assignmentId": 16,
+                            "grade": "83.50"
+                        },
+                        {
+                            "assignmentId": 17,
+                            "grade": "87.50"
+                        },
+                        {
+                            "assignmentId": 18,
+                            "grade": null
+                        }
+                    ],
+                    "averageGrade": 85.8
+                }
             }
-          ]
-        }
-      ],
+        ],
+        "ClassLessons": [
+            {
+                "classId": 1,
+                "lessonId": 12,
+                "Lesson": {
+                    "id": 12,
+                    "title": "Rational Expressions",
+                    "lessonImg": "https://loremflickr.com/640/480/abstract?lock=2907514718912512",
+                    "description": "Explore rational expressions and learn how to simplify them.",
+                    "lessonContent": "Ultio repudiandae placeat. Balbus quam comprehendo cedo aperio culpa. Demo tempore decipio statim adflicto."
+                }
+            },
+            {
+                "classId": 1,
+                "lessonId": 28,
+                "Lesson": {
+                    "id": 28,
+                    "title": "lesson title",
+                    "lessonImg": "",
+                    "description": "lesson description",
+                    "lessonContent": "https://mathspacebucket.s3.amazonaws.com/1713410873696.jpg"
+                }
+            },
+            {
+                "classId": 1,
+                "lessonId": 1,
+                "Lesson": {
+                    "id": 1,
+                    "title": "Introduction to Algebra  edit1",
+                    "lessonImg": "https://loremflickr.com/640/480/abstract?lock=843592721498112",
+                    "description": "EDIT: Basic concepts and terminology in Algebra.",
+                    "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987190964.pdf"
+                }
+            },
+            {
+                "classId": 1,
+                "lessonId": 2,
+                "Lesson": {
+                    "id": 2,
+                    "title": "Linear Equations",
+                    "lessonImg": "https://loremflickr.com/640/480/abstract?lock=3004288011862016",
+                    "description": "Solving and graphing linear equations.",
+                    "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987253476.pdf"
+                }
+            },
+            {
+                "classId": 1,
+                "lessonId": 3,
+                "Lesson": {
+                    "id": 3,
+                    "title": "Linear Systems of Equations",
+                    "lessonImg": "https://loremflickr.com/640/480/abstract?lock=6044128580206592",
+                    "description": "Solving and graphing linear systems of equations.Corrupti surculus canto colligo sophismata ver. ",
+                    "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987512638.pdf"
+                }
+            },
+            {
+                "classId": 1,
+                "lessonId": 10,
+                "Lesson": {
+                    "id": 10,
+                    "title": "Quadratic Equations",
+                    "lessonImg": "https://loremflickr.com/640/480/abstract?lock=4245355115839488",
+                    "description": "Learn how to solve quadratic equations and analyze their graphs.",
+                    "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713988470933.jpg"
+                }
+            },
+            {
+                "classId": 1,
+                "lessonId": 11,
+                "Lesson": {
+                    "id": 11,
+                    "title": "Polynomial Functions",
+                    "lessonImg": "https://loremflickr.com/640/480/abstract?lock=6228190798282752",
+                    "description": "Study polynomial functions and their properties.",
+                    "lessonContent": "Somnus aequitas repudiandae deporto. Subiungo cerno strues victoria creta architecto socius atrocitas. Utique animi theatrum articulus quaerat."
+                }
+            }
+        ],
+        "ClassAssignments": [
+            {
+                "classId": 1,
+                "assignmentId": 2,
+                "Assignment": {
+                    "id": 2,
+                    "title": "Solving Systems of Equations",
+                    "description": "Practice solving systems of linear equations graphically and algebraically.",
+                    "assignmentContent": "Suspendo denego tredecim audeo quos cedo creo cruentus tersus videlicet. ",
+                    "dueDate": "2024-03-08",
+                    "Grades": [
+                        {
+                            "id": 8,
+                            "assignmentId": 2,
+                            "studentId": 1,
+                            "isCompleted": false,
+                            "grade": null
+                        },
+                        {
+                            "id": 9,
+                            "assignmentId": 2,
+                            "studentId": 2,
+                            "isCompleted": false,
+                            "grade": null
+                        },
+                        {
+                            "id": 10,
+                            "assignmentId": 2,
+                            "studentId": 3,
+                            "isCompleted": false,
+                            "grade": null
+                        }
+                    ]
+                }
+            },
+            {
+                "classId": 1,
+                "assignmentId": 7,
+                "Assignment": {
+                    "id": 7,
+                    "title": "Solving Quadratic Equations",
+                    "description": "Practice solving quadratic equations and graphing parabolas.",
+                    "assignmentContent": "Patruus cohaero vos taedium paulatim vespillo. Velut assentator tibi. Trepide ultio aliquid rerum arma.",
+                    "dueDate": "2023-09-01",
+                    "Grades": []
+                }
+            },
+            {
+                "classId": 1,
+                "assignmentId": 8,
+                "Assignment": {
+                    "id": 8,
+                    "title": "Properties of Polynomial Functions",
+                    "description": "Practice identifying properties of polynomial functions graphically and algebraically.",
+                    "assignmentContent": "Pecco crudelis concido absque cubo magnam. Vulgus sum veritatis acerbitas celer apostolus crudelis facilis uredo mollitia. Reiciendis curriculum dedecor quos annus corrumpo auditor.",
+                    "dueDate": "2024-03-08",
+                    "Grades": []
+                }
+            },
+            {
+                "classId": 1,
+                "assignmentId": 1,
+                "Assignment": {
+                    "id": 1,
+                    "title": "Solving Linear Equations",
+                    "description": "Practice solving basic linear equations with one variable.",
+                    "assignmentContent": "Thymbra cras varius suffoco assumenda caste thymbra comes ustilo auditor. Sustineo ter cubo cognomen odio viriliter. Conatus teneo absque arx corpus vigor.",
+                    "dueDate": "2024-09-08",
+                    "Grades": [
+                        {
+                            "id": 1,
+                            "assignmentId": 1,
+                            "studentId": 1,
+                            "isCompleted": true,
+                            "grade": "97.50"
+                        },
+                        {
+                            "id": 2,
+                            "assignmentId": 1,
+                            "studentId": 2,
+                            "isCompleted": true,
+                            "grade": "90.50"
+                        },
+                        {
+                            "id": 3,
+                            "assignmentId": 1,
+                            "studentId": 3,
+                            "isCompleted": true,
+                            "grade": "86.50"
+                        }
+                    ]
+                }
+            }
+        ],
+        "Students": [
+            {
+                "studentId": 1,
+                "userId": 4,
+                "firstName": "Demo",
+                "lastName": "Student",
+                "email": "demo_student@user.io"
+            },
+            {
+                "studentId": 2,
+                "userId": 5,
+                "firstName": "First",
+                "lastName": "Student",
+                "email": "student1@user.io"
+            },
+            {
+                "studentId": 3,
+                "userId": 6,
+                "firstName": "Second",
+                "lastName": "Student",
+                "email": "student2@user.io"
+            }
+        ]
     }
+}
     ```
 
   #### If the current user is a student:
@@ -505,7 +730,7 @@ Creates and returns a new class.
     ```json
     {
       "name": "Algebra 1",
-      "classImg": "class image url",
+      "classImg": "class_image_url.png",
       "description": "Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.",
     }
     ```
@@ -581,7 +806,9 @@ Updates and returns an existing class.
       "classImg": "class image url",
       "description": "Algebra 1 introduces variables, algebraic expressions, equations, inequalities, functions, and all their multiple representations.",
       "teacherId": 1,
-      "createdAt": "2021-11-19 20:39:36",
+      "Teacher": {
+        "userId": 1
+    },
       "updatedAt": "2021-11-19 20:39:36"
     }
     ```
@@ -617,7 +844,7 @@ Updates and returns an existing class.
 
 ### Delete a Class
 
-Deletes an existing spot.
+Deletes an existing class.
 
 * Require Authentication: true
 * Require proper authorization: Class must belong to the current teacher user
@@ -650,6 +877,219 @@ Deletes an existing spot.
     }
     ```
 
+### Get all class lessons
+
+#### If the current user is a teacher:
+
+Returns all the lessons associated with the selected class
+
+* Require Authentication: true
+* Require Authorization: true
+* Request
+  * Method: GET
+  * URL: /classes/:classId/lessons
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+ {
+    "Lessons": [
+        {
+            "id": 2,
+            "title": "Linear Equations",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=3004288011862016",
+            "description": "Solving and graphing linear equations.",
+            "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987253476.pdf",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-24T19:34:14.058Z",
+            "ClassLessons": [
+                {
+                    "classId": 1,
+                    "lessonId": 2
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Linear Systems of Equations",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=6044128580206592",
+            "description": "Solving and graphing linear systems of equations.",
+            "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987512638.pdf",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-24T19:38:33.297Z",
+            "ClassLessons": [
+                {
+                    "classId": 1,
+                    "lessonId": 3
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "title": "Polynomial Functions",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=6228190798282752",
+            "description": "Study polynomial functions and their properties.Carcer vetus ver caries.",
+            "lessonContent": "Somnus aequitas repudiandae deporto. Subiungo cerno strues victoria creta architecto socius atrocitas. Utique animi theatrum articulus quaerat.",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "ClassLessons": [
+                {
+                    "classId": 1,
+                    "lessonId": 11
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "title": "Rational Expressions",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=2907514718912512",
+            "description": "Explore rational expressions and learn how to simplify them.Odit ancilla administratio barba dolor.",
+            "lessonContent": "Ultio repudiandae placeat. Balbus quam comprehendo cedo aperio culpa. Demo tempore decipio statim adflicto.",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "ClassLessons": [
+                {
+                    "classId": 1,
+                    "lessonId": 12
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "title": "Quadratic Equations",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=4245355115839488",
+            "description": "Learn how to solve quadratic equations and analyze their graphs.Sodalitas apparatus nesciunt alter conspergo.",
+            "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713988470933.jpg",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-24T19:54:31.285Z",
+            "ClassLessons": [
+                {
+                    "classId": 1,
+                    "lessonId": 10
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "title": "Introduction to Algebra  edit1",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=843592721498112",
+            "description": "EDIT: Basic concepts and terminology in Algebra.",
+            "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987190964.pdf",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-24T19:33:11.586Z",
+            "ClassLessons": [
+                {
+                    "classId": 1,
+                    "lessonId": 1
+                }
+            ]
+        }
+    ]
+}
+```
+
+### Get all class assignments
+
+#### If the current user is a teacher:
+
+Returns all the assignments associated with the selected class
+
+* Require Authentication: true
+* Require Authorization: true
+* Request
+  * Method: GET
+  * URL: /classes/:classId/assignments
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+{
+    "Assignments": [
+        {
+            "id": 2,
+            "title": "Solving Systems of Equations",
+            "description": "Practice solving systems of linear equations graphically and algebraically.",
+            "assignmentContent": "Suspendo denego tredecim audeo quos cedo creo cruentus tersus videlicet. Defungo comis velut earum claustrum sperno virgo curso volutabrum. Calamitas depulso perferendis tactus tutis subnecto audax vix.",
+            "dueDate": "2024-03-08",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "ClassAssignments": [
+                {
+                    "classId": 1,
+                    "assignmentId": 2
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "title": "Solving Quadratic Equations",
+            "description": "Practice solving quadratic equations and graphing parabolas.",
+            "assignmentContent": "Patruus cohaero vos taedium paulatim vespillo. Velut assentator tibi. Trepide ultio aliquid rerum arma.",
+            "dueDate": "2023-09-01",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "ClassAssignments": [
+                {
+                    "classId": 1,
+                    "assignmentId": 7
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "title": "Properties of Polynomial Functions",
+            "description": "Practice identifying properties of polynomial functions graphically and algebraically.",
+            "assignmentContent": "Pecco crudelis concido absque cubo magnam. Vulgus sum veritatis acerbitas celer apostolus crudelis facilis uredo mollitia. Reiciendis curriculum dedecor quos annus corrumpo auditor.",
+            "dueDate": "2024-03-08",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "ClassAssignments": [
+                {
+                    "classId": 1,
+                    "assignmentId": 8
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "title": "Solving Linear Equations",
+            "description": "Practice solving basic linear equations with one variable.",
+            "assignmentContent": "Thymbra cras varius suffoco assumenda caste thymbra comes ustilo auditor. Sustineo ter cubo cognomen odio viriliter. Conatus teneo absque arx corpus vigor.",
+            "dueDate": "2024-09-08",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-25T20:20:35.900Z",
+            "ClassAssignments": [
+                {
+                    "classId": 1,
+                    "assignmentId": 1
+                }
+            ]
+        }
+    ]
+}
+```
+
+
 ## Lessons
 
 ### Get all Lessons
@@ -671,58 +1111,205 @@ Returns all the lessons created by all teacher users
     * Content-Type: application/json
   * Body:
 
-    ```json
-    {
-      "Lessons": [
+```json
+{
+    "Lessons": [
         {
             "id": 3,
             "title": "Linear Systems of Equations",
-            "lessonImg": "https://mathvault.ca/wp-content/uploads/Three-Lines.jpg",
-            "description": "Solving and graphing linear systems of equations.",
-            "lessonContent": {
-                "type": "Buffer",
-                "data": []
-            },
-            "classId": 1,
-            "createdAt": "2024-01-03T16:25:35.581Z",
-            "updatedAt": "2024-01-03T16:25:35.581Z",
-            "ClassInfo": {
-                "id": 1,
-                "name": "Algebra 1 - Period 1"
-            },
-            "Teacher": {
-                "teacherId": 1,
-                "userId": 1,
-                "firstName": "Demo",
-                "lastName": "Teacher"
-            }
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=6044128580206592",
+            "description": "Solving and graphing linear systems of equations.Corrupti surculus canto colligo sophismata ver. ",
+            "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987512638.pdf",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-24T19:38:33.297Z",
+            "LessonClasses": [
+                {
+                    "classId": 2,
+                    "className": "Algebra - Period 2",
+                    "teacherId": 1
+                },
+                {
+                    "classId": 1,
+                    "className": "Algebra - Period 1",
+                    "teacherId": 1
+                }
+            ],
+            "LessonTeacherFirstName": "Demo",
+            "LessonTeacherLastName": "Teacher"
         },
         {
             "id": 2,
             "title": "Linear Equations",
-            "lessonImg": "https://www.tiwariacademy.com/app/uploads/2020/06/Linear-Equation.png",
-            "description": "Solving and graphing linear equations.",
-            "lessonContent": {
-                "type": "Buffer",
-                "data": []
-            },
-            "classId": 1,
-            "createdAt": "2024-01-03T16:25:35.581Z",
-            "updatedAt": "2024-01-03T16:25:35.581Z",
-            "ClassInfo": {
-                "id": 1,
-                "name": "Algebra 1 - Period 1"
-            },
-            "Teacher": {
-                "teacherId": 1,
-                "userId": 1,
-                "firstName": "Demo",
-                "lastName": "Teacher"
-            }
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=3004288011862016",
+            "description": "Solving and graphing linear equations.Cibo incidunt somniculosus caelestis clibanus verecundia.",
+            "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987253476.pdf",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-24T19:34:14.058Z",
+            "LessonClasses": [
+                {
+                    "classId": 2,
+                    "className": "Algebra - Period 2",
+                    "teacherId": 1
+                },
+                {
+                    "classId": 1,
+                    "className": "Algebra - Period 1",
+                    "teacherId": 1
+                }
+            ],
+            "LessonTeacherFirstName": "Demo",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 1,
+            "title": "Introduction to Algebra  edit1",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=843592721498112",
+            "description": "EDIT: Basic concepts and terminology in Algebra.Turba rerum argumentum demo atrocitas vomito addo beneficium.",
+            "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987190964.pdf",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-24T19:33:11.586Z",
+            "LessonClasses": [
+                {
+                    "classId": 2,
+                    "className": "Algebra - Period 2",
+                    "teacherId": 1
+                },
+                {
+                    "classId": 1,
+                    "className": "Algebra - Period 1",
+                    "teacherId": 1
+                }
+            ],
+            "LessonTeacherFirstName": "Demo",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 24,
+            "title": "Circles and Their Properties",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=3960283835924480",
+            "description": "Understanding circles and their mathematical properties.Solvo advenio civitas delego surgo.",
+            "lessonContent": "Deripio trepide talio adeptio natus careo dolorem tametsi deduco bardus. Cariosus bellicus uredo confido arma vulnero vindico tenus usus. Deduco desipio dolor totus aetas molestiae.",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "First",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 23,
+            "title": "Properties of Triangles",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=948799486820352",
+            "description": "Exploring different types of triangles and their properties.Iure cognomen tibi aspicio illo nihil auditor sint.",
+            "lessonContent": "Turba volaticus corona ulterius dedico vester. Coaegresco comptus deprecator delectus trado atrocitas. Angulus ago compono super sperno cavus depraedor canis.",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "First",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 6,
+            "title": "Linear Systems of Equations",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=3355597672022016",
+            "description": "Solving and graphing linear systems of equations.Timidus carbo suadeo vacuus dolorem comptus careo.",
+            "lessonContent": "Soluta subseco ait subnecto cometes ager. Aestas alienus dolorem. Utrimque in velut vester thymum bibo aspicio turbo laudantium.",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "First",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 5,
+            "title": "Linear Equations",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=5020497257431040",
+            "description": "Solving and graphing linear equations.Bos apparatus audax cimentarius peccatus.",
+            "lessonContent": "Coaegresco molestias adduco benevolentia comburo coaegresco ducimus reiciendis ascisco cornu. Coepi aureus causa desparatus tabernus. Totam tibi apostolus necessitatibus eum caritas bonus vestigium denego.",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "First",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 4,
+            "title": "Introduction to Algebra 1",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=1355455779569664",
+            "description": "Basic concepts and terminology in Algebra.Omnis summa abundans solitudo claudeo addo vomito volva canto turbo.",
+            "lessonContent": "Volubilis necessitatibus capio. Sapiente certe altus ultio nisi nulla carbo facilis aiunt. Condico valde tantum appono aeternus allatus vehemens venia.",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "First",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 27,
+            "title": "Circles and Their Properties",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=3177524303495168",
+            "description": "Understanding circles and their mathematical properties.Averto cuius tibi pecco tristis. Tantum ad creptio benevolentia arceo.",
+            "lessonContent": "Velociter doloremque nulla apud abduco acervus cribro curia. Addo demens clementia vilitas supplanto suus videlicet aedificium. Cribro casso dolorum tollo libero patrocinor adduco.",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "Third",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 26,
+            "title": "Properties of Triangles",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=8457265312956416",
+            "description": "Exploring different types of triangles and their properties.Earum apto autem xiphias.",
+            "lessonContent": "Ulterius tabgo volva iste patrocinor contabesco. Vestigium arcesso asperiores odio doloribus cavus trucido bonus universe. Admoveo vero verbum tergiversatio crinis sollicito catena tabesco.",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "Third",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 9,
+            "title": "Linear Systems of Equations",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=8021064810496000",
+            "description": "Solving and graphing linear systems of equations.Studio cinis avaritia averto considero cernuus ciminatio.",
+            "lessonContent": "Maxime reiciendis venio concedo cognatus cribro volutabrum autem. Ventosus vestigium acsi cunae. Spes appono cena laudantium velociter solium appello spiculum.",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "Third",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 8,
+            "title": "Linear Equations",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=1305495644143616",
+            "description": "Solving and graphing linear equations.Terreo aer voco adinventitias speciosus.",
+            "lessonContent": "Attonbitus cervus coepi excepturi. Cernuus tristis quo audacia crux denuncio tutis vita cras cupressus. Odio admoneo demens corporis vulticulus.",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "Third",
+            "LessonTeacherLastName": "Teacher"
+        },
+        {
+            "id": 7,
+            "title": "Introduction to Algebra 1",
+            "lessonImg": "https://loremflickr.com/640/480/abstract?lock=15381005598720",
+            "description": "Basic concepts and terminology in Algebra.Suspendo adipiscor cuppedia tabgo.",
+            "lessonContent": "Dignissimos conscendo vox laboriosam. Baiulus uredo tener talus ancilla triduana verus velit. Venustas cibo sufficio unus subiungo tracto.",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.709Z",
+            "updatedAt": "2024-04-18T02:44:31.709Z",
+            "LessonTeacherFirstName": "Third",
+            "LessonTeacherLastName": "Teacher"
         }
-      ]
-    }
-    ```
+    ]
+}
+
+```
 #### If the current user is a student:
 
 Returns all the lessons for all the classes the current student user is enrolled in.
@@ -809,64 +1396,37 @@ Returns the details of a lesson specified by its id.
 #### If the current user is a teacher:
 
     ```json
-    {
+{
     "Lesson": {
         "id": 1,
-        "title": "Introduction to Algebra 1",
-        "lessonImg": "https://debrabell.com/wp-content/uploads/2022/02/Algebra-1.png",
-        "description": "Basic concepts and terminology in Algebra.",
-        "lessonContent": {
-            "type": "Buffer",
-            "data": []
-        },
-        "classId": 1,
-        "createdAt": "2024-01-03T16:25:35.581Z",
-        "updatedAt": "2024-01-03T16:25:35.581Z",
-        "Class": {
-            "teacherId": 1,
-            "Teacher": {
-                "id": 1,
-                "userId": 1
+        "title": "Introduction to Algebra  edit1",
+        "lessonImg": "https://loremflickr.com/640/480/abstract?lock=843592721498112",
+        "description": "EDIT: Basic concepts and terminology in Algebra.Turba rerum argumentum demo atrocitas vomito addo beneficium. Tepesco terra cattus demens varietas angustus. Corpus infit derelinquo comedo.",
+        "lessonContent": "https://mathspacebucket.s3.us-east-2.amazonaws.com/1713987190964.pdf",
+        "teacherId": 1,
+        "createdAt": "2024-04-18T02:44:31.709Z",
+        "updatedAt": "2024-04-24T19:33:11.586Z",
+        "LessonClasses": [
+            {
+                "classId": 1,
+                "className": "Algebra - Period 1",
+                "teacherId": 1,
+                "teacherUserId": 1
+            },
+            {
+                "classId": 2,
+                "className": "Algebra - Period 2",
+                "teacherId": 1,
+                "teacherUserId": 1
             }
-        }
+        ],
+        "LessonTeacherFirstName": "Demo",
+        "LessonTeacherLastName": "Teacher",
+        "LessonTeacherUserId": 1
     }
 }
-    ```
+```
 
-  #### If the current user is a student:
-
-  Returns the details of a lesson for a specific class the user is enrolled in specified by its id.
-
-* Require Authentication: true
-* Require Authorization: true
-* Request
-  * Method: GET
-  * URL: /classes/:classId/lessons/:lessonId
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
-
-    ```json
-    {
-      "Lesson": {
-        "id": 1,
-        "title": "Introduction to Algebra 1",
-        "lessonImg": "https://debrabell.com/wp-content/uploads/2022/02/Algebra-1.png",
-        "description": "Basic concepts and terminology in Algebra.",
-        "lessonContent": {
-            "type": "Buffer",
-            "data": []
-        },
-        "classId": 1,
-        "createdAt": "2024-01-03T16:25:35.581Z",
-        "updatedAt": "2024-01-03T16:25:35.581Z",
-    }
-    }
-    ```
 
 * Error response: Couldn't find a Lesson with the specified id
   * Status Code: 404
@@ -877,5 +1437,732 @@ Returns the details of a lesson specified by its id.
     ```json
     {
       "message": "Lesson couldn't be found"
+    }
+    ```
+
+
+### Create a Lesson
+
+Creates and returns a new lesson that can be assigned to any classes owned by the current teacher user.
+
+* Require Authentication: true
+* Require Authorization: Only a teacher user can create a lesson
+* Request
+  * Method: POST
+  * URL: /lessons
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "title": "New lesson for Algebra 1 & 2",
+      "description": "Algebra 1 & 2 combo lesson description.",
+      "lessonContent": "Lesson content can be uploaded here.",
+      "selectedClasses": [1, 2]
+    }
+    ```
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+    {
+    "lessonImg": "",
+    "id": 40,
+    "title": "New lesson for Algebra 1 & 2",
+    "description": "Algebra 1 & 2 combo lesson description.",
+    "lessonContent": "Lesson content can be uploaded here.",
+    "teacherId": 1,
+    "updatedAt": "2024-04-30T15:55:54.619Z",
+    "createdAt": "2024-04-30T15:55:54.619Z"
+    }
+```
+
+### Edit a Lesson
+
+Updates and returns an existing lesson.
+
+* Require Authentication: true
+* Require proper authorization: Lesson must belong to the current teacher user
+* Request
+  * Method: PUT
+  * URL: /lessons/:lessonId
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+    {
+      "title": "Edited lesson for Algebra 1 & 2",
+      "description": "Edited Algebra 1 & 2 combo lesson description.",
+      "lessonContent": "Edited lesson content can be uploaded here.",
+      "selectedClasses": [1]
+    }
+```
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+ {
+    "id": 40,
+    "title": "Edited lesson for Algebra 1 & 2",
+    "lessonImg": "",
+    "description": "Edited Algebra 1 & 2 combo lesson description.",
+    "lessonContent": "Lesson content can be uploaded here.",
+    "teacherId": 1,
+    "createdAt": "2024-04-30T15:55:54.619Z",
+    "updatedAt": "2024-05-01T01:55:11.958Z",
+    "ClassLessons": []
+}
+```
+
+* Error Response: Body validation error
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+    {
+      "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
+      "errors": {
+        "name": "Lesson title is required",
+        // "classImg": "Class image is required",
+        "description": "Lesson description is required",
+      }
+    }
+```
+
+* Error response: Couldn't find a Class with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+    {
+      "message": "Lesson couldn't be found"
+    }
+```
+
+### Delete a Lesson
+
+Deletes an existing lesson.
+
+* Require Authentication: true
+* Require proper authorization: Lesson must belong to the current teacher user
+* Request
+  * Method: DELETE
+  * URL: /lessons/:lessonId
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+* Error response: Couldn't find an Lesson with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Lesson couldn't be found"
+    }
+    ```
+
+
+## Assignments
+
+### Get all Assignments
+
+#### If the current user is a teacher:
+
+Returns all the assignments created by all teacher users
+
+* Require Authentication: true
+* Require Authorization: true
+* Request
+  * Method: GET
+  * URL: /assignments
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+{
+    "Assignments": [
+        {
+            "id": 2,
+            "title": "Solving Systems of Equations",
+            "description": "Practice solving systems of linear equations graphically and algebraically.",
+            "assignmentContent": "Suspendo denego tredecim audeo quos cedo creo cruentus tersus videlicet. Defungo comis velut earum claustrum sperno virgo curso volutabrum. Calamitas depulso perferendis tactus tutis subnecto audax vix.",
+            "dueDate": "2024-03-08",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentClasses": [
+                {
+                    "classId": 1,
+                    "className": "Algebra - Period 1",
+                    "teacherId": 1
+                },
+                {
+                    "classId": 2,
+                    "className": "Algebra - Period 2",
+                    "teacherId": 1
+                }
+            ],
+            "AssignmentTeacherFirstName": "Demo",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 7,
+            "title": "Solving Quadratic Equations",
+            "description": "Practice solving quadratic equations and graphing parabolas.",
+            "assignmentContent": "Patruus cohaero vos taedium paulatim vespillo. Velut assentator tibi. Trepide ultio aliquid rerum arma.",
+            "dueDate": "2023-09-01",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentClasses": [
+                {
+                    "classId": 1,
+                    "className": "Algebra - Period 1",
+                    "teacherId": 1
+                },
+                {
+                    "classId": 2,
+                    "className": "Algebra - Period 2",
+                    "teacherId": 1
+                }
+            ],
+            "AssignmentTeacherFirstName": "Demo",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 8,
+            "title": "Properties of Polynomial Functions",
+            "description": "Practice identifying properties of polynomial functions graphically and algebraically.",
+            "assignmentContent": "Pecco crudelis concido absque cubo magnam. Vulgus sum veritatis acerbitas celer apostolus crudelis facilis uredo mollitia. Reiciendis curriculum dedecor quos annus corrumpo auditor.",
+            "dueDate": "2024-03-08",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentClasses": [
+                {
+                    "classId": 1,
+                    "className": "Algebra - Period 1",
+                    "teacherId": 1
+                },
+                {
+                    "classId": 2,
+                    "className": "Algebra - Period 2",
+                    "teacherId": 1
+                }
+            ],
+            "AssignmentTeacherFirstName": "Demo",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 13,
+            "title": "Introduction to Shapes and Figures",
+            "description": "Explore basic 2D geometric shapes and 3D figures and their properties.",
+            "assignmentContent": "Articulus nobis creator laboriosam solutio abeo defluo. Animi celo cohibeo cupiditas certus degusto capto acidus. Vitium ipsam considero repellendus chirographum adfero ab vindico paulatim approbo.",
+            "dueDate": "2023-09-15",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentClasses": [
+                {
+                    "classId": 3,
+                    "className": "Geometry - Period 3",
+                    "teacherId": 1
+                }
+            ],
+            "AssignmentTeacherFirstName": "Demo",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 14,
+            "title": "Finding Area and Perimeter",
+            "description": "Calculate area and perimeter for basic 2D geometric shapes.",
+            "assignmentContent": "Tubineus talio audentia vivo vestrum corroboro ustulo bestia enim adicio. Alias trado urbs stips aliqua asperiores arma. Administratio calco illum campana vigor velit.",
+            "dueDate": "2023-09-30",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentClasses": [
+                {
+                    "classId": 3,
+                    "className": "Geometry - Period 3",
+                    "teacherId": 1
+                }
+            ],
+            "AssignmentTeacherFirstName": "Demo",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 15,
+            "title": "Finding Volume",
+            "description": "Calculate volume for basic 3D geometric figures.",
+            "assignmentContent": "Beatus agnitio tener crustulum aufero vaco degero adsuesco illum. Demergo advoco textilis caries totus. Degero crur textilis decretum curo ara creator.",
+            "dueDate": "2024-03-08",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentClasses": [
+                {
+                    "classId": 3,
+                    "className": "Geometry - Period 3",
+                    "teacherId": 1
+                }
+            ],
+            "AssignmentTeacherFirstName": "Demo",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 3,
+            "title": "Solving Linear Equations",
+            "description": "Practice solving basic linear equations with one variable.",
+            "assignmentContent": "Viridis animus cinis deleniti cinis sulum candidus. Deleniti ara capitulus aestus verbum uberrime nobis. Abeo labore aegrotatio admoneo volva denuncio solum ago voluptate aptus.",
+            "dueDate": "2023-09-08",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "First",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 4,
+            "title": "Solving Systems of Equations",
+            "description": "Practice solving systems of linear equations graphically and algebraically.",
+            "assignmentContent": "Cedo vulariter sono temeritas voluptatum conqueror. Tandem argentum vestrum aegrus tutis adulescens solum ocer vinum. Cibo confugo nisi sono coadunatio arguo animus.",
+            "dueDate": "2024-03-08",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "First",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 9,
+            "title": "Solving Quadratic Equations",
+            "description": "Practice solving quadratic equations and graphing parabolas.",
+            "assignmentContent": "Vulpes decerno vilicus curia. Defungo sui canis dignissimos. Praesentium super votum.",
+            "dueDate": "2023-09-01",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "First",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 10,
+            "title": "Properties of Polynomial Functions",
+            "description": "Practice identifying properties of polynomial functions graphically and algebraically.",
+            "assignmentContent": "Torrens quibusdam venia absconditus. Averto comburo cauda. At admoneo curo speciosus culpa hic vitiosus ipsa.",
+            "dueDate": "2024-03-08",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "First",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 16,
+            "title": "Introduction to Shapes and Figures",
+            "description": "Explore basic 2D geometric shapes and 3D figures and their properties.",
+            "assignmentContent": "Color cuius veritas theca. Tyrannus degenero careo sustineo defero cui calamitas nemo creator. Sordeo concido despecto caveo.",
+            "dueDate": "2023-09-15",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "First",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 17,
+            "title": "Finding Area and Perimeter",
+            "description": "Calculate area and perimeter for basic 2D geometric shapes.",
+            "assignmentContent": "Clarus tenax surgo pauci cavus paulatim aspernatur bestia vigilo cunabula. Valetudo officia autus clementia territo terebro. Adversus acies inflammatio volva timidus appello admoveo.",
+            "dueDate": "2023-09-30",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "First",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 18,
+            "title": "Finding Volume",
+            "description": "Calculate volume for basic 3D geometric figures.",
+            "assignmentContent": "Cogo charisma quidem speciosus sumptus rem audio quo verto. Vere dolor auxilium vivo doloribus aetas. Porro aer aiunt amissio summisse comminor cito.",
+            "dueDate": "2024-03-08",
+            "teacherId": 2,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "First",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 5,
+            "title": "Solving Linear Equations",
+            "description": "Practice solving basic linear equations with one variable.",
+            "assignmentContent": "Audax conspergo adficio tutamen. Torrens amaritudo crux surgo doloremque deripio absorbeo. Ciminatio stipes culpo beatae placeat officiis ambitus.",
+            "dueDate": "2023-09-08",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "Third",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 6,
+            "title": "Solving Systems of Equations",
+            "description": "Practice solving systems of linear equations graphically and algebraically.",
+            "assignmentContent": "Calamitas turba cresco auctor ipsa custodia volup. Viduo demulceo convoco creo collum veritas suffoco. Testimonium vorax depulso apparatus deorsum.",
+            "dueDate": "2024-03-08",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "Third",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 11,
+            "title": "Solving Quadratic Equations",
+            "description": "Practice solving quadratic equations and graphing parabolas.",
+            "assignmentContent": "Anser speciosus adsuesco. Conscendo decipio cribro. Pecto absconditus infit sublime carus.",
+            "dueDate": "2023-09-01",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "Third",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 12,
+            "title": "Properties of Polynomial Functions",
+            "description": "Practice identifying properties of polynomial functions graphically and algebraically.",
+            "assignmentContent": "Articulus vir angelus teres villa exercitationem calcar vulariter. Sollicito tui adficio cetera commodo soleo vicinus. Cado volaticus desidero spero cauda desipio.",
+            "dueDate": "2024-03-08",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "Third",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 19,
+            "title": "Introduction to Shapes and Figures",
+            "description": "Explore basic 2D geometric shapes and 3D figures and their properties.",
+            "assignmentContent": "A votum vinculum aro ulterius benigne. Vindico templum ventito cariosus praesentium usitas. Amplus contabesco cavus.",
+            "dueDate": "2023-09-15",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "Third",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 20,
+            "title": "Finding Area and Perimeter",
+            "description": "Calculate area and perimeter for basic 2D geometric shapes.",
+            "assignmentContent": "Taedium vilicus tantum comitatus aeger audeo trucido incidunt vorago verbum. Perferendis unde capitulus amplexus amplus debitis conduco angulus consequatur delicate. Capio pecco volva supplanto clamo corporis verecundia.",
+            "dueDate": "2023-09-30",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "Third",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 21,
+            "title": "Finding Volume",
+            "description": "Calculate volume for basic 3D geometric figures.",
+            "assignmentContent": "Sponte accusator creber eveniet ciminatio complectus patrocinor cohaero saepe. Contabesco suffragium cuppedia. Curvo charisma maxime tot.",
+            "dueDate": "2024-03-08",
+            "teacherId": 3,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-18T02:44:31.742Z",
+            "AssignmentTeacherFirstName": "Third",
+            "AssignmentTeacherLastName": "Teacher"
+        },
+        {
+            "id": 1,
+            "title": "Solving Linear Equations",
+            "description": "Practice solving basic linear equations with one variable.",
+            "assignmentContent": "Thymbra cras varius suffoco assumenda caste thymbra comes ustilo auditor. Sustineo ter cubo cognomen odio viriliter. Conatus teneo absque arx corpus vigor.",
+            "dueDate": "2024-09-08",
+            "teacherId": 1,
+            "createdAt": "2024-04-18T02:44:31.742Z",
+            "updatedAt": "2024-04-25T20:20:35.900Z",
+            "AssignmentClasses": [
+                {
+                    "classId": 1,
+                    "className": "Algebra - Period 1",
+                    "teacherId": 1
+                },
+                {
+                    "classId": 2,
+                    "className": "Algebra - Period 2",
+                    "teacherId": 1
+                }
+            ],
+            "AssignmentTeacherFirstName": "Demo",
+            "AssignmentTeacherLastName": "Teacher"
+        }
+    ]
+}
+
+```
+
+
+### Get details of an Assignment from an id
+
+Returns the details of an assignment specified by its id.
+
+* Require Authentication: true
+* Require Authorization: true
+* Request
+  * Method: GET
+  * URL: /assignments/:assignmentId
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+#### If the current user is a teacher:
+
+    ```json
+{
+    "Assignment": {
+        "id": 1,
+        "title": "Solving Linear Equations",
+        "description": "Practice solving basic linear equations with one variable.",
+        "assignmentContent": "Thymbra cras varius suffoco assumenda caste thymbra comes ustilo auditor. Sustineo ter cubo cognomen odio viriliter. Conatus teneo absque arx corpus vigor.",
+        "dueDate": "2024-09-08",
+        "teacherId": 1,
+        "createdAt": "2024-04-18T02:44:31.742Z",
+        "updatedAt": "2024-04-25T20:20:35.900Z",
+        "AssignmentClasses": [
+            {
+                "classId": 1,
+                "className": "Algebra - Period 1",
+                "teacherId": 1,
+                "teacherUserId": 1
+            },
+            {
+                "classId": 2,
+                "className": "Algebra - Period 2",
+                "teacherId": 1,
+                "teacherUserId": 1
+            }
+        ],
+        "AssignmentTeacherFirstName": "Demo",
+        "AssignmentTeacherLastName": "Teacher",
+        "AssignmentTeacherUserId": 1
+    }
+}
+```
+
+
+* Error response: Couldn't find an assignment with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Assignment couldn't be found"
+    }
+    ```
+
+### Create an Assignment
+
+Creates and returns a new assignment that can be assigned to any classes owned by the current teacher user.
+
+* Require Authentication: true
+* Require Authorization: Only a teacher user can create an assignment
+* Request
+  * Method: POST
+  * URL: /assignments
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "title": "new assignment",
+      "description": "new assignment description",
+      "assignmentContent": "Assignment content can be uploaded here.",
+      "dueDate": "2024-09-03",
+      "selectedClasses": [1, 2, 3]
+    }
+    ```
+
+* Successful Response
+  * Status Code: 201
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+ {
+    "id": 26,
+    "title": "new assignment",
+    "description": "new assignment description",
+    "dueDate": "2024-09-03",
+    "assignmentContent": "Assignment content can be uploaded here.",
+    "teacherId": 1,
+    "updatedAt": "2024-05-01T02:27:27.640Z",
+    "createdAt": "2024-05-01T02:27:27.640Z"
+}
+```
+
+### Edit an Assignment
+
+Updates and returns an existing assignment.
+
+* Require Authentication: true
+* Require proper authorization: Assignment must belong to the current teacher user
+* Request
+  * Method: PUT
+  * URL: /assignments/:assignmentId
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+    {
+      "title": "edited assignment title",
+      "description": "edited assignment description",
+      "assignmentContent": "Assignment content can be uploaded here.",
+      "dueDate": "2024-09-30",
+      "selectedClasses": [1, 2]
+    }
+```
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+  {
+    "id": 26,
+    "title": "edited assignment title",
+    "description": "edited assignment description",
+    "assignmentContent": "Assignment content can be uploaded here.",
+    "dueDate": "2024-09-30",
+    "teacherId": 1,
+    "createdAt": "2024-05-01T02:27:27.640Z",
+    "updatedAt": "2024-05-01T02:32:48.442Z",
+    "ClassAssignments": [
+        {
+            "assignmentId": 26,
+            "classId": 1
+        },
+        {
+            "assignmentId": 26,
+            "classId": 2
+        },
+        {
+            "assignmentId": 26,
+            "classId": 3
+        }
+    ]
+  }
+```
+
+* Error Response: Body validation error
+  * Status Code: 400
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+    {
+      "message": "Bad Request", // (or "Validation error" if generated by Sequelize),
+      "errors": {
+        "name": "Lesson title is required",
+        // "classImg": "Class image is required",
+        "description": "Lesson description is required",
+      }
+    }
+```
+
+* Error response: Couldn't find a Class with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+```json
+    {
+      "message": "Lesson couldn't be found"
+    }
+```
+
+
+### Delete an Assignment
+
+Deletes an existing assignment.
+
+* Require Authentication: true
+* Require proper authorization: Assignment must belong to the current teacher user
+* Request
+  * Method: DELETE
+  * URL: /assignments/:assignmentId
+  * Body: none
+
+* Successful Response
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Successfully deleted"
+    }
+    ```
+
+* Error response: Couldn't find an Assignment with the specified id
+  * Status Code: 404
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "message": "Assignment couldn't be found"
     }
     ```
