@@ -10,11 +10,12 @@ function UpdateClassModal({ classId }) {
     // console.log(classToEdit)
     const [name, setName] = useState("")
     const [classImg, setClassImg] = useState("")
+    const [newClassImg, setNewClassImg] = useState(null)
     const [description, setDescription] = useState("")
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
 
-    const submitDisabled = (name.startsWith(" ") || description.startsWith(" ") || classImg.startsWith(" "))
+    const submitDisabled = (name.startsWith(" ") || description.startsWith(" "))
 
     useEffect(() => {
         if (classToEdit) {
@@ -24,34 +25,50 @@ function UpdateClassModal({ classId }) {
         }
     }, [classToEdit])
 
+    const [showUpload, setShowUpload] = useState(true);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
 
         const classInfo = {
             name,
-            classImg,
+            // classImg,
             description
         }
+
+        let class_image;
+        if (newClassImg) {
+            class_image = newClassImg
+        } else {
+            class_image = classImg
+        }
+        const form = { class_image }
+        const clsImg = class_image.name
 
         const errorsObject = {}
         if (!name) errorsObject.name = "Class name is required"
         if (name.startsWith(" ")) errorsObject.name = "Class name cannot begin with an empty space"
         if (!description) errorsObject.description = "Class description is required"
         if (description.startsWith(" ")) errorsObject.description = "Class description cannot begin with an empty space"
-        // if (classImg && (!classImg.endsWith('.png') && !classImg.endsWith('.jpg') && !classImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"
+        if (clsImg && (!clsImg.endsWith('.png') && !clsImg.endsWith('.jpg') && !clsImg.endsWith('.jpeg'))) errorsObject.classImg = "Class image URL must end in .png, .jpg, or .jpeg"
 
         if (Object.values(errorsObject).length) {
             setErrors(errorsObject)
         } else {
 
-            await dispatch(editClass(+classId, classInfo))
+            await dispatch(editClass(+classId, classInfo, form))
                 .then(() => {
 
                     dispatch(getAllClasses())
                     closeModal()
                 })
         }
+    };
+
+    const handleImageFileChange = (e) => {
+        const file = e.target.files[0];
+        setNewClassImg(file);
     };
 
 
@@ -70,16 +87,45 @@ function UpdateClassModal({ classId }) {
                 </label>
                 {errors.name && <p className='errors'>{errors.name}</p>}
                 {name.startsWith(" ") && <p className='errors'>Class name cannot begin with an empty space</p>}
-                <label>
+                {classImg && classImg.endsWith('.png') && (
+                    <div className="existingClassImage">
+                        <h4>Existing Class Image:</h4>
+                        <img src={classImg} alt="Class image file not available" />
+                    </div>
+                )}
+                {classImg && classImg.endsWith('.jpg') && (
+                    <div className="existingClassImage">
+                        <h4>Existing Class Image:</h4>
+                        <img src={classImg} alt="Class image file not available" />
+                    </div>
+                )}
+                {classImg && classImg.endsWith('.jpeg') && (
+                    <div className="existingClassImage">
+                        <h4>Existing Class Image:</h4>
+                        <img src={classImg} alt="Class image file not available" />
+                    </div>
+                )}
+                {showUpload && (
+                    <label htmlFor='file-upload'>
+                        Class Image (choose a new image or skip to keep the exisitng class image):
+                        <input
+                            type="file"
+                            id='file-upload'
+                            accept=".jpg, .png, .jpeg"
+                            onChange={handleImageFileChange}
+                        />
+                    </label>
+                )}
+                {errors.classImg && <p className='errors'>{errors.classImg}</p>}
+                {/* <label>
                     Class Image
                     <input
                         type="text"
                         value={classImg}
                         onChange={(e) => setClassImg(e.target.value)}
                     />
-                </label>
-                {/* {errors.classImg && <p className='errors'>{errors.classImg}</p>} */}
-                {classImg.startsWith(" ") && <p className='errors'>Class image URL cannot begin with an empty space</p>}
+                </label> */}
+                {/* {classImg.startsWith(" ") && <p className='errors'>Class image URL cannot begin with an empty space</p>} */}
                 <label>
                     Class Description
                     <textarea
@@ -91,8 +137,10 @@ function UpdateClassModal({ classId }) {
                 </label>
                 {errors.description && <p className='errors'>{errors.description}</p>}
                 {description.startsWith(" ") && <p className='errors'>Class description cannot begin with an empty space</p>}
-                <button type="submit" disabled={submitDisabled}>Save</button>
-                <button onClick={closeModal}>Cancel</button>
+                <div className="editClassModalButtons">
+                    <button type="submit" disabled={submitDisabled}>Save</button>
+                    <button onClick={closeModal}>Cancel</button>
+                </div>
             </form>
         </>
     );

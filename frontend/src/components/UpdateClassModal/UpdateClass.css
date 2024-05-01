@@ -1,20 +1,45 @@
-p.errors {
-    color: red
-}
-
 .editClassForm {
     display: flex;
     flex-direction: column;
-    font-family: 'Roboto', sans-serif;
-
+    height: 100%;
+    /* font-family: 'Roboto', sans-serif; */
+    font-family: 'Lato', sans-serif;
+    color: #9C0D63;
+    font-size: 16px;
     margin: 20px 40px 40px 40px;
     padding: 20px 20px;
 }
 
+.editClassForm h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    font-family: 'Lato', sans-serif;
+    color: #9C0D63;
+}
+
+.editClassForm label {
+    margin-bottom: 10px;
+    /* gap: 10px; */
+    font-family: 'Lato', sans-serif;
+    padding: 6px;
+}
+
+.editClassModalButtons {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    /* place-items: center; */
+    /* width: 75% */
+}
+
 .editClassForm button {
-    font-family: 'Roboto', sans-serif;
     cursor: pointer;
-    padding: 8px;
+    font-family: 'Lato', sans-serif;
+    padding: 10px;
     margin: 10px;
     background-color: #9C0D63;
     border-color: #9C0D63;
@@ -22,6 +47,9 @@ p.errors {
     font-size: medium;
     transition: transform 0.3 ease;
     border-radius: 3px;
+    width: 25%;
+    display: flex;
+    justify-content: center;
 }
 
 .editClassForm button:hover {
@@ -29,11 +57,42 @@ p.errors {
     box-shadow: 2px 2px 2px gray;
 }
 
-.editClassForm label {
-    margin-bottom: 5px;
-}
+
 
 .editClassForm input,
-textarea {
+.editClassForm textarea {
     margin-left: 5px;
+    padding: 5px;
+    /* place-items: center;
+    height: fit-content; */
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+p.errors {
+    color: red;
+    margin-top: 0px;
+    margin-left: 20px;
+    font-family: 'Lato', sans-serif;
+}
+
+.editClassForm img {
+    width: fit-content;
+    height: 10vh;
+    margin-left: 15px;
+}
+
+.existingClassImage {
+    font-family: 'Lato', sans-serif;
+    margin-left: 50px;
+    margin-right: 10px;
+    color: black;
+    display: flex;
+}
+
+.existingClassImage h4 {
+    color: #9C0D63;
 }
