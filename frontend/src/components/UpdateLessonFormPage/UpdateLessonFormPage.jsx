@@ -154,16 +154,7 @@ function UpdateLessonFormPage() {
                 </label>
                 {errors.title && <p className='errors'>{errors.title}</p>}
                 {title.startsWith(" ") && <p className='errors'>Lesson title cannot begin with an empty space</p>}
-                {/* <label>
-                    Lesson Image (optional)
-                    <input
-                        type="text"
-                        value={lessonImg}
-                        onChange={(e) => setLessonImg(e.target.value)}
-                    />
-                </label> */}
-                {/* {errors.lessonImg && <p className='errors'>{errors.lessonImg}</p>} */}
-                {/* {lessonImg.startsWith(" ") && <p className='errors'>Lesson image URL cannot begin with an empty space</p>} */}
+
                 <label>
                     Lesson Description:
                     <textarea
@@ -206,7 +197,7 @@ function UpdateLessonFormPage() {
                     </div>
                 )}
                 {showUpload && (
-                    <label htmlFor='file-upload'>
+                    <label htmlFor='file-upload' className="fileUpload">
                         Lesson Content (choose a new file or skip to keep the exisitng lesson content):
                         <input
                             type="file"

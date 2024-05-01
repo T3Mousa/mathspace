@@ -3,35 +3,68 @@
     flex-direction: column;
     /* height: 100%;
     width: 100%; */
-    margin: 20px 80px 60px 80px;
+    margin: 20px 40px 60px 40px;
     padding: 20px 60px;
     font-family: 'Lato', sans-serif;
     color: #9C0D63;
+    font-size: 18px;
 }
 
 .editLessonForm h1 {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     color: #9C0D63;
     display: flex;
     justify-content: center;
+}
+
+.editLessonForm .fileUpload {
+    display: flex;
+    place-items: center;
+    /* flex-flow: column wrap; */
+    justify-content: center;
+    align-items: center;
+    /* font-size: 16px; */
+}
+
+.editLessonForm input#file-upload {
+    display: flex;
+    flex-flow: column wrap;
+    /* place-items: center; */
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 95%;
+}
+
+.editLessonForm input#file-upload-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    font-size: 12px;
+}
+
+div.selectedOptions {
+    margin-left: 0px;
+    padding-left: 0px;
 }
 
 .editLessonForm label {
     margin-bottom: 10px;
     /* gap: 10px; */
     font-family: 'Lato', sans-serif;
-    padding: 10px;
+    padding: 5px;
 }
 
 .editLessonForm input,
 .editLessonForm textarea {
-    margin-left: 5px;
+    margin-left: 0px;
     padding: 5px;
     font-family: 'Lato', sans-serif;
     font-size: 16px;
     display: flex;
     justify-content: center;
-    width: 100%
+    width: 95%
 }
 
 .editLessonForm textarea {
@@ -51,11 +84,14 @@
     /* justify-content: center; */
     flex-flow: column;
     align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
 }
 
 .editLessonForm button {
     cursor: pointer;
     font-family: 'Lato', sans-serif;
+    font-size: 18px;
     padding: 10px;
     margin: 10px;
     background-color: #9C0D63;
@@ -64,7 +100,7 @@
     font-size: medium;
     transition: transform 0.3 ease;
     border-radius: 3px;
-    width: 25%;
+    width: fit-content;
     display: flex;
     justify-content: center;
 }
@@ -83,8 +119,9 @@ p.errors {
 
 .existingLessonContent {
     font-family: 'Lato', sans-serif;
-    margin-left: 50px;
-    margin-right: 10px;
+    font-size: 16px;
+    margin-left: 30px;
+    margin-right: 30px;
     color: black;
 }
 
@@ -111,4 +148,35 @@ p.errors {
     font-family: 'Lato', sans-serif;
     font-size: 18px;
     width: 100%;
+}
+
+
+@media only screen and (max-width: 450px) {
+
+    .editLessonForm {
+        margin: auto;
+        padding: 5px;
+        place-items: center;
+    }
+
+    .editLessonForm h1 {
+        font-size: 18px;
+    }
+
+    label.selectedOptions {
+        font-size: 12px;
+        width: fit-content;
+    }
+
+    .editLessonForm label,
+    .editLessonForm input,
+    .editLessonForm textarea,
+    .editLessonForm button {
+        font-size: 16px;
+        width: fit-content;
+    }
+
+    .fileUpload {
+        flex-flow: column wrap;
+    }
 }

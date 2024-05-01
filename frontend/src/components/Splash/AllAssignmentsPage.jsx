@@ -6,11 +6,7 @@ import { getAllAssignments } from '../../redux/assignments';
 const AllAssignmentsPage = () => {
     const dispatch = useDispatch()
     const allAssignments = useSelector(state => state?.assignments?.allAssignments)
-    // console.log(allLessons)
-    // const allLessonClasses = allLessons?.map(lesson => lesson?.LessonClasses)
-    // console.log(allLessonClasses)
-    // const allClassLessons = allLessonClasses?.map(cls => cls)
-    // console.log(allClassLessons)
+
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {

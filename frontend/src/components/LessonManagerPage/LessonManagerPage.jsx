@@ -81,7 +81,7 @@ const LessonManagerPage = () => {
                                             <div className='lessonTitleAuthor'>
                                                 <p>Title: {lesson.title}</p>
                                                 <p>Created By: You</p>
-                                                <p>Classes Assigned To:</p>
+                                                <p className='classesAssignedTo'>Classes Assigned To:</p>
                                                 {lesson.LessonClasses.length ?
                                                     <ul>
                                                         {(() => {
@@ -89,7 +89,7 @@ const LessonManagerPage = () => {
                                                             for (let i = 0; i < lesson?.LessonClasses?.length; i++) {
                                                                 const lessonClassItem = lesson?.LessonClasses[i]
                                                                 lessonClassItems.push(
-                                                                    <li key={lessonClassItem.classId}>{lessonClassItem.className}</li>
+                                                                    <li key={lessonClassItem.classId} className='classesAssignedTo'>{lessonClassItem.className}</li>
                                                                 )
                                                             }
                                                             return lessonClassItems
@@ -106,18 +106,6 @@ const LessonManagerPage = () => {
                             </div>
                         }
                     </div >
-                    {/* <div className="studentLessons">
-                <div className="studentLessonTileContainer">
-                    {user && user.userRole === "student" && allUserLessons && allUserLessons.map(lesson => {
-                        return <StudentLessonTile
-                            lesson={lesson}
-                            className="lessonTile"
-                            key={lesson.id}
-                        />
-                    })
-                    }
-                </div>
-            </div> */}
                 </>
             }
         </>

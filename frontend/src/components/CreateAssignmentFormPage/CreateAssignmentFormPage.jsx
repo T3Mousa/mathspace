@@ -114,7 +114,7 @@ function CreateAssignmentFormPage() {
                 {errors.description && <p className="errors">{errors.description}</p>}
                 {description.startsWith(" ") && <p className="errors">Assignment description cannot begin with an empty space</p>}
                 {showUpload && (
-                    <label htmlFor='file-upload'>
+                    <label htmlFor='file-upload' className="fileUpload">
                         Assignment Content:
                         <input
                             type="file"
@@ -155,7 +155,6 @@ function CreateAssignmentFormPage() {
                         options={teacherClasses?.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
                         isMulti
                         onChange={(selectedOptions) => {
-                            // console.log(selectedOptions)
                             setSelectedClasses(selectedOptions)
                         }
                         }

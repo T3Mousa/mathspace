@@ -6,11 +6,7 @@ import { getAllLessons } from '../../redux/lessons';
 const AllLessonsPage = () => {
     const dispatch = useDispatch()
     const allLessons = useSelector(state => state?.lessons?.allLessons)
-    // console.log(allLessons)
-    // const allLessonClasses = allLessons?.map(lesson => lesson?.LessonClasses)
-    // console.log(allLessonClasses)
-    // const allClassLessons = allLessonClasses?.map(cls => cls)
-    // console.log(allClassLessons)
+
     const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {

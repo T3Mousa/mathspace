@@ -117,15 +117,7 @@ function UpdateClassModal({ classId }) {
                     </label>
                 )}
                 {errors.classImg && <p className='errors'>{errors.classImg}</p>}
-                {/* <label>
-                    Class Image
-                    <input
-                        type="text"
-                        value={classImg}
-                        onChange={(e) => setClassImg(e.target.value)}
-                    />
-                </label> */}
-                {/* {classImg.startsWith(" ") && <p className='errors'>Class image URL cannot begin with an empty space</p>} */}
+
                 <label>
                     Class Description
                     <textarea

@@ -127,8 +127,8 @@ router.get('/:classId', requireAuth, async (req, res) => {
                                         attributes: ['id', 'firstName', 'lastName', 'email']
                                     },
                                     {
-                                        model: Grade, // Include Grade model for each student
-                                        attributes: ['assignmentId', 'grade'] // Only include grade attribute
+                                        model: Grade,
+                                        attributes: ['assignmentId', 'grade']
                                     }
                                 ]
                             },
@@ -186,19 +186,15 @@ router.get('/:classId', requireAuth, async (req, res) => {
             classData.Students = Students
             // delete classData.ClassEnrollments
             // Calculate average grade for each student
-            // Calculate average grade for each student
             classData.ClassEnrollments.forEach(enrollment => {
                 const grades = enrollment.Student.Grades.map(grade => parseFloat(grade.grade)).filter(grade => !isNaN(grade) && grade !== null)
-                console.log(grades)
                 if (grades.length > 0) {
                     const averageGrade = grades.reduce((total, grade) => total + grade, 0) / grades.length
-                    console.log(averageGrade)
                     enrollment.Student.averageGrade = parseFloat(averageGrade.toFixed(1))
                 } else {
                     enrollment.Student.averageGrade = null // Set averageGrade to null if no grades assigned yet
                 }
             })
-            // console.log({ "Class": classData })
             res.json({ "Class": classData })
 
         } else if (role === 'teacher' && existingClass.Teacher.userId !== userId) {
@@ -254,7 +250,6 @@ router.get('/:classId', requireAuth, async (req, res) => {
             const Instructor = {}
             const studentClassData = studentClass.toJSON()
             const teacherInfo = studentClassData.Teacher
-            // console.log(teacherInfo)
             Instructor.teacherId = teacherInfo.userId
             Instructor.userId = teacherInfo.User.id
             Instructor.firstName = teacherInfo.User.firstName
@@ -287,7 +282,7 @@ router.post('/', requireAuth, singleMulterUpload("classImg"), async (req, res) =
         where: { userId: userId }
     })
     const teachId = teach.dataValues.id
-    // console.log(teachId)
+
     if (userId && role === 'teacher') {
         const { name, classImg, description } = req.body
         const imageURL = await singlePublicFileUpload(req.file)
@@ -298,7 +293,7 @@ router.post('/', requireAuth, singleMulterUpload("classImg"), async (req, res) =
             description
         })
         await newClass.save()
-        // console.log(newClass)
+
         res.status(201).json(newClass)
     } else if (userId && role !== 'teacher') {
         res.status(403)
@@ -314,7 +309,7 @@ router.put('/:classId', requireAuth, singleMulterUpload("classImg"), async (req,
     const userId = req.user.id
     const role = req.user.userRole
     const { classId } = req.params
-    // console.log(classId)
+
     const { name, description } = req.body
     let classImageUrl;
     const existingClass = await Class.findOne({
@@ -347,7 +342,7 @@ router.put('/:classId', requireAuth, singleMulterUpload("classImg"), async (req,
                 }
 
                 await existingClass.save()
-                // console.log(existingClass)
+
                 res.json(existingClass)
             } else {
                 res.status(403)
@@ -383,7 +378,7 @@ router.delete('/:classId', requireAuth, async (req, res) => {
             }
         ]
     })
-    console.log(existingClass)
+
     if (existingClass) {
         if (userId && role === "teacher") {
             if (userId === existingClass.Teacher.userId) {
@@ -500,51 +495,6 @@ router.get('/:classId/assignments', requireAuth, async (req, res) => {
         })
     }
 })
-
-// // create a new lesson for a class that belongs to the current user (teacher users only)
-// router.post('/:classId/lessons', requireAuth, validateLessonParams, async (req, res) => {
-//     const userId = req.user.id
-//     const role = req.user.userRole
-//     const { classId } = req.params
-//     const { title, lessonImg, description, lessonContent } = req.body
-//     const existingClass = await Class.findByPk(classId)
-//     console.log(existingClass)
-//     const teach = await Teacher.findOne({
-//         where: { userId: userId }
-//     })
-//     const teachId = teach.dataValues.id
-//     console.log(teachId)
-//     if (userId && role === 'teacher') {
-//         if (existingClass && existingClass.teacherId === teachId) {
-//             const newLesson = Lesson.build({
-//                 classId: classId,
-//                 title,
-//                 lessonImg,
-//                 description,
-//                 lessonContent
-//             })
-//             await newLesson.save()
-//             // console.log(newLesson)
-//             res.status(201).json(newLesson)
-//         } else if (existingClass && existingClass.teacherId !== teachId) {
-//             res.status(403)
-//             return res.json({
-//                 "message": "Forbidden"
-//             })
-//         } else if (!existingClass) {
-//             res.status(404);
-//             return res.json({
-//                 "message": "Class couldn't be found",
-//             })
-//         }
-//     } else if (userId && role !== 'teacher') {
-//         res.status(403)
-//         return res.json({
-//             "message": "Forbidden"
-//         })
-//     }
-// })
-
 
 
 module.exports = router;
