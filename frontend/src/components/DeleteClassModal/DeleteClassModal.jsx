@@ -2,7 +2,7 @@
 import { deleteClass } from "../../redux/classes";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import './DeleteClass.css'
+import './DeleteClassModal.css'
 
 function DeleteClassModal({ classId }) {
     const dispatch = useDispatch()
@@ -31,7 +31,7 @@ function DeleteClassModal({ classId }) {
                     No (Keep Class)
                 </button>
             </div>
-        </div>
+        </div >
     )
 }
 

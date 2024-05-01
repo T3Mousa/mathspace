@@ -5,7 +5,11 @@
     align-items: center;
     margin: 40px 20px 60px 20px;
     padding: 20px 20px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
+}
+
+.deleteLessonForm h1 {
+    font-family: 'Quicksand', sans-serif;
 }
 
 .deleteLessonModalButtons {
@@ -16,7 +20,7 @@
 .deleteLessonModalButton,
 .cancelDeleteLessonModalButton {
     cursor: pointer;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Lato', sans-serif;
     padding: 8px;
     margin: 10px;
     background-color: #9C0D63;

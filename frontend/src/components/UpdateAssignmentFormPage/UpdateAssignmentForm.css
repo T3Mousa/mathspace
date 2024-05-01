@@ -1,24 +1,50 @@
-p.errors {
-    color: red;
-    font-family: 'Lato', sans-serif;
-    margin-top: 0px;
-    margin-left: 20px;
-}
-
 .editAssignmentForm {
     display: flex;
     flex-direction: column;
-    margin: 40px 80px 60px 80px;
+    margin: 20px 40px 60px 40px;
     padding: 20px 60px;
     font-family: 'Lato', sans-serif;
     color: #9C0D63;
+    font-size: 18px;
 }
 
 .editAssignmentForm h1 {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     color: #9C0D63;
     display: flex;
     justify-content: center;
+}
+
+.editAssignmentForm .fileUpload {
+    display: flex;
+    place-items: center;
+    /* flex-flow: column wrap; */
+    justify-content: center;
+    align-items: center;
+    /* font-size: 16px; */
+}
+
+.editAssignmentForm input#file-upload {
+    display: flex;
+    flex-flow: column wrap;
+    /* place-items: center; */
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    width: 95%;
+}
+
+.editAssignmentForm input#file-upload-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    font-size: 12px;
+}
+
+div.selectedOptions {
+    margin-left: 0px;
+    padding-left: 0px;
 }
 
 .editAssignmentFormButtons {
@@ -26,11 +52,14 @@ p.errors {
     /* justify-content: center; */
     flex-flow: column;
     align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
 }
 
 .editAssignmentForm button {
     cursor: pointer;
     font-family: 'Lato', sans-serif;
+    font-size: 18px;
     padding: 10px;
     margin: 10px;
     background-color: #9C0D63;
@@ -39,7 +68,7 @@ p.errors {
     font-size: medium;
     transition: transform 0.3 ease;
     border-radius: 3px;
-    width: 25%;
+    width: fit-content;
     display: flex;
     justify-content: center;
 }
@@ -50,20 +79,20 @@ p.errors {
 }
 
 .editAssignmentForm label {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-family: 'Lato', sans-serif;
-    padding: 10px;
+    padding: 5px;
 }
 
 .editAssignmentForm input,
 .editAssignmentForm textarea {
-    margin-left: 5px;
+    margin-left: 0px;
     padding: 5px;
     font-family: 'Lato', sans-serif;
     font-size: 16px;
     display: flex;
     justify-content: center;
-    width: 100%
+    width: 95%
 }
 
 .editAssignmentForm textarea {
@@ -78,10 +107,18 @@ p.errors {
     width: 100%
 } */
 
+p.errors {
+    color: red;
+    font-family: 'Lato', sans-serif;
+    margin-top: 0px;
+    margin-left: 20px;
+}
+
 .existingAssignmentContent {
     font-family: 'Lato', sans-serif;
-    margin-left: 50px;
-    margin-right: 10px;
+    font-size: 16px;
+    margin-left: 30px;
+    margin-right: 30px;
     color: black;
 }
 
@@ -111,9 +148,40 @@ textarea {
     margin-left: 5px;
     padding: 5px;
     font-family: 'Lato', sans-serif;
+    font-size: 18px;
     width: 100%
 }
 
 input.dueDateInput {
     width: fit-content;
+}
+
+@media only screen and (max-width: 450px) {
+
+    .editAssignmentForm {
+        margin: auto;
+        padding: 5px;
+        place-items: center;
+    }
+
+    .editAssignmentForm h1 {
+        font-size: 18px;
+    }
+
+    label.selectedOptions {
+        font-size: 12px;
+        width: fit-content;
+    }
+
+    .editAssignmentForm label,
+    .editAssignmentForm input,
+    .editAssignmentForm textarea,
+    .editAssignmentForm button {
+        font-size: 16px;
+        width: fit-content;
+    }
+
+    .fileUpload {
+        flex-flow: column wrap;
+    }
 }

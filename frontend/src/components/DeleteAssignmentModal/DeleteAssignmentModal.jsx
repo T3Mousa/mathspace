@@ -27,8 +27,8 @@ function DeleteAssignmentModal({ assignment }) {
         <div className="deleteAssignmentForm">
             <h1>Confirm Delete</h1>
             <h3>Are you sure you want to delete this assignment?</h3>
-            <p>Deleting the assignment will remove the assignment from your account and remove it from all classes that it has been assigned to. This cannot be undone!</p>
-            <p>If you would like to keep the assignment but remove it from some or all classes that it has been assigned to, go to the assignment details page and click &quot;Edit Assignment&quot;.</p>
+            <p>Deleting the assignment will remove the assignment from your account and remove it from all classes that it has been assigned to.</p> <p style={{ fontWeight: 'bold' }}>This cannot be undone!</p>
+            <p style={{ marginLeft: '40px', marginRight: '40px' }}>If you would like to keep the assignment but remove it from some or all classes that it has been assigned to, go to the assignment details page and click &quot;Edit Assignment&quot;.</p>
             <div className='deleteAssignmentModalButtons'>
                 <button className='deleteAssignmentModalButton' onClick={confirmDelete}>
                     Yes (Delete Assignment)

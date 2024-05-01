@@ -135,28 +135,16 @@ function CreateLessonFormPage() {
                 {errors.description && <p className="errors">{errors.description}</p>}
                 {description.startsWith(" ") && <p className="errors">Lesson description cannot begin with an empty space</p>}
                 {showUpload && (
-                    <label htmlFor='file-upload'>
+                    <label htmlFor='file-upload' className="fileUpload">
                         Lesson Content:
                         <input
                             type="file"
                             id='file-upload'
                             required
-                            // name="img_url"
-                            // value={lessonContent ? lessonContent : ""}
                             onChange={uploadLessonContentFile}
-                        // placeholder="Lesson content"
                         />
                     </label>
                 )}
-                {/* {!showUpload && (
-                    <div>
-                        <img
-                            src={previewUrl}
-                            alt="preview"
-                        />
-                        <button>Change File</button>
-                    </div>
-                )} */}
                 {errors.lessonContent && <p className="errors">{errors.lessonContent}</p>}
                 {/* {lessonContent.startsWith(" ") && <p className="errors">Lesson content cannot begin with an empty space</p>} */}
                 <label>
@@ -167,7 +155,6 @@ function CreateLessonFormPage() {
                         options={teacherClasses?.map(cls => ({ key: cls.id, value: cls.id, label: cls.name }))}
                         isMulti
                         onChange={(selectedOptions) => {
-                            // console.log(selectedOptions)
                             setSelectedClasses(selectedOptions)
                         }
                         }

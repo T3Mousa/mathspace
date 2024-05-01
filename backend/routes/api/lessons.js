@@ -50,7 +50,6 @@ router.get('/', requireAuth, async (req, res) => {
                 "updatedAt"
             ]
         })
-        // console.log(lessons[0].ClassLessons[0].toJSON())
         const payload = []
         for (let i = 0; i < lessons.length; i++) {
             const lesson = lessons[i]
@@ -66,7 +65,6 @@ router.get('/', requireAuth, async (req, res) => {
                         teacherId: cls.Teacher.id,
                     })
                 }
-                // console.log(lessonClasses)
 
                 lessonData.LessonClasses = lessonClasses
             }
@@ -86,7 +84,6 @@ router.get('/', requireAuth, async (req, res) => {
                     ]
                 })
                 const teacherData = teacher.toJSON()
-                // console.log(teacherData)
                 lessonData.LessonTeacherFirstName = teacherData.User.firstName
                 lessonData.LessonTeacherLastName = teacherData.User.lastName
             }
@@ -179,7 +176,6 @@ router.get('/current-user', requireAuth, async (req, res) => {
                     ]
                 })
                 const teacherData = teacher.toJSON()
-                // console.log(teacherData)
                 lessonData.LessonTeacherUserId = teacherData.User.id
                 lessonData.LessonTeacherFirstName = teacherData.User.firstName
                 lessonData.LessonTeacherLastName = teacherData.User.lastName
@@ -233,7 +229,6 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
     const role = req.user.userRole
     const { lessonId } = req.params
     const existingLesson = await Lesson.findByPk(lessonId)
-    // console.log(existingLesson)
     if (existingLesson) {
         if (userId && role === "teacher") {
             const lessonDetails = await Lesson.findOne({
@@ -273,7 +268,6 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
                     "updatedAt",
                 ]
             })
-            // console.log(lessonDetails)
             const lessonDetailsData = lessonDetails.toJSON()
             const teacherUserOwnsLesson = lessonDetailsData.ClassLessons.find(clsLesson => clsLesson.Class.Teacher.userId === userId)
             if (teacherUserOwnsLesson !== undefined) {
@@ -305,7 +299,6 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
                     ]
                 })
                 const teacherData = teacher.toJSON()
-                // console.log(teacherData)
                 lessonDetailsData.LessonTeacherFirstName = teacherData.User.firstName
                 lessonDetailsData.LessonTeacherLastName = teacherData.User.lastName
                 lessonDetailsData.LessonTeacherUserId = teacherData.User.id
@@ -329,14 +322,11 @@ router.get('/:lessonId', requireAuth, async (req, res) => {
 
 // create a new lesson for multiple classes that belong to the current user (teacher users only)
 router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, res) => {
-    // console.log(req.body)
-    // console.log(req.file)
     const userId = req.user.id
     const role = req.user.userRole
     const { title, lessonImg, description, selectedClasses } = req.body
     const selectedClassesArray = JSON.parse(selectedClasses)
     const fileURL = await singlePublicFileUpload(req.file)
-    // console.log(fileURL)
 
     if (userId && role === 'teacher') {
         const teacher = await Teacher.findOne({
@@ -349,9 +339,9 @@ router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, r
                 where: { teacherId: teacherId }
             })
             const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-            // console.log(validClassIds)
+
             const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
-            // console.log(invalidClassIds)
+
             if (invalidClassIds.length > 0) {
                 res.status(403)
                 return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -363,7 +353,6 @@ router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, r
                 lessonContent: fileURL,
                 teacherId: teacherId
             })
-            // console.log(newLesson)
             await newLesson.save()
             //associate lesson with specified array of classes in classIds
             for (const selectedClass of selectedClassesArray) {
@@ -372,10 +361,6 @@ router.post('/', requireAuth, singleMulterUpload("lessonContent"), async (req, r
                     classId: selectedClass.value
                 })
             }
-
-            // console.log(newLesson)
-
-
             res.status(201).json(newLesson)
         } else {
             res.status(403)
@@ -415,16 +400,16 @@ router.put('/:lessonId', requireAuth, singleMulterUpload("lessonContent"), async
                 where: { userId: userId },
                 attributes: ['id', 'userId']
             })
-            // console.log(teacher)
+
             const teacherId = teacher.dataValues.id
             if (teacherId === userId) {
                 const teacherClasses = await Class.findAll({
                     where: { teacherId: teacherId }
                 })
                 const validClassIds = teacherClasses.map(cls => cls.dataValues.id)
-                // console.log(validClassIds)
+
                 const invalidClassIds = selectedClassesArray.filter(cls => !validClassIds.includes(cls.value))
-                // console.log(invalidClassIds)
+
                 if (invalidClassIds.length > 0) {
                     res.status(403)
                     return res.json({ "message": "Some classes provided do not belong to the current teacher user." })
@@ -439,10 +424,7 @@ router.put('/:lessonId', requireAuth, singleMulterUpload("lessonContent"), async
                 if (title !== undefined) existingLesson.title = title
                 if (lessonImg !== undefined) existingLesson.lessonImg = lessonImg
                 if (description !== undefined) existingLesson.description = description
-                // if (lessonContent !== undefined) existingLesson.lessonContent = lessonContent
-                // if (selectedClasses !== undefined) existingLesson.ClassLessons = selectedClasses
                 const updatedLesson = await existingLesson.save()
-                // await existingLesson.save()
 
                 await ClassLesson.destroy({ where: { lessonId: lessonId } })
 
@@ -493,7 +475,7 @@ router.delete('/:lessonId', requireAuth, async (req, res) => {
                 where: { userId: userId },
                 attributes: ['id', 'userId']
             })
-            // console.log(teacher)
+
             const teacherId = teacher.dataValues.id
             if (teacherId === userId) {
                 await existingLesson.destroy({ where: { id: lessonId } })

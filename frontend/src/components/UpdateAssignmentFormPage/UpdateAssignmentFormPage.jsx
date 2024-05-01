@@ -45,25 +45,7 @@ function UpdateAssignmentFormPage() {
         }
     }, [assignmentToEdit])
 
-    //telling us if we should show the image
     const [showUpload, setShowUpload] = useState(true);
-    //img url we will load in react
-    // const [previewUrl, setPreviewUrl] = useState("");
-
-
-
-    //function to get image from local
-
-    // const uploadAssignmentContentFile = async (e) => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload = (e) => {
-    //         setPreviewUrl(reader.result);
-    //     }
-    //     setAssignmentContent(file);
-    //     // setShowUpload(false);
-    // };
 
 
     const handleSubmit = async (e) => {
@@ -196,7 +178,7 @@ function UpdateAssignmentFormPage() {
                     </div>
                 )}
                 {showUpload && (
-                    <label htmlFor='file-upload'>
+                    <label htmlFor='file-upload' className="fileUpload">
                         Assignment Content (choose a new file or skip to keep the exisitng assignment content):
                         <input
                             type="file"
