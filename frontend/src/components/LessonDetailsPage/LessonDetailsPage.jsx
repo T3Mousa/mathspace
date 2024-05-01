@@ -97,7 +97,7 @@ const LessonDetailsPage = () => {
                         </div>
                         <div className='lessonSubheading'>
                             <p className='lessonDetailsLabel'>
-                                <span>Created By: </span> {lesson?.LessonTeacherFirstName} {lesson.LessonTeacherLastName}
+                                <span>Created By: </span> {lesson?.LessonTeacherFirstName} {lesson?.LessonTeacherLastName}
                             </p>
                             {lesson?.LessonTeacherUserId === user.id &&
                                 <div className='lessonDetailsLabel'>
