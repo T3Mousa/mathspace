@@ -1,0 +1,44 @@
+footer {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid rgb(240, 239, 239);
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-family: "Quicksand", sans-serif;
+    display: flex;
+    justify-content: space-around;
+    z-index: 10;
+}
+
+.createdBy {
+    display: flex;
+}
+
+.myLinks {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 12px;
+    padding-right: 20px;
+}
+
+.myLinks a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.myLinks a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.gitHub,
+.linkedIn {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
