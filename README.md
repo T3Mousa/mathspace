@@ -1,8 +1,7 @@
 # Welcome to Mathspace!
 
-## Table of Contents
-
 ## About the Project
+Mathspace is a blended learning web application inspired by [Desoms](https://www.desmos.com/) and [Google Classroom](https://classroom.google.com).
 
 ## Technologies Used
 <div align="center">
