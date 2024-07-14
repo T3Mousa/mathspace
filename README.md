@@ -87,4 +87,43 @@ Mathspace is a blended learning web application inspired by [Desoms](https://www
        npm start
        ```
 
+## Features
+
+### Sign-Up / Log-In
+#### New account creation, log in, log out, and guest/demo login:
+- Users can sign up, log in, and log out.
+- Users can use a demo log in to try the site.
+- Users can't use any features without signing up/logging in
+- Logged out users are redirected to home page.
+
+### Classes
+
+#### Authenticated & Authorized Teacher Users:
+- Should be able to view all of their Classes (along with all associated details).
+- Should be able to create a new Class.
+- Should be able to update their Class(es).
+- Should be able to delete their Class(es).
+
+### Lessons
+
+#### Authenticated & Authorized Teacher Users:
+- Should be able to view all Lessons created by all Teacher Users (whether or not the Lesson belongs to them).
+- Should be able to create a Lesson for and assign it to none or any number of their Classes.
+- Should be able to update their Lesson, assign to a new Class or unassign from any or all Classes.
+- Should be able to delete their Lesson.
+
+### Assignments
+
+#### Authenticated & Authorized Teacher Users:
+- Should be able to view all Assignments created by all Teacher Users (whether or not the Lesson belongs to them).
+- Should be able to create an Assignment for and assign it to none or any number of their Classes.
+- Should be able to update their Assignment, assign it to a new Class or unassign from any or all Classes.
+- Should be able to delete their Assignment.
+
+
+
+##### Acknowledgments
+
+- Inspired by [Desoms](https://www.desmos.com/) and [Google Classroom](https://classroom.google.com)
+
 
