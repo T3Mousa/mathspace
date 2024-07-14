@@ -45,7 +45,46 @@ Mathspace is a blended learning web application inspired by [Desoms](https://www
 
 
 ## Getting Started
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/T3Mousa/mathspace.git
+   ```
+2. **Install Dependencies (in root directory):**
+   ```bash
+   npm install
+   ```
+3. **Set Up Environment Variables:**
+   1. Create a `.env` file in the `backend` directory
+   2. Open the `.env.example` file and copy its contents into your newly created `.env` file
+   3. Replace placeholder values with actual values for your database configuration, S3-related values, and other environmental variables.
 
-
+4. **Run Database Commands:**
+   1. ##### Move into the backend directory:
+       ```bash
+        cd backend
+       ```
+   2. ##### Create the database:
+       ```bash
+       npm run db:create
+       ```
+   3. ##### Run database migrations:
+       ```bash
+       npm run db:migrate
+       ```
+   4. ##### Seed the database:
+       ```bash
+       npm run db:seed:all
+       ```
+5. **Start the Development Server:**
+   1. ##### To run the backend server of the application starting from the root directory, run the following commands:
+       ```bash
+       cd backend
+       npm start
+       ```
+   2. ##### To run the frontend server of the application starting from the root directory, run the following commands:
+       ```bash
+       cd frontend 
+       npm start
+       ```
 
 
