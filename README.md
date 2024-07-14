@@ -91,10 +91,10 @@ Mathspace is a blended learning web application inspired by [Desoms](https://www
 
 ### Sign-Up / Log-In
 #### New account creation, log in, log out, and guest/demo login:
-- Users can sign up, log in, and log out.
-- Users can use a demo log in to try the site.
-- Users can't use any features without signing up/logging in
-- Logged out users are redirected to home page.
+- Teacher users can sign up, log in, and log out.
+- Teacehr users can use a demo log in to try the site.
+- Teacher users can't use any features without signing up/logging in
+- Logged out Teacher users are redirected to home page.
 
 ### Classes
 
@@ -120,9 +120,12 @@ Mathspace is a blended learning web application inspired by [Desoms](https://www
 - Should be able to update their Assignment, assign it to a new Class or unassign from any or all Classes.
 - Should be able to delete their Assignment.
 
+## Additional Documents
+- [API Documentation](https://github.com/T3Mousa/mathspace/wiki/API-Documentation)
+- [AWS S3 Setup Instruction](https://github.com/T3Mousa/mathspace/wiki/AWS-S3-Setup)
+- [Database Schema](https://github.com/T3Mousa/mathspace/wiki/Database-Schema)
 
-
-##### Acknowledgments
+### Acknowledgments
 
 - Inspired by [Desoms](https://www.desmos.com/) and [Google Classroom](https://classroom.google.com)
 
